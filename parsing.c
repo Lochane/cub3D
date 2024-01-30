@@ -1,119 +1,111 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/30 17:13:33 by lsouquie          #+#    #+#             */
+/*   Updated: 2024/01/30 21:30:00 by lsouquie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include/cub3d.h"
 
-int		parse_texture(t_data *data) // TODO opti / norme
+int	flood_fill(int x, int y, char **map_file, t_data *data)
+{
+	if(!map_file[x]|| map_file[x][y] == 0 || map_file[x][y] == ' ')
+		error_msg("Error:\nWrong Map\n", 0, data);
+	if (map_file[x][y] == '1' || map_file[x][y] == '2')
+		return (1);
+	if (map_file[x][y] == '0')
+		map_file[x][y] = '2';
+	if (!flood_fill(x +1, y, map_file, data))
+		return (0);
+	if (!flood_fill(x - 1, y, map_file, data))
+		return (0);
+	if (!flood_fill(x, y + 1, map_file, data))
+		return (0);	
+	if (!flood_fill(x, y - 1, map_file, data))
+		return (0);
+	return (1);
+}
+
+void parse_map(t_data *data)
 {
 	int i;
+	int j;
+	char **tmp;
 
 	i = 0;
-	while(data->cub_file[i])
+	j = 0;
+	tmp = malloc(sizeof(char *) * (data->map.map_height + 1));
+	if (!tmp)
+		error_msg("Error:\n", 0, data);
+	copy_tab(tmp, data->map.map_file, data);
+	found_spawn(tmp, data);
+	while(tmp[i])
 	{
-		// ft_printf("%s", data->cub_file[i]);
-		if (ft_strncmp("NO", data->cub_file[i], 3))
+		j = 0;
+		while(tmp[i][j])
 		{
-			// printf("lol");
-
-		printf("1 -%s", data->cub_file[i]);
-			data->map.map_texture.no_path = ft_strdup(data->cub_file[i++]);
-			if(!data->map.map_texture.no_path)
-				error_msg("Error\n", 0, data);
-			data->map.map_texture.count += 1;
-			
+			validate_chars(data, tmp[i][j]);
+			if(tmp[i][j] == '0')
+			{
+				if (!flood_fill(i, j, tmp, data))
+					error_msg("Error:\nWrong Map\n", 0, data);
+			}
+			j++;
 		}
-		if (ft_strncmp("SO", data->cub_file[i], 3))
-		{
-		printf("2 -%s", data->cub_file[i]);
-			data->map.map_texture.so_path = ft_strdup(data->cub_file[i++]);
-			if(!data->map.map_texture.so_path)
-				error_msg("Error\n", 0, data);
-			data->map.map_texture.count += 1;
-
-		}
-		if (ft_strncmp("WE", data->cub_file[i], 3))
-		{
-		printf("3 -%s", data->cub_file[i]);
-			data->map.map_texture.we_path = ft_strdup(data->cub_file[i++]);
-			if(!data->map.map_texture.we_path)
-				error_msg("Error\n", 0, data);
-			data->map.map_texture.count += 1;
-
-		}
-		if (ft_strncmp("EA", data->cub_file[i], 3))
-		{
-		printf("4 -%s", data->cub_file[i]);
-			data->map.map_texture.ea_path = ft_strdup(data->cub_file[i++]);
-			if(!data->map.map_texture.ea_path)
-				error_msg("Error\n", 0, data);
-			data->map.map_texture.count += 1;
-		}
-		if (ft_strncmp("C", data->cub_file[i], 3))
-		{
-		printf("5 -%s", data->cub_file[i]);
-			data->map.map_texture.c_color = ft_strdup(data->cub_file[i++]);
-			if(!data->map.map_texture.c_color)
-				error_msg("Error\n", 0, data);
-			data->map.map_texture.count += 1;
-		}
-		if (ft_strncmp("F", data->cub_file[i], 3))
-		{
-		printf("6 -%s", data->cub_file[i]);
-			data->map.map_texture.f_color = ft_strdup(data->cub_file[i++]);
-			if(!data->map.map_texture.f_color)
-				error_msg("Error\n", 0, data);
-			data->map.map_texture.count += 1;
-			
-		}
-		if	(data->map.map_texture.count == 6)
-			return (i);
 		i++;
 	}
-	return (0);
 }
 
-// void	split_file(t_data *data)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	// while (data->cub_file[i])
-// 	// {
-
-// 	// }
-// }
-
-void	validate_file(char *file_name, t_data *data)
+void parse_color(char *color, t_data *data)
 {
-	int fd;
-
-	if (ft_strncmp(".cub", &file_name[ft_strlen(file_name) -4], ft_strlen(file_name)))
-		error_msg("Error:\nfile is not .cub\n", 0, data);
-	fd = open(file_name, __O_DIRECTORY);
-	if (fd > 0)
-		error_msg("Error:\nfd superieur a 0\n", 2, data);
-	fd = open(file_name, O_RDONLY);
-		error_msg("Error:\nfd inferieur a 0\n", 2, data);
-	close (fd);
-}
-
-void	file_to_tab(char *mapfile, t_data *data)
-{
-	int		fd;
-	int		i;
-	char	*line;
+	int i;
+	int count;
+	char	**tab;
 
 	i = 0;
-	fd = open(mapfile, O_RDONLY);
-	data->file_weidht = count_line(mapfile, data);
-	data->cub_file = malloc(sizeof(char *) * (data->file_weidht + 1));
-	if (!data->cub_file)
-		return ;
-	line = get_next_line(fd);
-	if (!line)
-		return ;
-	while (line)
+	count = 0;
+	while(color[i])
 	{
-		data->cub_file[i] = ft_strdup(line);
-		free(line);
-		line = get_next_line(fd);
+		if (color[i] == ',')
+			count++;
 		i++;
 	}
+	if (count != 2)
+		error_msg("3Error:\nWrong colors\n", 0, data);
+	tab = ft_split(color, ',');
+	i = 0;
+	while(tab[i])
+	{	
+		if (ft_atoi(tab[i]) < 0 || ft_atoi(tab[i]) > 255)
+			error_msg("1Error:\nWrong colors\n", 0, data);	
+		i++;
+	}
+	if (i != 3)
+		error_msg("2Error:\nWrong colors\n", 0, data);
+}
+
+void load_texture(t_data *data)
+{
+	data->texture.ea_texture.img = mlx_xpm_file_to_image(data->mlx_ptr, data->texture.ea_path, &data->texture.ea_texture.width, &data->texture.ea_texture.height);
+	if (!data->texture.ea_texture.img)
+		error_msg("Error:\nWrong texture\n", 0, data);
+	data->texture.ea_texture.addr = mlx_get_data_addr(data->texture.ea_texture.img, data->texture.ea_texture.bpp, (data->texture.ea_texture.linelenght / 4), data->texture.ea_texture.endian);
+	data->texture.so_texture.img = mlx_xpm_file_to_image(data->mlx_ptr, data->texture.so_path, &data->texture.so_texture.width, &data->texture.so_texture.height);
+	if (!data->texture.so_texture.img)
+		error_msg("Error:\nWrong texture\n", 0, data);
+	data->texture.so_texture.addr = mlx_get_data_addr(data->texture.so_texture.img, data->texture.so_texture.bpp, (data->texture.so_texture.linelenght / 4), data->texture.so_texture.endian);
+	data->texture.no_texture.img = mlx_xpm_file_to_image(data->mlx_ptr, data->texture.no_path, &data->texture.no_texture.width, &data->texture.no_texture.height);
+	if (!data->texture.no_texture.img)
+		error_msg("Error:\nWrong texture\n", 0, data);
+	data->texture.no_texture.addr = mlx_get_data_addr(data->texture.no_texture.img, data->texture.no_texture.bpp, (data->texture.no_texture.linelenght / 4), data->texture.no_texture.endian);
+	data->texture.we_texture.img = mlx_xpm_file_to_image(data->mlx_ptr, data->texture.we_path, &data->texture.we_texture.width, &data->texture.we_texture.height);
+	if (!data->texture.we_texture.img)
+		error_msg("Error:\nWrong texture\n", 0, data);
+	data->texture.we_texture.addr = mlx_get_data_addr(data->texture.we_texture.img, data->texture.we_texture.bpp, (data->texture.we_texture.linelenght / 4), data->texture.we_texture.endian);
+	
 }

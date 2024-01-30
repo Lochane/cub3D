@@ -56,26 +56,36 @@ void	copy_tab(char **dest, char **src, t_data *data)
 	}
 }
 
+void	validate_chars(t_data *data, char c)
+{	
+	if (c != '1' && c != '0' && c != ' ' &&  c != 'P' &&  c != 'S' &&  c != 'W' &&  c != 'E' && c != '2')
+		error_msg("Error:\nCharacter invalid\n", 1, data);
+}
+
 int	found_spawn(char **tab, t_data *data)
 {
 	int	i;
 	int	j;
+	int c;
 
 	i = 0;
 	j = 0;
+	c = 0; 
 	while (i < data->map.map_height)
 	{
 		j = 0;
-		while (tab[i][j] && tab[i][j] != 'P')
+		while (tab[i][j] && (tab[i][j] != 'N' && tab[i][j] != 'S' && tab[i][j] != 'W' && tab[i][j] != 'E'))
 			j++;
-		if (tab[i][j] == 'P')
+		if (tab[i][j] == 'N' || tab[i][j] == 'S' || tab[i][j] == 'W' || tab[i][j] == 'E')
 		{
 			data->map.spawn_x = j;
 			data->map.spawn_y = i;
-			break ;
+			c += 1;
 		}
 		i++;
 	}
+	if (c > 1 || c <= 0)
+		error_msg("Error:\n Wrong spawn\n", 0, data);
 	return (0);
 }
 
@@ -90,15 +100,15 @@ void init_struct(t_data *data)
 	data->map.spawn_x = 0;
 	data->map.spawn_side = 0;
 	data->cub_file = NULL;
-	data->map.map_texture.count = 0;
-
+	data->texture.count = 0;
+	data->file_weidht = 0;
 	// data->map.map_file = NULL;
-	// data->map.map_texture.c_color = NULL;
-	// data->map.map_texture.f_color = NULL;
-	// data->map.map_texture.no_path = NULL;
-	// data->map.map_texture.so_path = NULL;
-	// data->map.map_texture.we_path = NULL;
-	// data->map.map_texture.ea_path = NULL;
-	// data->map.map_texture.texture_file= NULL;
+	// data->texture.c_color = NULL;
+	// data->texture.f_color = NULL;
+	// data->texture.no_path = NULL;
+	// data->texture.so_path = NULL;
+	// data->texture.we_path = NULL;
+	// data->texture.ea_path = NULL;
+	// data->texture.texture_file= NULL;
 
 }

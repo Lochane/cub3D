@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 14:08:15 by lsouquie          #+#    #+#             */
-/*   Updated: 2023/05/04 13:59:04 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/01/30 20:48:11 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,5 @@ char	*ft_strtrim(char const *s1, char const *set)
 		start++;
 	}
 	res[i] = '\0';
-	return (res);
+	return (free((char *)s1), res);
 }
