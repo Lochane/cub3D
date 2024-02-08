@@ -41,13 +41,13 @@ int main(int ac, char **argv)
 	init_struct(data);
 	parsing(argv[1], data);
 	// cub3d(data);
-	// 	printf("%s", data->texture.c_color);
-	// 	printf("%s", data->texture.f_color);
-	// 	printf("%s", data->texture.no_path);
-	// 	printf("%s", data->texture.so_path);
-	// 	printf("%s", data->texture.ea_path);
-	// 	printf("%s", data->texture.we_path);
-	// for (int i = 0; data->map.map_file[i]; i++) {
-	// 	printf("%s\n", data->map.map_file[i]);
-	// }
+		printf("%s", data->texture.c_color);
+		printf("%s", data->texture.f_color);
+		printf("%s", data->texture.no_path);
+		printf("%s", data->texture.so_path);
+		printf("%s", data->texture.ea_path);
+		printf("%s", data->texture.we_path);
+	for (int i = 0; data->map.map_file[i]; i++) {
+		printf("%s\n", data->map.map_file[i]);
+	}
 }

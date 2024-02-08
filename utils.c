@@ -1,15 +1,5 @@
 #include "include/cub3d.h"
 
-int	tab_size(char **tab)
-{
-	int i;
-
-	i = 0;
-	while(tab[i])
-		i++;
-	return(i);
-}
-
 void	ft_free_texture_path(char *msg, int tofree, t_data *data)
 {
 	free(data->texture.no_path);

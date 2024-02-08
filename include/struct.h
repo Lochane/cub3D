@@ -41,8 +41,7 @@ typedef struct s_map
 	int 	map_widht;
 	int		spawn_x;
 	int		spawn_y;
-	char	spawn_side;
-	t_texture	map_texture;	
+	char	spawn_side;	
 } t_map;
 
 typedef struct s_data
