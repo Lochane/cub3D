@@ -6,13 +6,13 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:01:54 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/08 16:14:39 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/08 17:51:14 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/cub3d.h"
 
-void	free_texture_path(char *msg, int tofree, t_data *data)
+void	free_texture_path(char *msg, int to_free, t_data *data)
 {
 	free(data->texture.no_path);
 	free(data->texture.so_path);
@@ -20,18 +20,18 @@ void	free_texture_path(char *msg, int tofree, t_data *data)
 	free(data->texture.we_path);
 	free(data->texture.c_color);
 	free(data->texture.f_color);
-	if (tofree == 0)
+	if (to_free == 0)
 		error_msg(msg, 0, data);
-	if (tofree == 1)
+	if (to_free == 1)
 		error_msg(msg, 2, data);
 }
 
-void	*free_tab(char **res, size_t i, t_data *data, int allowfree)
+void	*free_tab(char **res, size_t i, t_data *data, int allow_free)
 {
 	while (i-- > 0)
 		free(res[i]);
 	free(res);
-	if (allowfree == 1)
+	if (allow_free == 1)
 		free(data);
 	return (NULL);
 }

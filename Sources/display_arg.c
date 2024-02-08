@@ -25,7 +25,7 @@ int found_size(char **file, int i)
 	return (line);
 }
 
-char *ft_display_texture(t_data *data, const char *set, const char *to_copy)
+char *display_texture(t_data *data, const char *set, const char *to_copy)
 {
 	char *str;
 
@@ -42,7 +42,7 @@ char *ft_display_texture(t_data *data, const char *set, const char *to_copy)
 	return (str);
 }
 
-int		display_texture(t_data *data) // TODO opti / norme
+int		init_texture(t_data *data) // TODO opti / norme
 {
 	int i;
 
@@ -50,17 +50,17 @@ int		display_texture(t_data *data) // TODO opti / norme
 	while(data->cub_file[i])
 	{
 		 if (ft_strncmp("NO", data->cub_file[i], 2) == 0)
-			data->texture.no_path = ft_display_texture(data, "NO", data->cub_file[i]);
+			data->texture.no_path = display_texture(data, "NO", data->cub_file[i]);
 		else if (ft_strncmp("SO", data->cub_file[i], 2) == 0)
-			data->texture.so_path = ft_display_texture(data, "SO", data->cub_file[i]);
+			data->texture.so_path = display_texture(data, "SO", data->cub_file[i]);
 		else if (ft_strncmp("WE", data->cub_file[i], 2) == 0)
-			data->texture.we_path = ft_display_texture(data, "WE", data->cub_file[i]);
+			data->texture.we_path = display_texture(data, "WE", data->cub_file[i]);
 		else if (ft_strncmp("EA", data->cub_file[i], 2) == 0)
-			data->texture.ea_path = ft_display_texture(data, "EA", data->cub_file[i]);
+			data->texture.ea_path = display_texture(data, "EA", data->cub_file[i]);
 		else if (ft_strncmp("C", data->cub_file[i], 1) == 0)
-			data->texture.c_color = ft_display_texture(data, "C", data->cub_file[i]);
+			data->texture.c_color = display_texture(data, "C", data->cub_file[i]);
 		else if (ft_strncmp("F", data->cub_file[i], 1) == 0)
-			data->texture.f_color = ft_display_texture(data, "F", data->cub_file[i]);
+			data->texture.f_color = display_texture(data, "F", data->cub_file[i]);
 		if	(data->texture.count == 6)
 			return (i + 1);
 		i++;
@@ -73,7 +73,7 @@ void	split_file(t_data *data)
 	int i;
 	int j;
 
-	i = display_texture(data);
+	i = init_texture(data);
 	j = 0;
 	while (!ft_strchr(data->cub_file[i], '1'))
 		i++;

@@ -54,6 +54,6 @@ int	main(int ac, char **argv)
 		return (0);
 	init_struct(data);
 	parsing(argv[1], data);
-	cub3d(data);
+	//cub3d(data);
 	print_map_info(data);
 }

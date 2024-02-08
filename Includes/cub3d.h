@@ -47,6 +47,7 @@ void	*free_tab(char **res, size_t i, t_data *data, int allowfree);
 
 void	print_map_info(t_data *data);
 void	ft_putstr_fd(char *str, int fd);
-
+int		is_digit(char **tab);
+void	parse_color(char *color, t_data *data)
 
 #endif
