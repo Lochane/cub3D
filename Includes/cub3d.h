@@ -21,7 +21,7 @@ void load_texture(t_data *data);
 
 /* DISPLAY_ARG */
 
-void	validate_file(char *file_name, t_data *data);
+void	is_file_valid(char *file_name, t_data *data);
 void	file_to_tab(char *mapfile, t_data *data);
 void	split_file(t_data *data);
 int		parse_texture(t_data *data);
@@ -36,13 +36,17 @@ int	quit_game(t_data *data);
 
 void 	init_struct(t_data *data);
 void	error_msg(char *msg, int tofree, t_data *data);
-void	*free_tab(char **res, size_t i, t_data *data, int allowfree);
 int		count_line(char *file_name, t_data *data);
 int		copy_tab(char **dest, char **src, t_data *data);
-int		validate_chars(char c);
+int		is_char_valid(char c);
 int		found_spawn(char **tab, t_data *data);
 int		tab_size(char **tab);
-void	ft_free_texture_path(char *msg, int tofree, t_data *data);
+
+void	free_texture_path(char *msg, int tofree, t_data *data);
+void	*free_tab(char **res, size_t i, t_data *data, int allowfree);
+
+void	print_map_info(t_data *data);
+void	ft_putstr_fd(char *str, int fd);
 
 
 #endif

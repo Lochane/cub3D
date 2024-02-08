@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:28:56 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/02/08 13:30:17 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/02/08 16:21:19 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/cub3d.h"
+#include "../Includes/cub3d.h"
 
 int	handle_keypress(int keysym, t_data *data)
 {

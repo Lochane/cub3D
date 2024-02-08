@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/cub3d.h"
+#include "../Includes/cub3d.h"
 
 int found_size(char **file, int i)
 {
@@ -65,7 +65,7 @@ int		display_texture(t_data *data) // TODO opti / norme
 			return (i + 1);
 		i++;
 	}
-	return (ft_free_texture_path("Error:\nWrong texture\n", 1, data), 0);
+	return (free_texture_path("Error:\nWrong texture\n", 1, data), 0);
 }
 
 void	split_file(t_data *data)
@@ -81,7 +81,7 @@ void	split_file(t_data *data)
 	data->map.map_file = malloc(sizeof(char *) * (data->map.map_height + 1));
 	if(!data->map.map_file)
 	{
-		ft_free_texture_path(NULL, 4, data);
+		free_texture_path(NULL, 4, data);
 		error_msg("Error:\n Erreur Malloc", 1, data);
 	}
 	while(data->cub_file[i])
@@ -89,14 +89,14 @@ void	split_file(t_data *data)
 		data->map.map_file[j] = ft_strdup(data->cub_file[i]);
 		if (!data->map.map_file[j])
 		{
-			ft_free_texture_path(NULL, 4, data);
+			free_texture_path(NULL, 4, data);
 			free_tab(data->map.map_file, data->map.map_height, data, 0);
 			error_msg("Error:\n Erreur Malloc", 1, data);
 		}
 		data->map.map_file[j] = ft_strtrim(data->map.map_file[j], "\n");
 		if (!data->map.map_file[j])
 		{
-			ft_free_texture_path(NULL, 4, data);
+			free_texture_path(NULL, 4, data);
 			free_tab(data->map.map_file, data->map.map_height, data, 0);
 			error_msg("Error:\n Erreur Malloc", 1, data);
 		}
@@ -107,7 +107,7 @@ void	split_file(t_data *data)
 	free_tab(data->cub_file, data->file_weidht, data, 0);
 }
 
-void	validate_file(char *file_name, t_data *data)
+void	is_file_valid(char *file_name, t_data *data)
 {
 	int fd;
 

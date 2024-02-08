@@ -1,39 +1,26 @@
-#include "include/cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 15:55:37 by malancar          #+#    #+#             */
+/*   Updated: 2024/02/08 15:55:37 by malancar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	ft_free_texture_path(char *msg, int tofree, t_data *data)
+#include "../Includes/cub3d.h"
+
+
+int    tab_size(char **tab)
 {
-	free(data->texture.no_path);
-	free(data->texture.so_path);
-	free(data->texture.ea_path);
-	free(data->texture.we_path);
-	free(data->texture.c_color);
-	free(data->texture.f_color);
-	if (tofree == 0)
-		error_msg(msg, 0, data);
-	if (tofree == 1)
-		error_msg(msg, 2, data);
-}
+    int i;
 
-
-void	error_msg(char *msg, int tofree, t_data *data)
-{
-	if (tofree == 2)
-		free_tab(data->map.map_file, data->map.map_height, data, 0);
-	if (tofree == 1)
-		free_tab(data->cub_file, data->file_weidht, data, 0);
-	free(data);
-	write(2, msg, ft_strlen(msg));
-	exit (0);
-}
-
-void	*free_tab(char **res, size_t i, t_data *data, int allowfree)
-{
-	while (i-- > 0)
-		free(res[i]);
-	free(res);
-	if (allowfree == 1)
-		free(data);
-	return (NULL);
+    i = 0;
+    while(tab[i])
+        i++;
+    return(i);
 }
 
 int	count_line(char *file_name, t_data *data)
@@ -77,7 +64,7 @@ int	copy_tab(char **dest, char **src, t_data *data)
 	return (1);
 }
 
-int	validate_chars(char c)
+int	is_char_valid(char c)
 {	
 	if (c != '1' && c != '0' && c != ' ' &&  c != 'P' &&  c != 'S' &&  c != 'W' &&  c != 'E' && c != '2')
 				return (0);
@@ -109,7 +96,7 @@ int	found_spawn(char **tab, t_data *data)
 	if (c > 1 || c <= 0)
 	{
 		free_tab(tab, data->map.map_height, data, 0); 
-		ft_free_texture_path("Error:\nWrong spawn\n", 1, data);
+		free_texture_path("Error:\nWrong spawn\n", 1, data);
 	}
 	return (0);
 }
@@ -127,6 +114,8 @@ void init_struct(t_data *data)
 	data->cub_file = NULL;
 	data->texture.count = 0;
 	data->file_weidht = 0;
+	data->win_height = 1000;
+	data->win_weidht = 2000;
 	// data->map.map_file = NULL;
 	data->texture.c_color = NULL;
 	data->texture.f_color = NULL;
@@ -136,4 +125,27 @@ void init_struct(t_data *data)
 	data->texture.ea_path = NULL;
 	// data->texture.texture_file= NULL;
 
+}
+
+void	print_map_info(t_data *data)
+{
+	printf("%s", data->texture.c_color);
+	printf("%s", data->texture.f_color);
+	printf("%s", data->texture.no_path);
+	printf("%s", data->texture.so_path);
+	printf("%s", data->texture.ea_path);
+	printf("%s", data->texture.we_path);
+	for (int i = 0; data->map.map_file[i]; i++)
+		printf("%s\n", data->map.map_file[i]);
+}
+
+void	ft_putstr_fd(char *str, int fd)
+{
+	int	len;
+
+	if (str == NULL)
+		return ;
+	len = ft_strlen(str);
+	if (write(fd, str, len) == -1)
+		perror("write");
 }

@@ -50,6 +50,8 @@ typedef struct s_data
 	void		*win_ptr;
 	char		**cub_file;
 	int			file_weidht;
+	int			win_weidht;
+	int			win_height;
 	t_map		map;
 	t_texture	texture;
 	t_sprite	sprites;

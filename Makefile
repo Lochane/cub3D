@@ -6,11 +6,11 @@ RM			= rm -rf
 
 OBJDIR = .objFiles
 
-FILES		= main parsing utils display_arg events
+FILES		= main parsing utils display_arg events free_and_error
 
 SRC			= $(FILES:=.c)
 OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))
-HEADER		= ./libft/libft.h include/cub3d.h include/struct.h
+HEADER		= ./libft/libft.h Includes/cub3d.h Includes/struct.h
 OPTS		= ./libft/libft.a
 MLX			= -lX11 -lXext #-L./mlx 
 
@@ -33,7 +33,7 @@ $(NAME): $(OBJ) $(HEADER) | lib
 	@$(CC) -IMinilibx $(OBJ) $(OPTS) ./Minilibx/libmlx.a -o $(NAME) $(MLX)
 	@printf "$(_SUCCESS) $(GREEN)			-> Finished $(NAME)\n$(RESET)"
 
-$(OBJDIR)/%.o: %.c $(HEADER)
+$(OBJDIR)/%.o: Sources/%.c $(HEADER)
 	@mkdir -p $(dir $@)
 	@$(CC) $(FLAGS) -c $< -o $@
 
