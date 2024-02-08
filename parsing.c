@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:13:33 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/01/30 21:30:00 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/02/06 04:24:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void parse_color(char *color, t_data *data)
 	i = 0;
 	while(tab[i])
 	{	
-		if (ft_atoi(tab[i]) < 0 || ft_atoi(tab[i]) > 255)
+		if ((ft_atoi(tab[i]) < 0 || ft_atoi(tab[i]) > 255) && !ft_isdigit(ft_atoi(tab[i])))
 			error_msg("1Error:\nWrong colors\n", 0, data);	
 		i++;
 	}
@@ -89,23 +89,26 @@ void parse_color(char *color, t_data *data)
 		error_msg("2Error:\nWrong colors\n", 0, data);
 }
 
+t_img ft_load_texture(t_data *data, char *path)
+{
+	t_img	img;
+	int 	fd;
+	
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		error_msg("Error:\nfd inferieur a 0\n", 2, data);
+	close (fd);
+	img.img = mlx_xpm_file_to_image(data->mlx_ptr, path, &img.width, &img.height);
+	if (!img.img)
+		error_msg("Error:\nMalloc\n", 0, data);
+	img.addr = (int *)mlx_get_data_addr(img.img, &img.bpp, &img.linelenght, &img.endian);
+	return (img);
+}
+
 void load_texture(t_data *data)
 {
-	data->texture.ea_texture.img = mlx_xpm_file_to_image(data->mlx_ptr, data->texture.ea_path, &data->texture.ea_texture.width, &data->texture.ea_texture.height);
-	if (!data->texture.ea_texture.img)
-		error_msg("Error:\nWrong texture\n", 0, data);
-	data->texture.ea_texture.addr = mlx_get_data_addr(data->texture.ea_texture.img, data->texture.ea_texture.bpp, (data->texture.ea_texture.linelenght / 4), data->texture.ea_texture.endian);
-	data->texture.so_texture.img = mlx_xpm_file_to_image(data->mlx_ptr, data->texture.so_path, &data->texture.so_texture.width, &data->texture.so_texture.height);
-	if (!data->texture.so_texture.img)
-		error_msg("Error:\nWrong texture\n", 0, data);
-	data->texture.so_texture.addr = mlx_get_data_addr(data->texture.so_texture.img, data->texture.so_texture.bpp, (data->texture.so_texture.linelenght / 4), data->texture.so_texture.endian);
-	data->texture.no_texture.img = mlx_xpm_file_to_image(data->mlx_ptr, data->texture.no_path, &data->texture.no_texture.width, &data->texture.no_texture.height);
-	if (!data->texture.no_texture.img)
-		error_msg("Error:\nWrong texture\n", 0, data);
-	data->texture.no_texture.addr = mlx_get_data_addr(data->texture.no_texture.img, data->texture.no_texture.bpp, (data->texture.no_texture.linelenght / 4), data->texture.no_texture.endian);
-	data->texture.we_texture.img = mlx_xpm_file_to_image(data->mlx_ptr, data->texture.we_path, &data->texture.we_texture.width, &data->texture.we_texture.height);
-	if (!data->texture.we_texture.img)
-		error_msg("Error:\nWrong texture\n", 0, data);
-	data->texture.we_texture.addr = mlx_get_data_addr(data->texture.we_texture.img, data->texture.we_texture.bpp, (data->texture.we_texture.linelenght / 4), data->texture.we_texture.endian);
-	
+	data->texture.ea_texture = ft_load_texture(data, data->texture.ea_path);
+	data->texture.no_texture = ft_load_texture(data, data->texture.no_path);
+	data->texture.so_texture = ft_load_texture(data, data->texture.so_path);
+	data->texture.we_texture = ft_load_texture(data, data->texture.we_path);
 }

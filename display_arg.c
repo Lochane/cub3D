@@ -13,6 +13,19 @@ int found_size(char **file, int i)
 	return (line);
 }
 
+char *ft_display_texture(t_data *data, const char *set, const char *to_copy)
+{
+	char *str;
+
+	str = ft_strdup(to_copy);
+	if(!str)
+		error_msg("Error\n", 0, data);
+	str = ft_strtrim(str, set);
+	str = ft_strtrim(str, " ");
+	data->texture.count += 1;
+	return (str);
+}
+
 int		display_texture(t_data *data) // TODO opti / norme
 {
 	int i;
@@ -21,62 +34,17 @@ int		display_texture(t_data *data) // TODO opti / norme
 	while(data->cub_file[i])
 	{
 		 if (ft_strncmp("NO", data->cub_file[i], 2) == 0)
-		{
-			data->texture.no_path = ft_strdup(data->cub_file[i]);
-			if(!data->texture.no_path)
-				error_msg("Error\n", 0, data);
-			data->texture.no_path = ft_strtrim(data->texture.no_path, "NO");
-			data->texture.no_path = ft_strtrim(data->texture.no_path, " ");
-			data->texture.count += 1;
-		}
+			data->texture.no_path = ft_display_texture(data, "NO", data->cub_file[i]);
 		else if (ft_strncmp("SO", data->cub_file[i], 2) == 0)
-		{
-
-			data->texture.so_path = ft_strdup(data->cub_file[i]);
-			if(!data->texture.so_path)
-				error_msg("Error\n", 0, data);
-			data->texture.so_path = ft_strtrim(data->texture.so_path, "SO");
-			data->texture.so_path = ft_strtrim(data->texture.so_path, " ");
-			data->texture.count += 1;
-		}
+			data->texture.so_path = ft_display_texture(data, "SO", data->cub_file[i]);
 		else if (ft_strncmp("WE", data->cub_file[i], 2) == 0)
-		{
-
-			data->texture.we_path = ft_strdup(data->cub_file[i]);
-			if(!data->texture.we_path)
-				error_msg("Error\n", 0, data);
-			data->texture.we_path = ft_strtrim(data->texture.we_path, "WE");
-			data->texture.we_path = ft_strtrim(data->texture.we_path, " ");
-			data->texture.count += 1;
-		}
+			data->texture.we_path = ft_display_texture(data, "WE", data->cub_file[i]);
 		else if (ft_strncmp("EA", data->cub_file[i], 2) == 0)
-		{
-			data->texture.ea_path = ft_strdup(data->cub_file[i]);
-			if(!data->texture.ea_path)
-				error_msg("Error\n", 0, data);
-			data->texture.ea_path = ft_strtrim(data->texture.ea_path, "EA");
-			data->texture.ea_path = ft_strtrim(data->texture.ea_path, " ");
-			data->texture.count += 1;
-		}
+			data->texture.ea_path = ft_display_texture(data, "EA", data->cub_file[i]);
 		else if (ft_strncmp("C", data->cub_file[i], 1) == 0)
-		{
-			data->texture.c_color = ft_strdup(data->cub_file[i]);
-			if(!data->texture.c_color)
-				error_msg("Error\n", 0, data);
-			data->texture.c_color = ft_strtrim(data->texture.c_color, "C");
-			data->texture.c_color = ft_strtrim(data->texture.c_color, " ");
-			data->texture.count += 1;
-		}
+			data->texture.c_color = ft_display_texture(data, "C", data->cub_file[i]);
 		else if (ft_strncmp("F", data->cub_file[i], 1) == 0)
-		{
-			data->texture.f_color = ft_strdup(data->cub_file[i]);
-			if(!data->texture.f_color)
-				error_msg("Error\n", 0, data);
-			data->texture.f_color = ft_strtrim(data->texture.f_color, "F");
-			data->texture.f_color = ft_strtrim(data->texture.f_color, " ");
-			data->texture.count += 1;
-			
-		}
+			data->texture.f_color = ft_display_texture(data, "F", data->cub_file[i]);
 		if	(data->texture.count == 6)
 			return (i + 1);
 		i++;

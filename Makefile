@@ -12,7 +12,7 @@ SRC			= $(FILES:=.c)
 OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))
 HEADER		= ./libft/libft.h include/cub3d.h include/struct.h
 OPTS		= ./libft/libft.a
-MLX			= -L ./mlx -lX11 -lXext
+MLX			= -lX11 -lXext #-L./mlx 
 
 
 #Colors:
@@ -30,7 +30,7 @@ $(NAME): $(OBJ) $(HEADER) | lib
 	@printf "$(_SUCCESS) $(GREEN)			-> Compiling $(NAME)...\n$(RESET)"
 	@make -C ./libft
 	@make -C ./Minilibx
-	@$(CC) $(OBJ) $(OPTS) -o $(NAME) $(MLX)
+	@$(CC) -IMinilibx $(OBJ) $(OPTS) ./Minilibx/libmlx.a -o $(NAME) $(MLX)
 	@printf "$(_SUCCESS) $(GREEN)			-> Finished $(NAME)\n$(RESET)"
 
 $(OBJDIR)/%.o: %.c $(HEADER)
