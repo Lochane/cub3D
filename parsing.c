@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:13:33 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/02/06 04:24:41 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/08 15:07:44 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	flood_fill(int x, int y, char **map_file, t_data *data)
 {
 	if(!map_file[x]|| map_file[x][y] == 0 || map_file[x][y] == ' ')
-		error_msg("Error:\nWrong Map\n", 0, data);
+			return (0);
 	if (map_file[x][y] == '1' || map_file[x][y] == '2')
 		return (1);
 	if (map_file[x][y] == '0')
@@ -41,24 +41,36 @@ void parse_map(t_data *data)
 	j = 0;
 	tmp = malloc(sizeof(char *) * (data->map.map_height + 1));
 	if (!tmp)
-		error_msg("Error:\n", 0, data);
-	copy_tab(tmp, data->map.map_file, data);
+		ft_free_texture_path("Error:\nError malloc\n", 1, data);
+	if (!copy_tab(tmp, data->map.map_file, data))
+	{
+		free_tab(tmp, data->map.map_height, data, 0);
+		ft_free_texture_path("Error:\nError malloc\n", 1, data);
+	}
 	found_spawn(tmp, data);
 	while(tmp[i])
 	{
 		j = 0;
 		while(tmp[i][j])
 		{
-			validate_chars(data, tmp[i][j]);
+			if (!validate_chars(tmp[i][j]))
+			{
+				free_tab(tmp, data->map.map_height, data, 0);
+				ft_free_texture_path("Error:\nWrong Character\n", 1, data);
+			}
 			if(tmp[i][j] == '0')
 			{
 				if (!flood_fill(i, j, tmp, data))
-					error_msg("Error:\nWrong Map\n", 0, data);
+				{
+					free_tab(tmp, data->map.map_height, data, 0);
+					ft_free_texture_path("Error:\nWrong map\n", 1, data);
+				}
 			}
 			j++;
 		}
 		i++;
 	}
+	free_tab(tmp, data->map.map_height, data, 0);
 }
 
 void parse_color(char *color, t_data *data)
@@ -76,17 +88,26 @@ void parse_color(char *color, t_data *data)
 		i++;
 	}
 	if (count != 2)
-		error_msg("3Error:\nWrong colors\n", 0, data);
+		ft_free_texture_path("Error:\nWrong color\n", 1, data);
 	tab = ft_split(color, ',');
+	if (!tab)
+		ft_free_texture_path("Error:\nWrong color\n", 1, data);
 	i = 0;
 	while(tab[i])
 	{	
 		if ((ft_atoi(tab[i]) < 0 || ft_atoi(tab[i]) > 255) && !ft_isdigit(ft_atoi(tab[i])))
-			error_msg("1Error:\nWrong colors\n", 0, data);	
+		{
+			free_tab(tab, tab_size(tab), data, 0);
+			ft_free_texture_path("Error:\nWrong color1\n", 1, data);
+		}
 		i++;
 	}
 	if (i != 3)
-		error_msg("2Error:\nWrong colors\n", 0, data);
+	{
+		free_tab(tab, tab_size(tab), data, 0);
+		ft_free_texture_path("Error:\nWrong color2\n", 1, data);
+	}
+	free_tab(tab, i, data, 0);
 }
 
 t_img ft_load_texture(t_data *data, char *path)

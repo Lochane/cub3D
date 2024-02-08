@@ -16,6 +16,8 @@
 
 void parse_color(char *color, t_data *data);
 void parse_map(t_data *data);
+void load_texture(t_data *data);
+
 
 /* DISPLAY_ARG */
 
@@ -25,15 +27,22 @@ void	split_file(t_data *data);
 int		parse_texture(t_data *data);
 
 
+/* EVENTS */
+
+int	handle_keypress(int keysym, t_data *data);
+int	quit_game(t_data *data);
+
 /* UTILS */
 
 void 	init_struct(t_data *data);
 void	error_msg(char *msg, int tofree, t_data *data);
 void	*free_tab(char **res, size_t i, t_data *data, int allowfree);
 int		count_line(char *file_name, t_data *data);
-void	copy_tab(char **dest, char **src, t_data *data);
-void	validate_chars(t_data *data, char c);
+int		copy_tab(char **dest, char **src, t_data *data);
+int		validate_chars(char c);
 int		found_spawn(char **tab, t_data *data);
+int		tab_size(char **tab);
+void	ft_free_texture_path(char *msg, int tofree, t_data *data);
 
 
 #endif

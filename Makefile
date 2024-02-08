@@ -6,7 +6,7 @@ RM			= rm -rf
 
 OBJDIR = .objFiles
 
-FILES		= main parsing utils display_arg
+FILES		= main parsing utils display_arg events
 
 SRC			= $(FILES:=.c)
 OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))

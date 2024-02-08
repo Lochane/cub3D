@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display_arg.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 13:29:06 by lsouquie          #+#    #+#             */
+/*   Updated: 2024/02/08 13:29:06 by lsouquie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include/cub3d.h"
 
 int found_size(char **file, int i)
@@ -19,9 +31,13 @@ char *ft_display_texture(t_data *data, const char *set, const char *to_copy)
 
 	str = ft_strdup(to_copy);
 	if(!str)
-		error_msg("Error\n", 0, data);
+		return NULL;
 	str = ft_strtrim(str, set);
+	if(!str)
+		return NULL;
 	str = ft_strtrim(str, " ");
+	if(!str)
+		return NULL;
 	data->texture.count += 1;
 	return (str);
 }
@@ -49,7 +65,7 @@ int		display_texture(t_data *data) // TODO opti / norme
 			return (i + 1);
 		i++;
 	}
-	return (error_msg("Error:\nWrong texture\n", 0, data), 0);
+	return (ft_free_texture_path("Error:\nWrong texture\n", 1, data), 0);
 }
 
 void	split_file(t_data *data)
@@ -63,10 +79,27 @@ void	split_file(t_data *data)
 		i++;
 	data->map.map_height = found_size(data->cub_file, i);
 	data->map.map_file = malloc(sizeof(char *) * (data->map.map_height + 1));
+	if(!data->map.map_file)
+	{
+		ft_free_texture_path(NULL, 4, data);
+		error_msg("Error:\n Erreur Malloc", 1, data);
+	}
 	while(data->cub_file[i])
 	{
 		data->map.map_file[j] = ft_strdup(data->cub_file[i]);
+		if (!data->map.map_file[j])
+		{
+			ft_free_texture_path(NULL, 4, data);
+			free_tab(data->map.map_file, data->map.map_height, data, 0);
+			error_msg("Error:\n Erreur Malloc", 1, data);
+		}
 		data->map.map_file[j] = ft_strtrim(data->map.map_file[j], "\n");
+		if (!data->map.map_file[j])
+		{
+			ft_free_texture_path(NULL, 4, data);
+			free_tab(data->map.map_file, data->map.map_height, data, 0);
+			error_msg("Error:\n Erreur Malloc", 1, data);
+		}
 		i++;
 		j++;
 	}
@@ -82,10 +115,10 @@ void	validate_file(char *file_name, t_data *data)
 		error_msg("Error:\nfile is not .cub\n", 0, data);
 	fd = open(file_name, __O_DIRECTORY);
 	if (fd > 0)
-		error_msg("Error:\nfd superieur a 0\n", 2, data);
+		error_msg("Error:\nfd superieur a 0\n", 0, data);
 	fd = open(file_name, O_RDONLY);
 	if (fd < 0)
-		error_msg("Error:\nfd inferieur a 0\n", 2, data);
+		error_msg("Error:\nfd inferieur a 0\n", 0, data);
 	close (fd);
 }
 
@@ -100,14 +133,16 @@ void	file_to_tab(char *mapfile, t_data *data)
 	data->file_weidht = count_line(mapfile, data);
 	data->cub_file = malloc(sizeof(char *) * (data->file_weidht + 1));
 	if (!data->cub_file)
-		return ;
+		error_msg("Error:\n Erreur Malloc", 0, data);
 	line = get_next_line(fd);
 	if (!line)
-		return ;
+		error_msg("Error:\n Erreur Malloc", 1, data);
 	while (line)
 	{
 		data->cub_file[i] = ft_strdup(line);
 		free(line);
+		if (!data->cub_file)
+			error_msg("Error:\n Erreur Malloc", 1, data);
 		line = get_next_line(fd);
 		i++;
 	}

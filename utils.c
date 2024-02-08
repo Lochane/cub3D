@@ -1,8 +1,36 @@
 #include "include/cub3d.h"
 
+int	tab_size(char **tab)
+{
+	int i;
+
+	i = 0;
+	while(tab[i])
+		i++;
+	return(i);
+}
+
+void	ft_free_texture_path(char *msg, int tofree, t_data *data)
+{
+	free(data->texture.no_path);
+	free(data->texture.so_path);
+	free(data->texture.ea_path);
+	free(data->texture.we_path);
+	free(data->texture.c_color);
+	free(data->texture.f_color);
+	if (tofree == 0)
+		error_msg(msg, 0, data);
+	if (tofree == 1)
+		error_msg(msg, 2, data);
+}
+
+
 void	error_msg(char *msg, int tofree, t_data *data)
 {
-	(void)tofree;
+	if (tofree == 2)
+		free_tab(data->map.map_file, data->map.map_height, data, 0);
+	if (tofree == 1)
+		free_tab(data->cub_file, data->file_weidht, data, 0);
 	free(data);
 	write(2, msg, ft_strlen(msg));
 	exit (0);
@@ -44,7 +72,7 @@ int	count_line(char *file_name, t_data *data)
 	return (i);
 }
 
-void	copy_tab(char **dest, char **src, t_data *data)
+int	copy_tab(char **dest, char **src, t_data *data)
 {
 	int	i;
 
@@ -52,14 +80,18 @@ void	copy_tab(char **dest, char **src, t_data *data)
 	while (i < data->map.map_height)
 	{
 		dest[i] = ft_strdup(src[i]);
+		if (!dest)
+			return (0);
 		i++;
 	}
+	return (1);
 }
 
-void	validate_chars(t_data *data, char c)
+int	validate_chars(char c)
 {	
 	if (c != '1' && c != '0' && c != ' ' &&  c != 'P' &&  c != 'S' &&  c != 'W' &&  c != 'E' && c != '2')
-		error_msg("Error:\nCharacter invalid\n", 1, data);
+				return (0);
+	return (1);
 }
 
 int	found_spawn(char **tab, t_data *data)
@@ -85,7 +117,10 @@ int	found_spawn(char **tab, t_data *data)
 		i++;
 	}
 	if (c > 1 || c <= 0)
-		error_msg("Error:\n Wrong spawn\n", 0, data);
+	{
+		free_tab(tab, data->map.map_height, data, 0); 
+		ft_free_texture_path("Error:\nWrong spawn\n", 1, data);
+	}
 	return (0);
 }
 
@@ -103,12 +138,12 @@ void init_struct(t_data *data)
 	data->texture.count = 0;
 	data->file_weidht = 0;
 	// data->map.map_file = NULL;
-	// data->texture.c_color = NULL;
-	// data->texture.f_color = NULL;
-	// data->texture.no_path = NULL;
-	// data->texture.so_path = NULL;
-	// data->texture.we_path = NULL;
-	// data->texture.ea_path = NULL;
+	data->texture.c_color = NULL;
+	data->texture.f_color = NULL;
+	data->texture.no_path = NULL;
+	data->texture.so_path = NULL;
+	data->texture.we_path = NULL;
+	data->texture.ea_path = NULL;
 	// data->texture.texture_file= NULL;
 
 }
