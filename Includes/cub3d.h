@@ -11,6 +11,12 @@
 # include <X11/keysym.h>
 # include <sys/time.h>
 
+#define	SCREEN_HEIGHT 1080
+#define	SCREEN_WIDHT 1920
+#define	TILE_SIZE 30 //comment on determine la taille de la tile?
+//FOV
+//roation speed
+//player speed
 
 /* PARSING */
 
@@ -50,5 +56,11 @@ void	print_map_info(t_data *data);
 void	ft_putstr_fd(char *str, int fd);
 int		is_digit(char **tab);
 void	parse_color(char *color, t_data *data);
+
+
+//EXEC
+
+void	start_game(t_data *data);
+void	game_loop(t_data *data);
 
 #endif

@@ -18,30 +18,25 @@ void	parsing(char *file_name, t_data *data)
 	file_to_tab(file_name, data);
 	split_file(data);
 	parse_map(data);
-	// parse_color(data->texture.c_color, data);
 	parse_color(data->texture.f_color, data);
 }
 
 void	cub3d(t_data *data)
 {
-	data->mlx_ptr = mlx_init();
-	if (!data->mlx_ptr)
-		error_msg("Error: mlx init fail\n", 0, data);
-	data->win_ptr = mlx_new_window(data->mlx_ptr, data->win_weidht,
-			data->win_height, "Cub3D");
+	//INIT WINDOW
+	data->win_ptr = mlx_new_window(data->mlx_ptr, data->win_height,
+			data->win_width, "Cub3D");
 	if (!data->win_ptr)
 	{
 		free(data->mlx_ptr);
 		error_msg("Error: window cannot be open\n", 0, data);
 	}
 	load_texture(data);
-	mlx_hook(data->win_ptr, 33, 1L << 17, &quit_game, data);
-	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
+	
+	//START
 
+	start_game(data);
 
-	//load_texture(data);
-
-	mlx_loop(data->mlx_ptr);
 }
 
 int	main(int ac, char **av)
@@ -58,6 +53,6 @@ int	main(int ac, char **av)
 		return (0);
 	init_struct(data);
 	parsing(av[1], data);
-	print_map_info(data);
-	// cub3d(data);
+	//print_map_info(data);
+	cub3d(data);
 }

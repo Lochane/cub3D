@@ -114,8 +114,8 @@ void init_struct(t_data *data)
 	data->cub_file = NULL;
 	data->texture.count = 0;
 	data->file_weidht = 0;
-	data->win_height = 1000;
-	data->win_weidht = 2000;
+	data->win_width = SCREEN_HEIGHT;
+	data->win_height = SCREEN_WIDHT;
 	// data->map.map_file = NULL;
 	data->texture.c_color = NULL;
 	data->texture.f_color = NULL;

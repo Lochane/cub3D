@@ -6,7 +6,7 @@ RM			= rm -rf
 
 OBJDIR = .objFiles
 
-FILES		= main parsing utils display_arg events free_and_error parse_color
+FILES		= main parsing utils display_arg events free_and_error parse_color cub3d
 
 SRC			= $(FILES:=.c)
 OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))

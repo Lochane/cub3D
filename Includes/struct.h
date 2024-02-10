@@ -41,8 +41,27 @@ typedef struct s_map
 	int 	map_widht;
 	int		spawn_x;
 	int		spawn_y;
-	char	spawn_side;	
+	char	spawn_side;
 } t_map;
+
+typedef	struct s_player
+{
+	int		x;
+	int		y;
+	float	fov_radians;//field of view in radians
+	double	angle;
+	//int		rotation_flag;?
+	//int		left_rotation;?
+	//int		right_rotation;?
+};
+
+typedef	struct s_ray
+{
+	double	ray_angle;
+	double	distance;
+	int		flag;//c'est quoi flag?
+};
+
 
 typedef struct s_data
 {
@@ -50,11 +69,13 @@ typedef struct s_data
 	void		*win_ptr;
 	char		**cub_file;
 	int			file_weidht;
-	int			win_weidht;
+	int			win_height;
 	int			win_height;
 	t_map		map;
+	t_img		img;
 	t_texture	texture;
 	t_sprite	sprites;
+	t_player	player;
 }				t_data;
 
 #endif
