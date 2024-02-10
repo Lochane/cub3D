@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:57:27 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/08 18:02:32 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/10 16:47:24 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int		is_digit(char **tab)
 		while (tab[i][j])
 		{
 			if (tab[i][j] < '0' || tab[i][j] > '9')
-				return (1);
+				return (0);
 			j++;
 		}
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 

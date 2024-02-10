@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:13:33 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/02/10 15:27:48 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/10 16:40:34 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	flood_fill(int x, int y, char **map_file, t_data *data)
 {
 	if (y < 0 || x < 0|| map_file[x][y] == ' ' || x > data->map.map_height \
-        || y > (int)ft_strlen(map_file[x]))
+        || y > (int)ft_strlen(map_file[x]) || !map_file[x][y])
 		return (0);
 	if (map_file[x][y] == '1' || map_file[x][y] == '2')
 		return (1);
@@ -81,6 +81,7 @@ t_img init_img(t_data *data, char *path)
 	int 	fd;
 	
 	fd = open(path, O_RDONLY);
+	printf("%s\n", path);
 	if (fd < 0)
 		print_error_and_free("open", data);
 	img.img = mlx_xpm_file_to_image(data->mlx_ptr, path, &img.width, &img.height);

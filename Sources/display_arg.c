@@ -38,6 +38,9 @@ char *display_texture(t_data *data, const char *set, const char *to_copy)
 	str = ft_strtrim(str, " ");
 	if(!str)
 		return NULL;
+	str = ft_strtrim(str, "\n");
+	if(!str)
+		return NULL;
 	data->texture.count += 1;
 	return (str);
 }

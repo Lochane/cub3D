@@ -129,12 +129,12 @@ void init_struct(t_data *data)
 
 void	print_map_info(t_data *data)
 {
-	printf("%s", data->texture.c_color);
-	printf("%s", data->texture.f_color);
-	printf("%s", data->texture.no_path);
-	printf("%s", data->texture.so_path);
-	printf("%s", data->texture.ea_path);
-	printf("%s", data->texture.we_path);
+	printf("%s\n", data->texture.c_color);
+	printf("%s\n", data->texture.f_color);
+	printf("%s\n", data->texture.no_path);
+	printf("%s\n", data->texture.so_path);
+	printf("%s\n", data->texture.ea_path);
+	printf("%s\n", data->texture.we_path);
 	for (int i = 0; data->map.map_file[i]; i++)
 		printf("%s\n", data->map.map_file[i]);
 }
