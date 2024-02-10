@@ -112,13 +112,13 @@ void	is_file_valid(char *file_name, t_data *data)
 	int fd;
 
 	if (ft_strncmp(".cub", &file_name[ft_strlen(file_name) -4], ft_strlen(file_name)))
-		error_msg("Error:\nfile is not .cub\n", 0, data);
+		error_msg("Error: expected [file.cub]\n", 0, data);
 	fd = open(file_name, __O_DIRECTORY);
 	if (fd > 0)
-		error_msg("Error:\nfd superieur a 0\n", 0, data);
+		print_error_and_free("open", data);
 	fd = open(file_name, O_RDONLY);
 	if (fd < 0)
-		error_msg("Error:\nfd inferieur a 0\n", 0, data);
+		print_error_and_free("open", data);
 	close (fd);
 }
 
@@ -130,19 +130,21 @@ void	file_to_tab(char *mapfile, t_data *data)
 
 	i = 0;
 	fd = open(mapfile, O_RDONLY);
+	if (fd < 0)
+		print_error_and_free("open", data);
 	data->file_weidht = count_line(mapfile, data);
 	data->cub_file = malloc(sizeof(char *) * (data->file_weidht + 1));
 	if (!data->cub_file)
-		error_msg("Error:\n Erreur Malloc", 0, data);
+		print_error_and_free("malloc", data);
 	line = get_next_line(fd);
 	if (!line)
-		error_msg("Error:\n Erreur Malloc", 1, data);
+		print_error_and_free("malloc", data);
 	while (line)
 	{
 		data->cub_file[i] = ft_strdup(line);
 		free(line);
 		if (!data->cub_file)
-			error_msg("Error:\n Erreur Malloc", 1, data);
+			print_error_and_free("malloc", data);
 		line = get_next_line(fd);
 		i++;
 	}

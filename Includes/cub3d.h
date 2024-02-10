@@ -35,19 +35,20 @@ int	quit_game(t_data *data);
 /* UTILS */
 
 void 	init_struct(t_data *data);
-void	error_msg(char *msg, int tofree, t_data *data);
 int		count_line(char *file_name, t_data *data);
 int		copy_tab(char **dest, char **src, t_data *data);
 int		is_char_valid(char c);
 int		found_spawn(char **tab, t_data *data);
 int		tab_size(char **tab);
 
+void	error_msg(char *msg, int tofree, t_data *data);
 void	free_texture_path(char *msg, int tofree, t_data *data);
 void	*free_tab(char **res, size_t i, t_data *data, int allowfree);
+void	print_error_and_free(char *error, t_data *data);
 
 void	print_map_info(t_data *data);
 void	ft_putstr_fd(char *str, int fd);
 int		is_digit(char **tab);
-void	parse_color(char *color, t_data *data)
+void	parse_color(char *color, t_data *data);
 
 #endif

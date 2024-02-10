@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:01:54 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/08 17:51:14 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/10 15:13:04 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,11 @@ void	error_msg(char *msg, int to_free, t_data *data)
 	free(data);
 	write(2, msg, ft_strlen(msg));
 	exit (0);
+}
+
+void	print_error_and_free(char *error, t_data *data)
+{
+	perror(error);
+	free(data);
+	exit(EXIT_FAILURE);
 }
