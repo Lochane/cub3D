@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:13:33 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/02/10 16:40:34 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/02/10 16:59:43 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_img init_img(t_data *data, char *path)
 {
 	t_img	img;
 	int 	fd;
+	printf("prit");
 	
 	fd = open(path, O_RDONLY);
 	printf("%s\n", path);
