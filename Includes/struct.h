@@ -6,7 +6,7 @@ typedef struct s_img
 	void	*img;
 	int		*addr;
 	int		bpp;
-	int		linelenght;
+	int		line_lenght;
 	int		width;
 	int		height;
 	int		endian;
@@ -48,18 +48,18 @@ typedef	struct s_player
 {
 	int		x;
 	int		y;
-	float	fov_radians;//field of view in radians
+	float	fov;//field of view in radians
 	double	angle;
-	//int		rotation_flag;?
-	//int		left_rotation;?
-	//int		right_rotation;?
-};
+	//int		rotation_flag;
+	//int		left_rotation;
+	//int		right_rotation;
+} t_player;
 
 typedef	struct s_ray
 {
 	double	ray_angle;
 	double	distance;
-	int		flag;//c'est quoi flag?
+	//int		flag;//c'est quoi flag?
 };
 
 
@@ -70,7 +70,7 @@ typedef struct s_data
 	char		**cub_file;
 	int			file_weidht;
 	int			win_height;
-	int			win_height;
+	int			win_width;
 	t_map		map;
 	t_img		img;
 	t_texture	texture;

@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:13:33 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/02/10 16:59:43 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:02:19 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ t_img init_img(t_data *data, char *path)
 {
 	t_img	img;
 	int 	fd;
-	printf("prit");
 	
 	fd = open(path, O_RDONLY);
 	printf("%s\n", path);
@@ -88,7 +87,7 @@ t_img init_img(t_data *data, char *path)
 	img.img = mlx_xpm_file_to_image(data->mlx_ptr, path, &img.width, &img.height);
 	if (!img.img)
 		print_error_and_free("malloc", data);
-	img.addr = (int *)mlx_get_data_addr(img.img, &img.bpp, &img.linelenght, &img.endian);
+	img.addr = (int *)mlx_get_data_addr(img.img, &img.bpp, &img.line_lenght, &img.endian);
 	close (fd);
 	return (img);
 }

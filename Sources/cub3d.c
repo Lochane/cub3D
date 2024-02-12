@@ -6,11 +6,36 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/10 18:36:00 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/12 19:08:30 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/cub3d.h"
+
+void	raycasting(t_data *data)
+{
+	double	x1;
+	double	x2;
+	double	x3;
+	double	x4;
+	double	y1;
+	double	y2;
+	double	y3;
+	double	y4;
+	
+	x1 = ;
+	y1 = ;
+	x2 = ;
+	y2 = ;
+
+	x3 = data->player.x;
+	y3 = data->player.y;
+	x4 = data->player.x + data->player.angle;
+	y4 = data->player.y + data->player.angle;
+
+	
+}
+
 
 void	game_loop(t_data *data)
 {
@@ -24,14 +49,22 @@ void	game_loop(t_data *data)
 
 void	init_player(t_data *data)
 {
-	data->player.x = ;
-	data->player.y = ;
-	data->player.fov = ;
-	data->player.angle = ;
 	
-	data->player.rotation_flag = ;
-	data->player.left_rotation = ;
-	data->player.right_rotation = ;
+	data->player.x = data->map.spawn_x;
+	data->player.y = data->map.spawn_y;
+	data->player.fov = 60; 
+	if (data->map.spawn_side == 'N')
+		data->player.angle = 0;
+	else if (data->map.spawn_side == 'E')
+		data->player.angle = 90;
+	else if (data->map.spawn_side = "S")
+		data->player.angle = 180;
+	else if (data->map.spawn_side = "W")
+		data->player.angle = 270;
+	
+	// data->player.rotation_flag = ;
+	// data->player.left_rotation = ;
+	// data->player.right_rotation = ;
 }
 
 void	start_game(t_data *data)
@@ -42,6 +75,10 @@ void	start_game(t_data *data)
 	init_player(data);
 	mlx_hook(data->win_ptr, 33, 1L << 17, &quit_game, data);
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
+	
+	
+	
+	game_loop(data);
 	mlx_loop(data->mlx_ptr);
 	//exit game
 }

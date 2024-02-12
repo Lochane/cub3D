@@ -13,7 +13,7 @@
 
 #define	SCREEN_HEIGHT 1080
 #define	SCREEN_WIDHT 1920
-#define	TILE_SIZE 30 //comment on determine la taille de la tile?
+#define	TILE_SIZE 1 //comment on determine la taille de la tile?
 //FOV
 //roation speed
 //player speed
