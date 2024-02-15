@@ -36,7 +36,7 @@ typedef struct s_texture
 
 typedef struct s_map
 {
-	char **map_file;
+	char	**map_file;
 	int		map_height;
 	int 	map_widht;
 	int		spawn_x;
@@ -60,7 +60,7 @@ typedef	struct s_ray
 	double	ray_angle;
 	double	distance;
 	//int		flag;//c'est quoi flag?
-};
+} t_ray;
 
 
 typedef struct s_data

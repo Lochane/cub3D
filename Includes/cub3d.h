@@ -1,5 +1,5 @@
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
 # include "../libft/libft.h"
 # include "struct.h"
@@ -11,9 +11,16 @@
 # include <X11/keysym.h>
 # include <sys/time.h>
 
-#define	SCREEN_HEIGHT 1080
-#define	SCREEN_WIDHT 1920
-#define	TILE_SIZE 1 //comment on determine la taille de la tile?
+# define	SCREEN_HEIGHT 1080
+# define	SCREEN_WIDHT 1920
+# define	TILE_SIZE 1 //comment on determine la taille de la tile?
+# define	RED 0xFF0000
+# define 	GREEN 0x00FF00
+# define	PINK 0xFF00FF
+# define	CYAN 0x00FFFF
+# define	YELLOW 0xFFFF00
+# define	WHITE 0xFFFFFF
+# define	BLACK 0x000000
 //FOV
 //roation speed
 //player speed
@@ -60,6 +67,8 @@ void	parse_color(char *color, t_data *data);
 
 //EXEC
 
+void	init_window_and_image(t_data *data);
+void	init_player(t_data *data);
 void	start_game(t_data *data);
 void	game_loop(t_data *data);
 

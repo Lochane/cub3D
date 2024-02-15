@@ -24,17 +24,10 @@ void	parsing(char *file_name, t_data *data)
 void	cub3d(t_data *data)
 {
 	//INIT WINDOW
-	data->win_ptr = mlx_new_window(data->mlx_ptr, data->win_height,
-			data->win_width, "Cub3D");
-	if (!data->win_ptr)
-	{
-		free(data->mlx_ptr);
-		error_msg("Error: window cannot be open\n", 0, data);
-	}
-	load_texture(data);
+	init_window_and_image(data);
+	load_texture(data);//init texture
 	
 	//START
-
 	start_game(data);
 
 }
