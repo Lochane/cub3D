@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/16 14:27:58 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/16 19:34:18 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,72 +49,86 @@ void	raycasting(t_data *data)
 }
 
 
-void	print_tile(t_data *data, int a, int b, int c, int d)
+void	print_tile(t_data *data, int color)
 {
-	d = 0;
-	while (c < data->win_height && d < c)
+//	data->img.height = 0;
+//	printf("a = %d, b = %d, c = %d, d= %d\n", a, b, c, d);
+	while (data->img.height + 50 < data->win_height && data->img.height < data->img.height + 50)
 	{
-		a = 0;
-		while (d < data->win_width && a < b)
+		data->img.width = 0;
+		while (data->img.width + 50 < data->win_width && data->img.width  < data->img.width + 50)
 		{
-			data->img.addr[d * data->win_width + a] = RED;
-			a++;
+			//printf("img addr = %p\n", data->img.addr);
+			data->img.addr[data->img.height * data->win_width + data->img.width] = color;
+			data->img.width++;
 		}
-		d++;
+		data->img.height++;
 	}
 	
 }
 
+void	print_square(t_data *data, int a, int b, int c, int d, int color)
+{
+	//c  = 0;
+	int tmp = a;
+	//printf("img height= %d, win height = %d\n", data->img.height, data->win_height);
+	while (d <= data->win_height && c <= d)
+	{
+		a = tmp;
+		while(b <= data->win_width && a <= b)
+		{
+			//printf("img width %d, win width = %d\n", data->img.width, data->win_width);
+			data->img.addr[c * data->win_width + a] = color;
+			a++;
+		}
+		c++;
+	}
+}
+
 void	mini_map(t_data *data)
 {
-	// int	i;
-	// int	j;
-	// double	a;
-	// double	b;
-	// double	x;
-	// double	y;
-	// double	x_min;
-	// double	x_max;
-	// double	y_max;
-	// double	y_min;
+	int	i;
+	int	j;
 
-	// a = data->player.angle;
-	// b = 0;
-	// y_min = -0.1;
-	// x_min = -0.1;
-	// y_max = 0.1;
-	// x_max = 0.1;
-	//a = 3;
-	
-	// y_min = -5;
-	// x_min = -5;
-	// y_max = 5;
-	// x_max = 5;
-	//i = 0;
+	i = 0;
 	data->img.height = 0;
-	// while (data->map.map_file[i])
-	// {
-	// 	data->img.width = 0;
-	// 	j = 0;
-	// 	while (data->map.map_file[i][j])
-	// 	{
-	// 		if (data->map.map_file[i][j] == '1')
-	// 		{
-	// 			print_tile(data);
-	// 		}
-	// 		if (data->map.map_file[i][j])
-	// 			j++;
-				
-	// 	}
-	// 	if (data->map.map_file[i][j])
-	// 		i++;
-	// }
-	//printf("img height = %d\n", data->img.height);
-	print_tile(data, data->img.height, data->img.height + 50, data->img.width, data->img.width + 50);
-	//printf("img height = %d\n", data->img.height);
-
+	while (data->map.map_file[i])
+	{
+	 	data->img.width = 0;
+	 	j = 0;
+	 	while (data->map.map_file[i][j])
+	 	{
+	 		if (data->map.map_file[i][j] == '1')
+			{
+				printf("map[%d][%d] = %c\n", i, j, data->map.map_file[i][j]);
+				print_square(data, data->img.width, data->img.width + 50, data->img.height, data->img.height + 50, RED);
+			}
+			else if (data->map.map_file[i][j] == '0')
+		 	{
+				printf("map[%d][%d] = %c\n", i, j, data->map.map_file[i][j]);
+				print_square(data, data->img.width, data->img.width + 50, data->img.height, data->img.height + 50, WHITE);
+			}
+			else if (data->map.map_file[i][j] == ' ')
+			{
+				printf("map[%d][%d] = %c\n", i, j, data->map.map_file[i][j]);
+				print_square(data, data->img.width, data->img.width + 50, data->img.height, data->img.height + 50, GREEN);
+			}
+			else if (data->map.map_file[i][j] == 'S' || data->map.map_file[i][j] == 'N' || data->map.map_file[i][j] == 'W'
+						|| data->map.map_file[i][j] == 'E')
+			{
+				printf("map[%d][%d] = %c\n", i, j, data->map.map_file[i][j]);
+				print_square(data, data->img.width, data->img.width + 50, data->img.height, data->img.height + 50, PINK);
+			}
+	 		j++;
+			data->img.width += 50;
+	 	}
+	 	data->img.height += 50;
+	 	i++;
+		//printf("map[i] = %s\n", data->map.map_file[i]);
+	 }
 
 }
+
 
 void	game_loop(t_data *data)
 {
