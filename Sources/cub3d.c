@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/15 17:36:08 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/16 14:27:58 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,18 @@ void	raycasting(t_data *data)
 }
 
 
-void	print_tile(t_data *data, int img_height, int img_width)
+void	print_tile(t_data *data, int a, int b, int c, int d)
 {
-	
-	while (img_height < )
+	d = 0;
+	while (c < data->win_height && d < c)
 	{
-		img_width = 0;
-		while (img_width <)
+		a = 0;
+		while (d < data->win_width && a < b)
 		{
-			data->img.addr[img_height * data->win_width + img_width] = RED;
-			img_width++;
+			data->img.addr[d * data->win_width + a] = RED;
+			a++;
 		}
-		img_height++;
+		d++;
 	}
 	
 }
@@ -109,9 +109,9 @@ void	mini_map(t_data *data)
 	// 	if (data->map.map_file[i][j])
 	// 		i++;
 	// }
-	printf("img height = %d\n", data->img.height);
-	print_tile(data, data->img.height, data->img.width);
-	printf("img height = %d\n", data->img.height);
+	//printf("img height = %d\n", data->img.height);
+	print_tile(data, data->img.height, data->img.height + 50, data->img.width, data->img.width + 50);
+	//printf("img height = %d\n", data->img.height);
 
 
 }
