@@ -36,9 +36,9 @@ typedef struct s_texture
 
 typedef struct s_map
 {
-	char	**map_file;
-	int		map_height;
-	int 	map_widht;
+	char	**file;
+	int		height;
+	int 	width;
 	int		spawn_x;
 	int		spawn_y;
 	char	spawn_side;

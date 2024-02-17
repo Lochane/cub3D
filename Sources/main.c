@@ -46,6 +46,9 @@ int	main(int ac, char **av)
 		return (0);
 	init_struct(data);
 	parsing(av[1], data);
+	//int size = mlx_get_screen_size(data->mlx_ptr, &data->win_height, &data->win_width);
+	//printf("size = %d\n", size);
+
 	//print_map_info(data);
 	cub3d(data);
 }

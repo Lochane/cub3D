@@ -80,33 +80,33 @@ void	split_file(t_data *data)
 	j = 0;
 	while (!ft_strchr(data->cub_file[i], '1'))
 		i++;
-	data->map.map_height = found_size(data->cub_file, i);
-	data->map.map_file = malloc(sizeof(char *) * (data->map.map_height + 1));
-	if(!data->map.map_file)
+	data->map.height = found_size(data->cub_file, i);
+	data->map.file = malloc(sizeof(char *) * (data->map.height + 1));
+	if(!data->map.file)
 	{
 		free_texture_path(NULL, 4, data);
 		error_msg("Error:\n Erreur Malloc", 1, data);
 	}
 	while(data->cub_file[i])
 	{
-		data->map.map_file[j] = ft_strdup(data->cub_file[i]);
-		if (!data->map.map_file[j])
+		data->map.file[j] = ft_strdup(data->cub_file[i]);
+		if (!data->map.file[j])
 		{
 			free_texture_path(NULL, 4, data);
-			free_tab(data->map.map_file, data->map.map_height, data, 0);
+			free_tab(data->map.file, data->map.height, data, 0);
 			error_msg("Error:\n Erreur Malloc", 1, data);
 		}
-		data->map.map_file[j] = ft_strtrim(data->map.map_file[j], "\n");
-		if (!data->map.map_file[j])
+		data->map.file[j] = ft_strtrim(data->map.file[j], "\n");
+		if (!data->map.file[j])
 		{
 			free_texture_path(NULL, 4, data);
-			free_tab(data->map.map_file, data->map.map_height, data, 0);
+			free_tab(data->map.file, data->map.height, data, 0);
 			error_msg("Error:\n Erreur Malloc", 1, data);
 		}
 		i++;
 		j++;
 	}
-	data->map.map_file[j] = 0;
+	data->map.file[j] = 0;
 	free_tab(data->cub_file, data->file_weidht, data, 0);
 }
 

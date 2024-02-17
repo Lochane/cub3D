@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lcalvie <lcalvie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/16 19:34:18 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/17 13:50:51 by lcalvie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,39 +49,38 @@ void	raycasting(t_data *data)
 }
 
 
-void	print_tile(t_data *data, int color)
-{
-//	data->img.height = 0;
-//	printf("a = %d, b = %d, c = %d, d= %d\n", a, b, c, d);
-	while (data->img.height + 50 < data->win_height && data->img.height < data->img.height + 50)
-	{
-		data->img.width = 0;
-		while (data->img.width + 50 < data->win_width && data->img.width  < data->img.width + 50)
-		{
-			//printf("img addr = %p\n", data->img.addr);
-			data->img.addr[data->img.height * data->win_width + data->img.width] = color;
-			data->img.width++;
-		}
-		data->img.height++;
-	}
-	
-}
+// void	print_ray(t_data *data)
+// {
+// 	double	a;
+// 	double	b;
 
-void	print_square(t_data *data, int a, int b, int c, int d, int color)
+// 	//y = ax + b;
+// 	//a = tangente de l'angle
+// 	//b = position de depart
+// 	//b = playery - tan(angle) * playerx
+// 	//x et y en pixel
+	
+// 	a = tan(data->player.angle);
+// 	b = data->player.y - (a * data->player.x);
+// }
+
+
+
+void	print_square(t_data *data, int start_width, int end_width, int start_height, int end_height, int color)
 {
 	//c  = 0;
-	int tmp = a;
-	//printf("img height= %d, win height = %d\n", data->img.height, data->win_height);
-	while (d <= data->win_height && c <= d)
+	int tmp = start_width;
+	//printf("height= %d, win height = %d, width = %d, win width = %d\n", start_height, data->win_height, start_width, data->win_width);
+	while (end_height <= data->win_height && start_height <= end_height)
 	{
-		a = tmp;
-		while(b <= data->win_width && a <= b)
+		tmp = start_width;
+		while (end_width <= data->win_width && tmp <= end_width)
 		{
 			//printf("img width %d, win width = %d\n", data->img.width, data->win_width);
-			data->img.addr[c * data->win_width + a] = color;
-			a++;
+			data->img.addr[start_height * data->win_width + tmp] = color;
+			tmp++;
 		}
-		c++;
+		start_height++;
 	}
 }
 
@@ -89,42 +88,56 @@ void	mini_map(t_data *data)
 {
 	int	i;
 	int	j;
+	int	square_size;
+	int	width;
+	int	height;
 
 	i = 0;
+	data->map.width = count_width(data);
+	width = data->map.width;
+	height = data->map.height;
+	if (width > height)
+		square_size = (data->win_width * 0.25) / width;
+	else
+		square_size = data->win_height / height;
+	
+	//printf("width = %d\n", data->map.width);
+	//printf("width = %d, height = %d\n", width, height);
+	printf("square size = %d\n", square_size);
 	data->img.height = 0;
-	while (data->map.map_file[i])
+	while (data->map.file[i])
 	{
 	 	data->img.width = 0;
 	 	j = 0;
-	 	while (data->map.map_file[i][j])
+	 	while (data->map.file[i][j])
 	 	{
-	 		if (data->map.map_file[i][j] == '1')
+	 		if (data->map.file[i][j] == '1')
 			{
-				printf("map[%d][%d] = %c\n", i, j, data->map.map_file[i][j]);
-				print_square(data, data->img.width, data->img.width + 50, data->img.height, data->img.height + 50, RED);
+				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
+				print_square(data, data->img.width, data->img.width + square_size, data->img.height, data->img.height + square_size, RED);
 			}
-			else if (data->map.map_file[i][j] == '0')
+			else if (data->map.file[i][j] == '0')
 		 	{
-				printf("map[%d][%d] = %c\n", i, j, data->map.map_file[i][j]);
-				print_square(data, data->img.width, data->img.width + 50, data->img.height, data->img.height + 50, WHITE);
+				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
+				print_square(data, data->img.width, data->img.width + square_size, data->img.height, data->img.height + square_size, WHITE);
 			}
-			else if (data->map.map_file[i][j] == ' ')
+			else if (data->map.file[i][j] == ' ')
 			{
-				printf("map[%d][%d] = %c\n", i, j, data->map.map_file[i][j]);
-				print_square(data, data->img.width, data->img.width + 50, data->img.height, data->img.height + 50, GREEN);
+				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
+				print_square(data, data->img.width, data->img.width + square_size, data->img.height, data->img.height + square_size, GREEN);
 			}
-			else if (data->map.map_file[i][j] == 'S' || data->map.map_file[i][j] == 'N' || data->map.map_file[i][j] == 'W'
-						|| data->map.map_file[i][j] == 'E')
+			else if (data->map.file[i][j] == 'S' || data->map.file[i][j] == 'N' || data->map.file[i][j] == 'W'
+						|| data->map.file[i][j] == 'E')
 			{
-				printf("map[%d][%d] = %c\n", i, j, data->map.map_file[i][j]);
-				print_square(data, data->img.width, data->img.width + 50, data->img.height, data->img.height + 50, PINK);
+				//printf("PERSONNAGE map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
+				print_square(data, data->img.width, data->img.width + square_size, data->img.height, data->img.height + square_size, PINK);
 			}
 	 		j++;
-			data->img.width += 50;
+			data->img.width += square_size;
 	 	}
-	 	data->img.height += 50;
+	 	data->img.height += square_size;
 	 	i++;
-		//printf("map[i] = %s\n", data->map.map_file[i]);
+		//printf("map[i] = %s\n", data->map.file[i]);
 	 }
 
 }

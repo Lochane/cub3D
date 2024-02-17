@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lcalvie <lcalvie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/15 15:44:12 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/17 13:16:14 by lcalvie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,18 @@ void init_struct(t_data *data)
 	data->mlx_ptr = NULL;
 	data->win_ptr = NULL;
 	// data->cub_file = NULL;
-	data->map.map_widht = 0;
-	data->map.map_height = 0;
+	data->map.width = 0;
+	data->map.height = 0;
 	data->map.spawn_y = 0;
 	data->map.spawn_x = 0;
 	data->map.spawn_side = 0;
 	data->cub_file = NULL;
 	data->texture.count = 0;
 	data->file_weidht = 0;
-	data->win_width = SCREEN_HEIGHT;
-	data->win_height = SCREEN_WIDHT;
-	// data->map.map_file = NULL;
+	data->win_width = SCREEN_WIDTH;
+	data->win_height = SCREEN_HEIGHT;
+	//int size = mlx_get_screen_size(data->mlx_ptr, &data->win_height, &data->win_width);
+	// data->map.file = NULL;
 	data->texture.c_color = NULL;
 	data->texture.f_color = NULL;
 	data->texture.no_path = NULL;
@@ -43,8 +44,8 @@ void	init_window_and_image(t_data *data)
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
 		error_msg("Error: mlx init fail\n", 0, data);
-	data->win_ptr = mlx_new_window(data->mlx_ptr, data->win_height,
-			data->win_width, "Cub3D");
+	data->win_ptr = mlx_new_window(data->mlx_ptr, data->win_width,
+			data->win_height, "Cub3D");
 	if (!data->win_ptr)
 	{
 		free(data->mlx_ptr);

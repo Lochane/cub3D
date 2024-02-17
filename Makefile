@@ -1,7 +1,7 @@
 NAME		= cub3D
 	
 CC			= cc
-FLAGS		= -Wall -Wextra -Werror -g3
+FLAGS		= -Wall -Wextra -Werror -g3 -lm
 RM			= rm -rf
 
 OBJDIR = .objFiles

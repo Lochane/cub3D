@@ -12,6 +12,26 @@
 
 #include "../Includes/cub3d.h"
 
+int		count_width(t_data *data)
+{
+	int	i;
+	int	len;
+	int	len_max;
+
+	len = 0;
+	len_max = 0;
+	i = 0;
+	while (data->map.file[i])
+	{
+		len = ft_strlen(data->map.file[i]);
+		if (len > len_max)
+			len_max = len;	
+		i++;
+	}
+	//printf("len max = %d\n", len_max);
+	return (len_max);
+}
+
 int    tab_size(char **tab)
 {
     int i;
@@ -53,7 +73,7 @@ int	copy_tab(char **dest, char **src, t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->map.map_height)
+	while (i < data->map.height)
 	{
 		dest[i] = ft_strdup(src[i]);
 		if (!dest)
@@ -79,7 +99,7 @@ int        found_spawn(char **tab, t_data *data)
         i = 0;
         j = 0;
         c = 0; 
-        while (i < data->map.map_height)
+        while (i < data->map.height)
         {
                 j = 0;
                 while (tab[i][j] && (tab[i][j] != 'N' && tab[i][j] != 'S' && tab[i][j] != 'W' && tab[i][j] != 'E'))
@@ -95,7 +115,7 @@ int        found_spawn(char **tab, t_data *data)
         }
         if (c > 1 || c <= 0)
         {
-                free_tab(tab, data->map.map_height, data, 0); 
+                free_tab(tab, data->map.height, data, 0); 
                 free_texture_path("Error:\nWrong spawn\n", 1, data);
         }
         return (0);
@@ -121,7 +141,7 @@ void	print_map_info(t_data *data)
 	printf("%s\n", data->texture.so_path);
 	printf("%s\n", data->texture.ea_path);
 	printf("%s\n", data->texture.we_path);
-	for (int i = 0; data->map.map_file[i]; i++)
-		printf("%s\n", data->map.map_file[i]);
+	for (int i = 0; data->map.file[i]; i++)
+		printf("%s\n", data->map.file[i]);
 }
 
