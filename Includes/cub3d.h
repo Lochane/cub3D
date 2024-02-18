@@ -10,10 +10,11 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <sys/time.h>
+# include <math.h>
 
 # define	SCREEN_WIDTH 1650
 # define	SCREEN_HEIGHT 900
-# define	
+#define		ZOOM	1
 # define	TILE_SIZE 1 //comment on determine la taille de la tile?
 # define	RED 0xFF0000
 # define 	GREEN 0x00FF00

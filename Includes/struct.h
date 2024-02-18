@@ -42,6 +42,7 @@ typedef struct s_map
 	int		spawn_x;
 	int		spawn_y;
 	char	spawn_side;
+	int		square_size;
 } t_map;
 
 typedef	struct s_player

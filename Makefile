@@ -1,7 +1,7 @@
 NAME		= cub3D
 	
 CC			= cc
-FLAGS		= -Wall -Wextra -Werror -g3 -lm
+FLAGS		= -Wall -Wextra -Werror -g3
 RM			= rm -rf
 
 OBJDIR = .objFiles
@@ -12,7 +12,7 @@ SRC			= $(FILES:=.c)
 OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))
 HEADER		= ./libft/libft.h Includes/cub3d.h Includes/struct.h
 OPTS		= ./libft/libft.a
-MLX			= -lX11 -lXext #-L./mlx 
+MLX			= -lX11 -lXext -lm #-L./mlx
 
 
 #Colors:

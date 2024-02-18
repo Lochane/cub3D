@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcalvie <lcalvie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/17 13:16:14 by lcalvie          ###   ########.fr       */
+/*   Updated: 2024/02/18 18:08:14 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ void	init_player(t_data *data)
 	data->player.y = data->map.spawn_y;
 	data->player.fov = 60; 
 	if (data->map.spawn_side == 'N')
-		data->player.angle = 0;
-	else if (data->map.spawn_side == 'E')
 		data->player.angle = 90;
+	else if (data->map.spawn_side == 'E')
+		data->player.angle = 0;
 	else if (data->map.spawn_side == 'S')
-		data->player.angle = 180;
-	else if (data->map.spawn_side == 'W')
 		data->player.angle = 270;
+	else if (data->map.spawn_side == 'W')
+		data->player.angle = 180;
 	
 	// data->player.rotation_flag = ;
 	// data->player.left_rotation = ;

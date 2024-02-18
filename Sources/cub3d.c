@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcalvie <lcalvie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/17 13:50:51 by lcalvie          ###   ########.fr       */
+/*   Updated: 2024/02/18 21:13:15 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,55 +15,125 @@
 void	raycasting(t_data *data)
 {
 	(void)data;
-	// double	x1;
-	// double	x2;
-	// double	x3;
-	// double	x4;
-	// double	y1;
-	// double	y2;
-	// double	y3;
-	// double	y4;
-	
-	// x1 = ;
-	// y1 = ;
-	// x2 = ;
-	// y2 = ;
-
-	// x3 = data->player.x;
-	// y3 = data->player.y;
-	// x4 = data->player.x + data->player.angle;
-	// y4 = data->player.y + data->player.angle;
-
-	// double	den;
-	// double	t;
-	// double	u;
-	// den = ((x1 - x2) * (y3 -y4)) - ((y1 - y2) * (x3 - x4));
-	// if (den == 0)
-	// 	return (0);//line parallele
-	// t = (((x1 - x3) * (y3 - y4)) - ((y1 - y3) * (x3 - x4))) / den;
-	// u = - (((x1 - x2) * (y1 - y3)) * ((y1 - y2) * (x1 - x3))) / den;
-	// if (t > 0 && t < 1 && u > 0)
-	// 	return (1);//intersection point
-	// else
-	// 	return (0);
 }
 
-
-// void	print_ray(t_data *data)
-// {
-// 	double	a;
-// 	double	b;
-
-// 	//y = ax + b;
-// 	//a = tangente de l'angle
-// 	//b = position de depart
-// 	//b = playery - tan(angle) * playerx
-// 	//x et y en pixel
+int		is_in_fov(t_data *data)
+{
+	double	angle;
+	double	angle_max;
 	
-// 	a = tan(data->player.angle);
-// 	b = data->player.y - (a * data->player.x);
-// }
+	angle = data->player.angle - (data->player.fov / 2);
+	angle_max = data->player.angle + (data->player.fov / 2);
+	
+	printf("angle = %f, angle + fov = %f\n", angle,data->player.angle + (data->player.fov / 2));
+	
+	
+	return (0);
+}
 
+void	print_ray(t_data *data, double angle)
+{
+	double	a;
+	double	b;
+	int	x;
+	int	y;
+	int center_x;
+	int	center_y;
+
+	center_x = data->player.x * data->map.square_size;
+	center_y = data->player.y * data->map.square_size;
+	center_x += data->map.square_size / 2;
+	center_y += data->map.square_size / 2;
+	x = center_x;
+	y = center_y;
+	
+	// if (angle < 180)
+	// 	a = tan( angle * (M_PI / 180));
+	// else
+		a = -tan( angle * (M_PI / 180));
+	b = y - (a * x);
+	data->img.height = 0;
+	int end_height = 0;
+	int start_height = 0;
+	int	start_width = 0;
+	int end_width = 0;
+	
+	start_height = 0;
+	end_height = data->win_height;
+	start_width = 0;
+	end_width = data->win_width;
+	printf("angle = %f\n", angle);
+	if (angle >= 0 && angle <= 90)
+	{
+		printf("0 -> 90\n");
+		start_height = 0;
+		end_height = center_y;
+		start_width = center_x;
+		end_width = data->win_width;
+	}
+	else if (angle >= 90 && angle <= 180)
+	{
+		printf("90 -> 180\n");
+		start_height = 0;
+		end_height = center_y;
+		start_width = 0;
+		end_width = center_x;
+		
+	}
+	else if (angle >= 180 && angle <= 270)
+	{
+		printf("180 -> 270\n");
+		start_height = center_y;
+		end_height = data->win_height;
+		start_width = 0;
+		end_width = center_x;
+	}
+	else if (angle >= 270 && angle <= 360)
+	{
+		printf("270 -> 360\n");
+		start_height = center_y;
+		end_height = data->win_height;
+		start_width = center_x;
+		end_width = data->win_width;
+	}
+	int tmp = start_width;
+	while (start_height < end_height)
+	{
+		tmp = start_width;
+		while (tmp < end_width)
+		{
+			y = start_height;
+			x = tmp;
+			if (y - (a * x + b) >= -1 && y - (a * x + b) <= 1)
+			{
+				if ((y / data->map.square_size < data->map.height) && (x / data->map.square_size < data->map.width))
+				{
+					if (data->map.file[y / data->map.square_size][x / data->map.square_size] == '1')
+						return;
+					data->img.addr[start_height * data->win_width + tmp] = CYAN;
+				}
+			}
+			tmp++;
+		}
+		start_height++;
+	}
+}
+
+void	print_all_rays(t_data *data)
+{
+	double	angle;
+	double	angle_max;
+	
+	angle = data->player.angle - (data->player.fov / 2);
+	angle_max = data->player.angle + (data->player.fov / 2);
+	printf("angle = %f, fov = %f, angle + fov = %f\n", angle, data->player.fov,data->player.angle + (data->player.fov / 2));
+	while (angle <= angle_max)
+	{
+		//printf("angle = %f\n", angle);
+		print_ray(data, angle);
+		angle++;
+	}
+}
 
 
 void	print_square(t_data *data, int start_width, int end_width, int start_height, int end_height, int color)
@@ -88,7 +158,6 @@ void	mini_map(t_data *data)
 {
 	int	i;
 	int	j;
-	int	square_size;
 	int	width;
 	int	height;
 
@@ -97,13 +166,10 @@ void	mini_map(t_data *data)
 	width = data->map.width;
 	height = data->map.height;
 	if (width > height)
-		square_size = (data->win_width * 0.25) / width;
+		data->map.square_size = (data->win_width * ZOOM) / width;
 	else
-		square_size = data->win_height / height;
-	
-	//printf("width = %d\n", data->map.width);
-	//printf("width = %d, height = %d\n", width, height);
-	printf("square size = %d\n", square_size);
+		data->map.square_size = data->win_height / height;
+
 	data->img.height = 0;
 	while (data->map.file[i])
 	{
@@ -114,28 +180,28 @@ void	mini_map(t_data *data)
 	 		if (data->map.file[i][j] == '1')
 			{
 				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + square_size, data->img.height, data->img.height + square_size, RED);
+				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, RED);
 			}
 			else if (data->map.file[i][j] == '0')
 		 	{
 				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + square_size, data->img.height, data->img.height + square_size, WHITE);
+				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, WHITE);
 			}
 			else if (data->map.file[i][j] == ' ')
 			{
 				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + square_size, data->img.height, data->img.height + square_size, GREEN);
+				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, GREEN);
 			}
 			else if (data->map.file[i][j] == 'S' || data->map.file[i][j] == 'N' || data->map.file[i][j] == 'W'
 						|| data->map.file[i][j] == 'E')
 			{
 				//printf("PERSONNAGE map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + square_size, data->img.height, data->img.height + square_size, PINK);
+				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, PINK);
 			}
 	 		j++;
-			data->img.width += square_size;
+			data->img.width += data->map.square_size;
 	 	}
-	 	data->img.height += square_size;
+	 	data->img.height += data->map.square_size;
 	 	i++;
 		//printf("map[i] = %s\n", data->map.file[i]);
 	 }
@@ -145,12 +211,8 @@ void	mini_map(t_data *data)
 
 void	game_loop(t_data *data)
 {
-	
-	//delete image
-	//data->img.img = mlx_new_image(data->mlx_ptr, data->win_height, data->win_width);
-	//hook the player (je sais pas ce que ca veut dire)
-	//cast the rays
 	mini_map(data);
+	print_all_rays(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
 }
 
@@ -163,5 +225,4 @@ void	start_game(t_data *data)
 	
 	game_loop(data);
 	mlx_loop(data->mlx_ptr);
-	//exit game
 }
