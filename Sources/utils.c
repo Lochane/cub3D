@@ -85,7 +85,7 @@ int	copy_tab(char **dest, char **src, t_data *data)
 
 int	is_char_valid(char c)
 {	
-	if (c != '1' && c != '0' && c != ' ' &&  c != 'P' &&  c != 'S' &&  c != 'W' &&  c != 'E' && c != '2')
+	if (c != '1' && c != '0' && c != ' ' &&  c != 'P' &&  c != 'S' &&  c != 'W' &&  c != 'E' && c != '2' && c != 'N')
 				return (0);
 	return (1);
 }

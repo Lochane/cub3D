@@ -12,17 +12,18 @@
 # include <sys/time.h>
 # include <math.h>
 
-# define	SCREEN_WIDTH 1650
-# define	SCREEN_HEIGHT 900
+# define	SCREEN_WIDTH 2560
+# define	SCREEN_HEIGHT 1440
 #define		ZOOM	1
 # define	TILE_SIZE 1 //comment on determine la taille de la tile?
 # define	RED 0xFF0000
 # define 	GREEN 0x00FF00
-# define	PINK 0xFF00FF
+# define	PINK 0xC3139E
 # define	CYAN 0x00FFFF
-# define	YELLOW 0xFFFF00
+# define	YELLOW 0xE8CD22
 # define	WHITE 0xFFFFFF
 # define	BLACK 0x000000
+# define	PURPLE 0x5A0183
 //FOV
 //roation speed
 //player speed
