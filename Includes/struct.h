@@ -58,9 +58,16 @@ typedef	struct s_player
 
 typedef	struct s_ray
 {
-	double	ray_angle;
-	double	distance;
-	//int		flag;//c'est quoi flag?
+	double	angle;
+	double	a;
+	double	b;
+	int		x;
+	int		y;
+	int		center;
+	int		start_height;
+	int		start_width;
+	int		end_height;
+	int		end_width;
 } t_ray;
 
 
@@ -72,6 +79,7 @@ typedef struct s_data
 	int			file_weidht;
 	int			win_height;
 	int			win_width;
+	t_ray		ray;
 	t_map		map;
 	t_img		img;
 	t_texture	texture;

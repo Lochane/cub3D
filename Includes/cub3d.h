@@ -75,4 +75,10 @@ void	init_player(t_data *data);
 void	start_game(t_data *data);
 void	game_loop(t_data *data);
 
+//MINIMAP
+
+
+void	mini_map(t_data *data);
+void	print_all_rays(t_data *data);
+
 #endif

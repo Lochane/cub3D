@@ -6,246 +6,142 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/19 18:29:41 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:34:07 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/cub3d.h"
 
-void	raycasting(t_data *data)
+int		hit_wall(t_data *data, float intersection_x, float intersection_y)
 {
-	(void)data;
-}
+	int	x;
+	int	y;
 
-int		is_wall(t_data *data, double a, double b, int x, int y, int start_height, int tmp)
-{
-	if (y - (a * x + b) >= -1 && y - (a * x + b) <= 1)
-	{
+	// if (intersection_x < 0 | intersection_y < 0)
+	// 	return (0);
+	x = intersection_x / TILE_SIZE;//get the x position on the map
+	y = intersection_y / TILE_SIZE;//get the y position in the map
 	
-		if ((y / data->map.square_size < data->map.height) && (x / data->map.square_size < data->map.width))
-		{
-			
-			if (data->map.file[y / data->map.square_size][x / data->map.square_size] == '1')
-				return (1);
-		}
-		data->img.addr[start_height * data->win_width + tmp] = WHITE;	
+	// if (y >= data->map.height || x >= data->map.width)
+	// 	return (0); // if en dehors de la map
+	
+	if (data->map.file[y] && data->map.file[y][x])//?? x <= ft_strlen_float(data->map.file[y]) == data->map[y][x] ??
+	{
+		if (data->map.file[y][x] == '1')
+			return (1);
 	}
 	return (0);
 }
 
-void	print_ray(t_data *data, double angle)
+int		find_horizontal_intersection(t_data *data)
 {
-	double	a;
-	double	b;
-	int	x;
-	int	y;
-	int center_x;
-	int	center_y;
+	float	x_step;
+	float	y_step;
+	float	intersection_x;
+	float	intersection_y;
 
-	center_x = data->player.x * data->map.square_size;
-	center_y = data->player.y * data->map.square_size;
-	center_x += data->map.square_size / 2;
-	center_y += data->map.square_size / 2;
-	x = center_x;
-	y = center_y;
+	int	pixel;
+	double	distance;
+
+	data->player.x = data->player.x * data->map.square_size;
+	data->player.y = data->player.y * data->map.square_size;
+	data->player.x += data->map.square_size / 2;
+	data->player.y += data->map.square_size / 2;
+
+	x_step = TILE_SIZE / tan(data->player.angle  * (M_PI / 180));
+	y_step = TILE_SIZE;
 	
-	// if (angle < 180)
-	// 	a = tan( angle * (M_PI / 180));
-	// else
-	//printf("av angle = %f\n", angle);
-	//angle = angle * -1;
-	//printf("angle = %f\n", angle);
-	a = -tan( angle * (M_PI / 180));
-	//printf("a = %f\n", a);
-	b = y - (a * x);
-	data->img.height = 0;
-	int end_height = 0;
-	int start_height = 0;
-	int	start_width = 0;
-	int end_width = 0;
+	intersection_x = floor(data->player.x / TILE_SIZE) * TILE_SIZE;
+	intersection_y = data->player.y + (intersection_x - data->player.y) / tan(data->player.angle  * (M_PI / 180));
 	
-	//angle = angle * -1;
-	start_height = 0;
-	end_height = data->win_height;
-	start_width = 0;
-	end_width = data->win_width;
-	if (angle >= 0 && angle <= 90)
-	{
-		printf("0 -> 90\n");
-		start_height = 0;
-		end_height = center_y;
-		start_width = center_x;
-		end_width = data->win_width;
+	//pas sur d'avoir compris :
+	if (data->player.angle > 0 && data->player.angle < M_PI)
+		pixel = intersection_y + TILE_SIZE;
+	else
+		pixel = y_step * -1;
+	//
+	
+	// if ((unit_circle(angl, 'y') && x_step > 0) || (!unit_circle(angl, 'y') && x_step < 0)) // check x_step value
+ 	// 	 x_step *= -1;
+	//check x_step value is in 
 
-		// start_height = center_y;
-		// end_height = 0;
-		// start_width = 0;
-		// end_width = center_x;
-	}
-	else if (angle >= 90 && angle <= 180)
+	while (hit_wall(data, intersection_x, intersection_y - pixel) == 0)
 	{
-		printf("90 -> 180\n");
-		start_height = 0;
-		end_height = center_y;
-		start_width = 0;
-		end_width = center_x;
-
-		// start_height = center_y;
-		// end_height = 0;
-		// start_width = data->win_width;
-		// end_width = center_x;
+		intersection_x += x_step;
+		intersection_y += y_step;
 	}
-	else if (angle >= 180 && angle <= 270)
-	{
-		printf("180 -> 270\n");
-		start_height = center_y;
-		end_height = data->win_height;
-		start_width = 0;
-		end_width = center_x;
-
-		// start_height = center_y;
-		// end_height = data->win_height;
-		// start_width = center_x;
-		// end_width = 0;
-	}
-	else if (angle >= 270 && angle <= 360)
-	{
-		printf("270 -> 360\n");
-		start_height = center_y;
-		end_height = data->win_height;
-		start_width = center_x;
-		end_width = data->win_width;
-
-	}
-	else if (angle >= -30 && angle <= 0)
-	{
-		start_height = center_y;
-		end_height = data->win_height;
-		start_width = center_x;
-		end_width = data->win_width;
-	}
-	// start_height = 0;
-	// start_width = 0;
-	// end_height = data->win_height;
-	// end_width = data->win_width;
-	int tmp = start_width;
-	while (start_height < end_height)
-	{
-		tmp = start_width;
-		while (tmp < end_width)
-		{
-			y = start_height;
-			x = tmp;
-			// if (is_wall(data, a, b, x, y, start_height, tmp) == '1')
-			// 	return;
-			// else
-				//data->img.addr[start_height * data->win_width + tmp] = WHITE;	
-			if (y - (a * x + b) >= -1 && y - (a * x + b) <= 1)
-			{
-				if ((y / data->map.square_size < data->map.height) && (x / data->map.square_size < data->map.width))
-				{
-					//printf("map[%d][%d] = %c\n", y / data->map.square_size, x / data->map.square_size, data->map.file[y / data->map.square_size][x / data->map.square_size]);
-					if (data->map.file[y / data->map.square_size][x / data->map.square_size] == '1')
-						return;
-					data->img.addr[start_height * data->win_width + tmp] = WHITE;
-				}
-			}
-			tmp++;
-		}
-		start_height++;
-	}
+	//quand un mur est touche, calcule la distance entre le joueur et l'intersection
+	//pythagor: a^2 + b^2 = c^2
+	//c = racine carre de a^2 + b^2;
+	//c = distance
+	distance = sqrt(pow(intersection_x - data->player.x, 2) + pow(intersection_y - data->player.y, 2));
+	return (distance);
 }
 
-void	print_all_rays(t_data *data)
+int		find_vertical_intersection(t_data *data)
+{
+	float	x_step;
+	float	y_step;
+	float	intersection_x;
+	float	intersection_y;
+
+	int	pixel;
+	double	distance;
+
+	data->player.x = data->player.x * data->map.square_size;
+	data->player.y = data->player.y * data->map.square_size;
+	data->player.x += data->map.square_size / 2;
+	data->player.y += data->map.square_size / 2;
+
+	x_step = TILE_SIZE / tan(data->player.angle  * (M_PI / 180));
+	y_step = TILE_SIZE;
+	
+	intersection_x = floor(data->player.x / TILE_SIZE) * TILE_SIZE;
+	intersection_y = data->player.y + (intersection_x - data->player.y) / tan(data->player.angle  * (M_PI / 180));
+	
+	//pas sur d'avoir compris :
+	if (data->player.angle > 0 && data->player.angle < 180)
+		pixel = intersection_y + TILE_SIZE;
+	else
+		pixel = y_step * -1;
+	//
+	
+	// if ((unit_circle(angl, 'y') && x_step > 0) || (!unit_circle(angl, 'y') && x_step < 0)) // check x_step value
+ 	// 	 x_step *= -1;
+	//check x_step value is in 
+
+	while (hit_wall(data, intersection_x, intersection_y - pixel) == 0)
+	{
+		intersection_x += x_step;
+		intersection_y += y_step;
+	}
+	//quand un mur est touche, calcule la distance entre le joueur et l'intersection
+	//pythagor: a^2 + b^2 = c^2
+	//c = racine carre de a^2 + b^2;
+	//c = distance
+	distance = sqrt(pow(intersection_x - data->player.x, 2) + pow(intersection_y - data->player.y, 2));
+	return (distance);
+}
+
+
+void	raycasting(t_data *data)
 {
 	double	angle;
-	double	angle_max;
-	
-	//data->player.angle = 225;
+	//double	angle_max;
+	int		ray;
+	double	horizontal_inter;
+	double	vertical_inter;
+
+	ray = 0;
 	angle = data->player.angle - (data->player.fov / 2);
-	angle_max = data->player.angle + (data->player.fov / 2);
-	//angle = data->player.angle;
-	//printf("angle = %f, fov = %f, angle + fov = %f\n", angle, data->player.fov,data->player.angle + (data->player.fov / 2));
-	//angle_max = angle ;
-	while (angle <= angle_max)
+	horizontal_inter = find_horizontal_intersection(data);
+	vertical_inter = find_vertical_intersection(data);
+	while (ray <= data->win_width)
 	{
-		//printf("angle = %f\n", angle);
-		print_ray(data, angle);
-		angle++;
+		
+		angle = angle + (data->player.fov / data->win_width);
+		ray++;
 	}
-}
-
-
-void	print_square(t_data *data, int start_width, int end_width, int start_height, int end_height, int color)
-{
-	//c  = 0;
-	int tmp = start_width;
-	//printf("height= %d, win height = %d, width = %d, win width = %d\n", start_height, data->win_height, start_width, data->win_width);
-	while (end_height <= data->win_height && start_height <= end_height)
-	{
-		tmp = start_width;
-		while (end_width <= data->win_width && tmp <= end_width)
-		{
-			//printf("img width %d, win width = %d\n", data->img.width, data->win_width);
-			data->img.addr[start_height * data->win_width + tmp] = color;
-			tmp++;
-		}
-		start_height++;
-	}
-}
-
-void	mini_map(t_data *data)
-{
-	int	i;
-	int	j;
-	int	width;
-	int	height;
-
-	i = 0;
-	data->map.width = count_width(data);
-	width = data->map.width;
-	height = data->map.height;
-	if (width > height)
-		data->map.square_size = (data->win_width * ZOOM) / width;
-	else
-		data->map.square_size = data->win_height / height;
-
-	data->img.height = 0;
-	while (data->map.file[i])
-	{
-	 	data->img.width = 0;
-	 	j = 0;
-	 	while (data->map.file[i][j])
-	 	{
-	 		if (data->map.file[i][j] == '1')
-			{
-				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, PURPLE);
-			}
-			else if (data->map.file[i][j] == '0')
-		 	{
-				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, PINK);
-			}
-			else if (data->map.file[i][j] == ' ')
-			{
-				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, BLACK);
-			}
-			else if (data->map.file[i][j] == 'S' || data->map.file[i][j] == 'N' || data->map.file[i][j] == 'W'
-						|| data->map.file[i][j] == 'E')
-			{
-				//printf("PERSONNAGE map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, YELLOW);
-			}
-	 		j++;
-			data->img.width += data->map.square_size;
-	 	}
-	 	data->img.height += data->map.square_size;
-	 	i++;
-		//printf("map[i] = %s\n", data->map.file[i]);
-	 }
-
 }
 
 
@@ -253,6 +149,7 @@ void	game_loop(t_data *data)
 {
 	mini_map(data);
 	print_all_rays(data);
+	//raycasting(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
 }
 

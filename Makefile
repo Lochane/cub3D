@@ -6,7 +6,7 @@ RM			= rm -rf
 
 OBJDIR = .objFiles
 
-FILES		= main parsing utils display_arg events free_and_error parse_color cub3d init
+FILES		= main parsing utils display_arg events free_and_error parse_color cub3d init minimap
 
 SRC			= $(FILES:=.c)
 OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))
