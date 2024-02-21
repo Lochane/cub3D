@@ -6,11 +6,25 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:14:06 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/20 18:45:52 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:49:29 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/cub3d.h"
+
+void	init_square_size(t_data *data)
+{
+	int	width;
+	int	height;
+	
+	data->map.width = count_width(data);
+	width = data->map.width;
+	height = data->map.height;
+	if (width > height)
+		data->map.square_size = (data->win_width * ZOOM) / width;
+	else
+		data->map.square_size = data->win_height / height;
+}
 
 void	print_ray(t_data *data, double angle)
 {
@@ -177,17 +191,10 @@ void	mini_map(t_data *data)
 {
 	int	i;
 	int	j;
-	int	width;
-	int	height;
+
 
 	i = 0;
-	data->map.width = count_width(data);
-	width = data->map.width;
-	height = data->map.height;
-	if (width > height)
-		data->map.square_size = (data->win_width * ZOOM) / width;
-	else
-		data->map.square_size = data->win_height / height;
+	init_square_size(data);
 
 	data->img.height = 0;
 	while (data->map.file[i])
