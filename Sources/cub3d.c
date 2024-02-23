@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/21 16:45:50 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/23 19:23:01 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,29 @@
 
 int		hit_wall(t_data *data, float intersection_x, float intersection_y)
 {
-	int	x;
-	int	y;
+	int	x = 0;
+	int	y = 0;
 
 	if (intersection_x < 0 | intersection_y < 0)
 		return (0);
-	x = floor(intersection_x / TILE_SIZE);//get the x position on the map
-	y = floor(intersection_y / TILE_SIZE);//get the y position in the map
-	printf("inter x = %f, inter y = %f\n", intersection_x, intersection_y);
-	printf("inter x = %d, inter y = %d\n", x, y);
-	printf("height = %d, width = %d\n", data->map.height, data->map.width);
+	// x = floor(intersection_x / TILE_SIZE);//get the x position on the map
+	// y = floor(intersection_y / TILE_SIZE);//get the y position in the map
+	//printf("player x = %d\n", data->player.x);
+	//x = floor(intersection_x / data->map.width);//get the x position on the map
+	//y = floor(intersection_y / data->map.height);//get the y position in the map
+	
+	//x = interx  / (win_width / width(line actuel);
+	int width = data->map.width = count_width(data);
+	printf("data->win_width = %d, width = %d, intersection_x = %f\n", data->win_width, width, intersection_x);
+	x = intersection_x / (data->win_width / width);
+	printf("x = %d\n", x);
+	y = intersection_y / (data->win_height / data->map.height);
+	printf("y = %d\n", y);
+	
+	//printf("%f\n", (2040 / (ft_strlen(data->map.width[3])) * data->map.width  )
+	//printf("inter x = %f, inter y = %f\n", intersection_x, intersection_y);
+	//printf("x = %d, y = %d\n", x, y);
+	//printf("height = %d, width = %d\n", data->map.height, data->map.width);
 	if (y >= data->map.height || x >= data->map.width)
 	{
 		
@@ -34,7 +47,7 @@ int		hit_wall(t_data *data, float intersection_x, float intersection_y)
 	
 	if (data->map.file[y] && data->map.file[y][x])//?? x <= ft_strlen_float(data->map.file[y]) == data->map[y][x] ??
 	{
-		printf("map[%d][%d] = %c\n", y, x, data->map.file[y][x]);
+		//printf("map[%d][%d] = %c\n", y, x, data->map.file[y][x]);
 		if (data->map.file[y][x] == '1')
 		{
 			
@@ -70,14 +83,14 @@ int		find_horizontal_intersection(t_data *data)
 
 	//mlx->ply->plyr_x + (h_y - mlx->ply->plyr_y) / tan(angl);
 
-	intersection_y =  floor(data->player.y / TILE_SIZE) * TILE_SIZE;
+	intersection_y =  data->player.y;
 	intersection_x = data->player.x + ((intersection_y - data->player.y) / tan(data->player.angle  * (M_PI / 180)));
 	
-	printf("playerx = %d\n", data->player.x);
-	printf("playery = %d\n", data->player.y);
-	printf("intersectiony = %f\n", intersection_y);
-	printf("angle = %f\n", data->player.angle);
-	printf("tan(angle) %f\n", tan(data->player.angle  * (M_PI / 180)));
+	//printf("playerx = %d\n", data->player.x);
+	//printf("playery = %d\n", data->player.y);
+//	printf("intersectiony = %f\n", intersection_y);
+//	printf("angle = %f\n", data->player.angle);
+//	printf("tan(angle) %f\n", tan(data->player.angle  * (M_PI / 180)));
 	// printf("inter x = %f, inter y = %f\n", intersection_x, intersection_y);
 	
 	//pas sur d'avoir compris :
@@ -90,9 +103,9 @@ int		find_horizontal_intersection(t_data *data)
 	// if ((unit_circle(angl, 'y') && x_step > 0) || (!unit_circle(angl, 'y') && x_step < 0)) // check x_step value
  	// 	 x_step *= -1;
 	//check x_step value is in 
-
 	while (!hit_wall(data, intersection_x, intersection_y - pixel))
 	{
+		
 		intersection_x += x_step;
 		intersection_y += y_step;
 	}
@@ -113,19 +126,20 @@ int		find_vertical_intersection(t_data *data)
 	int	pixel;
 	double	distance;
 
-	data->player.x = data->player.x * data->map.square_size;
-	data->player.y = data->player.y * data->map.square_size;
-	data->player.x += data->map.square_size / 2;
-	data->player.y += data->map.square_size / 2;
+	//data->player.x = data->player.x * data->map.square_size;
+	//data->player.y = data->player.y * data->map.square_size;
+	//data->player.x += data->map.square_size / 2;
+	//data->player.y += data->map.square_size / 2;
 
-	x_step = TILE_SIZE / tan(data->player.angle  * (M_PI / 180));
-	y_step = TILE_SIZE;
+	y_step = TILE_SIZE / tan(data->player.angle  * (M_PI / 180));
+	x_step = TILE_SIZE;
 	
 	
 	intersection_y = 0;
 	intersection_x = 0;
-	intersection_x = floor(data->player.x / TILE_SIZE) * TILE_SIZE;
-	intersection_y = data->player.y + (intersection_x - data->player.y) / tan(data->player.angle  * (M_PI / 180));
+	intersection_x = data->player.x;
+	printf("playerx = %d\n", data->player.x);
+	intersection_y = data->player.y + (intersection_x - data->player.x) / tan(data->player.angle  * (M_PI / 180));
 	
 	//pas sur d'avoir compris :
 	if (data->player.angle > 0 && data->player.angle < 180)
@@ -138,7 +152,7 @@ int		find_vertical_intersection(t_data *data)
  	// 	 x_step *= -1;
 	//check x_step value is in 
 
-	while (hit_wall(data, intersection_x, intersection_y - pixel))
+	while (hit_wall(data, intersection_x - pixel, intersection_y))
 	{
 		intersection_x += x_step;
 		intersection_y += y_step;
@@ -164,8 +178,9 @@ void	raycasting(t_data *data)
 	init_square_size(data);
 	angle = data->player.angle - (data->player.fov / 2);
 	horizontal_inter = find_horizontal_intersection(data);
+	printf("horizontal_inter = %f\n", horizontal_inter);
 	vertical_inter = find_vertical_intersection(data);
-	while (ray <= data->win_width)
+	/*while (ray <= data->win_width)
 	{
 		horizontal_inter = find_horizontal_intersection(data);
 		vertical_inter = find_vertical_intersection(data);
@@ -176,11 +191,11 @@ void	raycasting(t_data *data)
 			data->ray.distance = horizontal_inter;
 			
 		}
-		printf("distance = %f\n", data->ray.distance);
+		//printf("distance = %f\n", data->ray.distance);
 		//render_wall(data);
 		angle = angle + (data->player.fov / data->win_width);
 		ray++;
-	}
+	}*/
 }
 
 
