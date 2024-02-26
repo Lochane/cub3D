@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/24 15:22:38 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/26 15:57:26 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	init_window_and_image(t_data *data)
 		error_msg("Error: mlx init fail\n", 0, data);
 	mlx_get_screen_size(data->mlx_ptr, &data->win_width, &data->win_height);
 	//printf("screen height = %d, screen width = %d\n", data->win_height, data->win_width);
+	data->win_height = 900;
+	data->win_width = 1300;
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->win_width,
 			data->win_height, "Cub3D");
 	if (!data->win_ptr)
