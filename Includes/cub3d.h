@@ -15,7 +15,7 @@
 # define	SCREEN_WIDTH 2560
 # define	SCREEN_HEIGHT 1440
 #define		ZOOM	1
-# define	TILE_SIZE 30 //comment on determine la taille de la tile?
+# define	TILE_SIZE 1 //comment on determine la taille de la tile?
 # define	RED 0xFF0000
 # define 	GREEN 0x00FF00
 # define	PINK 0xC3139E
@@ -70,6 +70,8 @@ int		count_width(t_data *data);
 
 //EXEC
 
+
+void	init_game(t_data *data);
 void	init_window_and_image(t_data *data);
 void	init_player(t_data *data);
 void	start_game(t_data *data);

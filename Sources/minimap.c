@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:14:06 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/21 15:49:29 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/26 15:56:08 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ void	mini_map(t_data *data)
 
 
 	i = 0;
+	int c = 0;
 	init_square_size(data);
 
 	data->img.height = 0;
@@ -206,25 +207,26 @@ void	mini_map(t_data *data)
 	 		if (data->map.file[i][j] == '1')
 			{
 				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, PURPLE);
+				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, PURPLE + c);
 			}
 			else if (data->map.file[i][j] == '0')
 		 	{
 				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, PINK);
+				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, PINK + c);
 			}
 			else if (data->map.file[i][j] == ' ')
 			{
 				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, BLACK);
+				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, BLACK );
 			}
 			else if (data->map.file[i][j] == 'S' || data->map.file[i][j] == 'N' || data->map.file[i][j] == 'W'
 						|| data->map.file[i][j] == 'E')
 			{
 				//printf("PERSONNAGE map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, YELLOW);
+				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, YELLOW + c);
 			}
 	 		j++;
+			c = c + 100;
 			data->img.width += data->map.square_size;
 	 	}
 	 	data->img.height += data->map.square_size;

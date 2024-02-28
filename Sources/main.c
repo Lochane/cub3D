@@ -26,7 +26,8 @@ void	cub3d(t_data *data)
 	//INIT WINDOW
 	init_window_and_image(data);
 	load_texture(data);//init texture
-	
+	//init_game(data);
+	init_player(data);//dans init game ?
 	//START
 	start_game(data);
 

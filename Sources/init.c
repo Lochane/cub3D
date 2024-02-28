@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/18 18:08:14 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/26 15:57:26 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void init_struct(t_data *data)
 	data->cub_file = NULL;
 	data->texture.count = 0;
 	data->file_weidht = 0;
-	data->win_width = SCREEN_WIDTH;
-	data->win_height = SCREEN_HEIGHT;
-	//int size = mlx_get_screen_size(data->mlx_ptr, &data->win_height, &data->win_width);
+	// data->win_width = SCREEN_WIDTH;
+	// data->win_height = SCREEN_HEIGHT;
+	
 	// data->map.file = NULL;
 	data->texture.c_color = NULL;
 	data->texture.f_color = NULL;
@@ -44,6 +44,10 @@ void	init_window_and_image(t_data *data)
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
 		error_msg("Error: mlx init fail\n", 0, data);
+	mlx_get_screen_size(data->mlx_ptr, &data->win_width, &data->win_height);
+	//printf("screen height = %d, screen width = %d\n", data->win_height, data->win_width);
+	data->win_height = 900;
+	data->win_width = 1300;
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->win_width,
 			data->win_height, "Cub3D");
 	if (!data->win_ptr)
@@ -60,6 +64,7 @@ void	init_window_and_image(t_data *data)
 void	init_player(t_data *data)
 {
 	//printf("spawn = %c\n", data->map.spawn_side);
+	
 	data->player.x = data->map.spawn_x;
 	data->player.y = data->map.spawn_y;
 	data->player.fov = 60; 
@@ -75,4 +80,10 @@ void	init_player(t_data *data)
 	// data->player.rotation_flag = ;
 	// data->player.left_rotation = ;
 	// data->player.right_rotation = ;
+}
+
+void	init_game(t_data *data)
+{
+	
+	(void)data;
 }
