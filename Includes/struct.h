@@ -47,8 +47,8 @@ typedef struct s_map
 
 typedef	struct s_player
 {
-	int		x;
-	int		y;
+	double		x;
+	double		y;
 	float	fov;//field of view in radians
 	double	angle;
 	//int		rotation_flag;
