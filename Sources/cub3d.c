@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/28 17:40:22 by malancar         ###   ########.fr       */
+/*   Updated: 2024/02/29 11:43:19 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,30 +91,27 @@ int		find_horizontal_intersection(t_data *data, float angle)
 	
 	double	distance;
 
-	x_step = 1 / tan(angle  * (M_PI / 180));
-	printf("x_step = %f\n", x_step);
-	y_step = 1;
-	y_step = 0.5;
-	x_step = 0.288;//comment avoir cette valeur ?
-	printf("HERE xstep = %f\n", (y_step - data->map.spawn_y / tan (data->player.angle * (M_PI / 180)) + data->map.spawn_x));
+	//printf("x_step = %f\n", x_step);
+	//y_step = 0.5;
+	//x_step = 0.288;//comment avoir cette valeur ?
+	//y_step = data->player.y - data->map.spawn_y;
+	//x_step = ;
+	//x_step = y_step / tan(-240 * M_PI / 180) + data->player.x;
+//	printf("HERE xstep = %f\n", x_step);
 	//printf("xstep = %f, ystep = %f\n", x_step, y_step);
 	//printf("tan = %f\n", tan(angle  * (M_PI / 180)));
-	intersection_y =  data->player.y;
-	y_step = data->player.y - data->map.spawn_y;
-	printf("step_y = %f\n", y_step);
-	
+//	printf("step_y = %f\n", y_step);
+
+	x_step = 1 / tan(angle  * (M_PI / 180));
+	y_step = 1;
+	intersection_y =  data->player.y + y_step;
 	inter_check(angle, &intersection_y, &y_step, 1);
-	intersection_x = data->player.x + ((intersection_y - data->player.y) / tan(data->player.angle  * (M_PI / 180)));
-	printf("intersection_x = %f\n", intersection_x);
-	
-	if ((unit_circle(angle, 'y') && x_step > 0) || (!unit_circle(angle, 'y') && x_step < 0)) // check x_step value
+	intersection_x =  (data->player.y - data->map.spawn_y) / tan(-240 * M_PI / 180) + data->player.x;
+	if ((unit_circle(angle, 'y') && x_step > 0) || (!unit_circle(angle, 'y') && x_step < 0))
  		x_step *= -1;
-	//printf("playerx = %f, playery = %f\n", data->player.x, data->player.y);
 	printf("horizontal: ");
-	printf("xstep = %f, ystep = %f\n\n", x_step, y_step);
+	printf("xstep = %f, ystep = %f\n", x_step, y_step);
 	printf("intersectionx = %f, intersectiony = %f\n\n", intersection_x, intersection_y);
-	intersection_x += x_step;
-	intersection_y += y_step;
 	if (!hit_wall(data, intersection_x, intersection_y))
 	{
 		x_step = 1 / tan(angle  * (M_PI / 180));
