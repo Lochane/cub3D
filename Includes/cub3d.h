@@ -24,6 +24,7 @@
 # define	WHITE 0xFFFFFF
 # define	BLACK 0x000000
 # define	PURPLE 0x5A0183
+# define	BLUE 0x0000FF
 //FOV
 //roation speed
 //player speed

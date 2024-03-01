@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/29 18:56:29 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:40:10 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,12 +151,12 @@ int		find_vertical_intersection(t_data *data, float angle)
 	inter_check(angle, &intersection_x, &x_step, 0);
 	if (angle > 90 && angle < 270)
 	{
-		printf("tan entre 90et 270\n");
+		//printf("tan entre 90et 270\n");
 		intersection_y = tan(angle * M_PI / 180) * (data->player.x - data->map.spawn_x) + data->player.y;
 	}
 	else
 	{
-		printf("-tan pas entre 90 et 270\n");
+		//printf("-tan pas entre 90 et 270\n");
 		intersection_y = tan(-angle * M_PI / 180) * (data->player.x - data->map.spawn_x) + data->player.y;
 	}
 	if ((unit_circle(angle, 'x') && y_step > 0) || (!unit_circle(angle, 'x') && y_step < 0)) // check x_step value
@@ -167,15 +167,50 @@ int		find_vertical_intersection(t_data *data, float angle)
 	// printf("inter_x = %f, inter_y = %f\n", intersection_x, intersection_y);
 	while (!is_wall(data, intersection_x, intersection_y))
 	{
-		printf("vertical : inter_x = %f, inter_y = %f\n", intersection_x, intersection_y);
+		//printf("vertical : inter_x = %f, inter_y = %f\n", intersection_x, intersection_y);
 		intersection_x += x_step;
 		intersection_y += y_step;
 	}
-	printf("vertical : inter_x = %f, inter_y = %f\n", intersection_x, intersection_y);
+	//printf("vertical : inter_x = %f, inter_y = %f\n", intersection_x, intersection_y);
 	distance = sqrt(pow(intersection_x - data->player.x, 2) + pow(intersection_y - data->player.y, 2));
 	return (distance);
 }
 
+void	render_wall(t_data *data, int width)
+{
+	int height;
+	int	floor;
+	int	ceilling;
+	int	wall;
+	
+	height = 0;
+	wall = (data->ray.distance * data->win_height) / data->map.height;//je met 7 en brut mais faut que je trouve dans quelle case je suis de on char**map
+	
+	floor = (data->win_height - wall) / 2;
+	ceilling = (data->win_height - wall) / 2;
+	//printf("ceilling = %d\nwall = %d\nfloor = %d\n", ceilling, wall, floor);
+	//printf("winheight - dstance = %d", (data->win_height - wall));
+	
+	while (height < data->win_height)
+	{
+		if (height <= ceilling)
+		{
+			//printf("ceilling: height = %d\n", height);
+			data->img.addr[height * data->win_width + width] = BLUE;
+		}
+		else if (height >= ceilling && height <= ceilling + wall)
+		{
+			//printf("wall: height = %d\n", height);
+			data->img.addr[height * data->win_width + width] = RED;
+		}
+		else
+		{
+			//printf("floor: height = %d\n", height);
+			data->img.addr[height * data->win_width + width] = GREEN;
+		}
+		height++;
+	}
+}
 
 void	raycasting(t_data *data)
 {
@@ -184,8 +219,11 @@ void	raycasting(t_data *data)
 	int		ray;
 	double	horizontal_inter;
 	double	vertical_inter;
+	int		width;
+	
 
 	//ray = 0;
+	width = 0;
 	init_square_size(data);
 	angle = data->player.angle - (data->player.fov / 2);
 
@@ -202,17 +240,21 @@ void	raycasting(t_data *data)
 	{
 		horizontal_inter = find_horizontal_intersection(data, angle);
 		vertical_inter = find_vertical_intersection(data, angle);
-		if (horizontal_inter <= vertical_inter)
+		printf("horizontale = %f\nverticale = %f\n", horizontal_inter, vertical_inter);
+		if (vertical_inter <= horizontal_inter)
 			data->ray.distance = vertical_inter;
 		else
 			data->ray.distance = horizontal_inter;
 		//printf("distance = %f\n", data->ray.distance);
-		//render_wall(data);
-		printf("angle = %f\n", angle);
+		render_wall(data, width);
+
+		//printf("angle = %f\n", angle);
 		//printf("ray = %d\n", ray);
 		//printf("win_width = %d\n", data->win_width);
 		angle = angle + (data->player.fov / (data->win_width - 1));
 		ray++;
+		width++;//ray = width
+		//printf("WIDTH = %d\n", width);
 	}
 }
 
