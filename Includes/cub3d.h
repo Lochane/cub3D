@@ -24,6 +24,8 @@
 # define	WHITE 0xFFFFFF
 # define	BLACK 0x000000
 # define	PURPLE 0x5A0183
+# define	LEFT_KEY 65361
+# define	RIGHT_KEY 65363
 //FOV
 //roation speed
 //player speed
@@ -51,6 +53,7 @@ int	quit_game(t_data *data);
 /* UTILS */
 
 void 	init_struct(t_data *data);
+void	init_moves(t_data *data);
 int		count_line(char *file_name, t_data *data);
 int		copy_tab(char **dest, char **src, t_data *data);
 int		is_char_valid(char c);
@@ -82,5 +85,11 @@ void	game_loop(t_data *data);
 void	init_square_size(t_data *data);
 void	mini_map(t_data *data);
 void	print_all_rays(t_data *data);
+void	print_square(t_data *data, int start_width, int end_width, int start_height, int end_height, int color);
+
+
+/* GAMEPLAY */
+int	keybinding(int keysim, t_data *data);
+
 
 #endif

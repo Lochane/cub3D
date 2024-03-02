@@ -13,11 +13,6 @@ typedef struct s_img
 	char	*path;
 }			t_img;
 
-typedef struct s_sprite
-{
-
-}			t_sprite;
-
 typedef struct s_texture
 {
 	char	*no_path;
@@ -71,6 +66,19 @@ typedef	struct s_ray
 	int		end_width;
 } t_ray;
 
+typedef struct s_moves
+{
+	float movespeed;
+	float rotspeed;
+	float posx;
+	float posy;
+	float planex;
+	float planey;
+	float dirx;
+	float diry;
+	float olddirx;
+	float oldplanex;
+}	t_moves;
 
 typedef struct s_data
 {
@@ -83,8 +91,8 @@ typedef struct s_data
 	t_ray		ray;
 	t_map		map;
 	t_img		img;
+	t_moves		moves;
 	t_texture	texture;
-	t_sprite	sprites;
 	t_player	player;
 }				t_data;
 

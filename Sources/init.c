@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/26 15:57:26 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/02 14:55:33 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void init_struct(t_data *data)
 	data->texture.we_path = NULL;
 	data->texture.ea_path = NULL;
 	// data->texture.texture_file= NULL;
-
 }
 
 void	init_window_and_image(t_data *data)
