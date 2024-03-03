@@ -3,16 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   parse_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:57:27 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/10 16:47:24 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/03 15:18:43 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/cub3d.h"
 
-int		rgb_to_digit(char *str)
+void	rgb_to_hexa(char **tab, int color[3])
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		//printf("tab[%d] = %s\n", i, tab[i]);
+		color[i] = ft_atoi(tab[i]);
+		printf("color = %d\n", color[i]);
+		i++;
+	}
+	i = 0;
+	while (i < 3)
+	{
+		printf("color[%d] = %d\n", i, color[i]);
+
+		i++;
+	}
+}
+
+int		count_nbr(char *str)
 {
 	int	i;
 	int	count;
@@ -64,28 +85,30 @@ int		is_digit(char **tab)
 }
 
 
-void	parse_color(char *color, t_data *data)
+void	parse_color(char *color, t_data *data, int *color_rgb)
 {
 	int		i;
 	char	**tab;
 
-	i = rgb_to_digit(color);
+	i = count_nbr(color);
 	if (i != 2)
-		free_texture_path("Error:1 Color not valid, expceted RGB color, digit between 000,000,000 and : 255,255,255\n", 1, data);
+		free_texture_path("Error:1 Color not valid, expected RGB color, digit between 000,000,000 and : 255,255,255\n", 1, data);
 	tab = ft_split(color, ',');
 	if (!tab)
-		free_texture_path("Error: 2Color not valid, expceted RGB color, digit between 000,000,000 and : 255,255,255\n", 1, data);
+		free_texture_path("Error: 2Color not valid, expected RGB color, digit between 000,000,000 and : 255,255,255\n", 1, data);
 	i = 0;
 	if (!is_digit(tab))
 	{
 		//free_tab(tab, tab_size(tab), data, 0);
-		free_texture_path("Error:3Color not valid, expceted RGB color, digit between 000,000,000 and : 255,255,255\n", 1, data);
+		free_texture_path("Error:3Color not valid, expected RGB color, digit between 000,000,000 and : 255,255,255\n", 1, data);
 	}
 	i = is_color_rgb(tab);
 	if (i != 3)
 	{
 		free_tab(tab, tab_size(tab), data, 0);
-		free_texture_path("Error:4 Color not valid, expceted RGB color, digit between 000,000,000 and : 255,255,255\n", 1, data);
+		free_texture_path("Error:4 Color not valid, expected RGB color, digit between 000,000,000 and : 255,255,255\n", 1, data);
 	}
+	rgb_to_hexa(tab, color_rgb);
 	free_tab(tab, i, data, 0);
+	
 }

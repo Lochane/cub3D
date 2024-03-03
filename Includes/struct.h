@@ -24,8 +24,8 @@ typedef struct s_texture
 	char	*so_path;
 	char	*we_path;
 	char	*ea_path;
-	char	*f_color;
-	char	*c_color;
+	char	*floor_color;
+	char	*ceiling_color;
 	t_img	no_texture;
 	t_img	so_texture;
 	t_img	ea_texture;
@@ -43,6 +43,8 @@ typedef struct s_map
 	int		spawn_y;
 	char	spawn_side;
 	int		square_size;
+	int		ceiling_color[3];
+	int		floor_color[3];
 } t_map;
 
 typedef	struct s_player

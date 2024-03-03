@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/01 17:40:10 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/03 14:50:32 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int		find_horizontal_intersection(t_data *data, float angle)
 	
 	double	distance;
 
+	//printf("playerx = %f, playery = %f\n", data->player.x, data->player.y);
 	//printf("x_step = %f\n", x_step);
 	//y_step = 0.5;
 	//x_step = 0.288;//comment avoir cette valeur ?
@@ -180,25 +181,24 @@ void	render_wall(t_data *data, int width)
 {
 	int height;
 	int	floor;
-	int	ceilling;
+	int	ceiling;
 	int	wall;
 	
 	height = 0;
 	wall = (data->ray.distance * data->win_height) / data->map.height;//je met 7 en brut mais faut que je trouve dans quelle case je suis de on char**map
-	
 	floor = (data->win_height - wall) / 2;
-	ceilling = (data->win_height - wall) / 2;
-	//printf("ceilling = %d\nwall = %d\nfloor = %d\n", ceilling, wall, floor);
+	ceiling = (data->win_height - wall) / 2;
+	//printf("ceiling color = %d\nfloor color = %d\n", data->map.ceiling_color, data->map.floor_color);
+	//printf("ceiling = %d\nwall = %d\nfloor = %d\n", ceiling, wall, floor);
 	//printf("winheight - dstance = %d", (data->win_height - wall));
-	
 	while (height < data->win_height)
 	{
-		if (height <= ceilling)
+		if (height <= ceiling)
 		{
-			//printf("ceilling: height = %d\n", height);
+			//printf("ceiling: height = %d\n", height);
 			data->img.addr[height * data->win_width + width] = BLUE;
 		}
-		else if (height >= ceilling && height <= ceilling + wall)
+		else if (height >= ceiling && height <= ceiling + wall)
 		{
 			//printf("wall: height = %d\n", height);
 			data->img.addr[height * data->win_width + width] = RED;
@@ -240,7 +240,7 @@ void	raycasting(t_data *data)
 	{
 		horizontal_inter = find_horizontal_intersection(data, angle);
 		vertical_inter = find_vertical_intersection(data, angle);
-		printf("horizontale = %f\nverticale = %f\n", horizontal_inter, vertical_inter);
+		//printf("horizontale = %f\nverticale = %f\n", horizontal_inter, vertical_inter);
 		if (vertical_inter <= horizontal_inter)
 			data->ray.distance = vertical_inter;
 		else
@@ -261,9 +261,9 @@ void	raycasting(t_data *data)
 
 void	game_loop(t_data *data)
 {
+	raycasting(data);
 	mini_map(data);
 	print_all_rays(data);
-	raycasting(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
 }
 

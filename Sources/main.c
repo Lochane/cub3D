@@ -18,7 +18,8 @@ void	parsing(char *file_name, t_data *data)
 	file_to_tab(file_name, data);
 	split_file(data);
 	parse_map(data);
-	parse_color(data->texture.f_color, data);
+	parse_color(data->texture.floor_color, data, data->map.floor_color);
+	parse_color(data->texture.ceiling_color, data, data->map.ceiling_color);
 }
 
 void	cub3d(t_data *data)

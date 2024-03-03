@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_and_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcalvie <lcalvie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:01:54 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/17 13:11:58 by lcalvie          ###   ########.fr       */
+/*   Updated: 2024/03/03 13:35:43 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	free_texture_path(char *msg, int to_free, t_data *data)
 	free(data->texture.so_path);
 	free(data->texture.ea_path);
 	free(data->texture.we_path);
-	free(data->texture.c_color);
-	free(data->texture.f_color);
+	free(data->texture.ceiling_color);
+	free(data->texture.floor_color);
 	if (to_free == 0)
 		error_msg(msg, 0, data);
 	if (to_free == 1)

@@ -135,8 +135,8 @@ void	ft_putstr_fd(char *str, int fd)
 //DEBUG
 void	print_map_info(t_data *data)
 {
-	printf("%s\n", data->texture.c_color);
-	printf("%s\n", data->texture.f_color);
+	printf("%s\n", data->texture.ceiling_color);
+	printf("%s\n", data->texture.floor_color);
 	printf("%s\n", data->texture.no_path);
 	printf("%s\n", data->texture.so_path);
 	printf("%s\n", data->texture.ea_path);
