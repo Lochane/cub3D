@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:14:06 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/03 12:25:16 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/07 18:56:48 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	print_ray(t_data *data, double angle)
 	double	b;
 	int	x;
 	int	y;
-	float center_x;
-	float	center_y;
+	double center_x;
+	double	center_y;
 
 	center_x = data->map.spawn_x * data->map.square_size;
 	center_y = data->map.spawn_y * data->map.square_size;

@@ -51,7 +51,7 @@ typedef	struct s_player
 {
 	double		x;
 	double		y;
-	float	fov;//field of view in radians
+	double	fov;//field of view in radians
 	double	angle;
 	//int		rotation_flag;
 	//int		left_rotation;
