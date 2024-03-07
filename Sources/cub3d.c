@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/07 18:59:36 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/07 19:17:21 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,12 @@ int		is_wall(t_data *data, double intersection_x, double intersection_y, double 
 	if (intersection_x < 0 || intersection_y < 0)
 		return (1);
 	printf("LA interx = %f, intery = %f\n", intersection_x, intersection_y);
-	if (angle >= 90 && angle <= 180)
+	if (angle >= 45 && angle <= 225)
 	{
 		x = ceil(intersection_x);
 		y = ceil(intersection_y);
 	}
+	//x et y pas forcement les deux floor 
 	else
 	{
 		x = floor(intersection_x);
