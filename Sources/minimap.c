@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:14:06 by malancar          #+#    #+#             */
-/*   Updated: 2024/02/26 15:56:08 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:18:17 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_square_size(t_data *data)
 	if (width > height)
 		data->map.square_size = (data->win_width * ZOOM) / width;
 	else
-		data->map.square_size = data->win_height / height;
+		data->map.square_size = (data->win_height * ZOOM) / height;
 }
 
 void	print_ray(t_data *data, double angle)
@@ -32,13 +32,15 @@ void	print_ray(t_data *data, double angle)
 	double	b;
 	int	x;
 	int	y;
-	int center_x;
-	int	center_y;
+	double center_x;
+	double	center_y;
 
-	center_x = data->player.x * data->map.square_size;
-	center_y = data->player.y * data->map.square_size;
+	center_x = data->map.spawn_x * data->map.square_size;
+	center_y = data->map.spawn_y * data->map.square_size;
 	center_x += data->map.square_size / 2;
 	center_y += data->map.square_size / 2;
+	
+	
 	x = center_x;
 	y = center_y;
 	
@@ -194,7 +196,7 @@ void	mini_map(t_data *data)
 
 
 	i = 0;
-	int c = 0;
+	//int c = 0;
 	init_square_size(data);
 
 	data->img.height = 0;
@@ -207,12 +209,12 @@ void	mini_map(t_data *data)
 	 		if (data->map.file[i][j] == '1')
 			{
 				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, PURPLE + c);
+				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, RED );
 			}
 			else if (data->map.file[i][j] == '0')
 		 	{
 				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, PINK + c);
+				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, GREEN );
 			}
 			else if (data->map.file[i][j] == ' ')
 			{
@@ -223,10 +225,10 @@ void	mini_map(t_data *data)
 						|| data->map.file[i][j] == 'E')
 			{
 				//printf("PERSONNAGE map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, YELLOW + c);
+				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, BLACK );
 			}
 	 		j++;
-			c = c + 100;
+			//c = c + 100;
 			data->img.width += data->map.square_size;
 	 	}
 	 	data->img.height += data->map.square_size;

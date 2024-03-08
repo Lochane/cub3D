@@ -14,7 +14,7 @@
 
 # define	SCREEN_WIDTH 2560
 # define	SCREEN_HEIGHT 1440
-#define		ZOOM	1
+#define		ZOOM	0.15
 # define	TILE_SIZE 1 //comment on determine la taille de la tile?
 # define	RED 0xFF0000
 # define 	GREEN 0x00FF00
@@ -26,13 +26,14 @@
 # define	PURPLE 0x5A0183
 # define	LEFT_KEY 65361
 # define	RIGHT_KEY 65363
+# define	BLUE 0x0000FF
 //FOV
 //roation speed
 //player speed
 
 /* PARSING */
 
-void parse_color(char *color, t_data *data);
+void parse_color(char *color, t_data *data, int *color_rgb);
 void parse_map(t_data *data);
 void load_texture(t_data *data);
 
@@ -68,7 +69,7 @@ void	print_error_and_free(char *error, t_data *data);
 void	print_map_info(t_data *data);
 void	ft_putstr_fd(char *str, int fd);
 int		is_digit(char **tab);
-void	parse_color(char *color, t_data *data);
+
 int		count_width(t_data *data);
 
 //EXEC

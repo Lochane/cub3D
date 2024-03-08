@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/02 14:55:33 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/08 17:13:53 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void init_struct(t_data *data)
 	// data->win_height = SCREEN_HEIGHT;
 	
 	// data->map.file = NULL;
-	data->texture.c_color = NULL;
-	data->texture.f_color = NULL;
+	data->texture.ceiling_color = NULL;
+	data->texture.floor_color = NULL;
 	data->texture.no_path = NULL;
 	data->texture.so_path = NULL;
 	data->texture.we_path = NULL;
@@ -45,8 +45,8 @@ void	init_window_and_image(t_data *data)
 		error_msg("Error: mlx init fail\n", 0, data);
 	mlx_get_screen_size(data->mlx_ptr, &data->win_width, &data->win_height);
 	//printf("screen height = %d, screen width = %d\n", data->win_height, data->win_width);
-	data->win_height = 900;
-	data->win_width = 1300;
+	// data->win_height = 1000;
+	// data->win_width = 1000;
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->win_width,
 			data->win_height, "Cub3D");
 	if (!data->win_ptr)
@@ -66,6 +66,8 @@ void	init_player(t_data *data)
 	
 	data->player.x = data->map.spawn_x;
 	data->player.y = data->map.spawn_y;
+	data->player.center_x = data->map.spawn_x + 0.5;
+	data->player.center_y = data->map.spawn_y + 0.5;
 	data->player.fov = 60; 
 	if (data->map.spawn_side == 'N')
 		data->player.angle = 90;
@@ -81,8 +83,7 @@ void	init_player(t_data *data)
 	// data->player.right_rotation = ;
 }
 
-void	init_game(t_data *data)
-{
+// void	init_game(t_data *data)
+// {
 	
-	(void)data;
-}
+// }

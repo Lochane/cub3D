@@ -61,9 +61,9 @@ int		init_texture(t_data *data) // TODO opti / norme
 		else if (ft_strncmp("EA", data->cub_file[i], 2) == 0)
 			data->texture.ea_path = display_texture(data, "EA", data->cub_file[i]);
 		else if (ft_strncmp("C", data->cub_file[i], 1) == 0)
-			data->texture.c_color = display_texture(data, "C", data->cub_file[i]);
+			data->texture.ceiling_color = display_texture(data, "C", data->cub_file[i]);
 		else if (ft_strncmp("F", data->cub_file[i], 1) == 0)
-			data->texture.f_color = display_texture(data, "F", data->cub_file[i]);
+			data->texture.floor_color = display_texture(data, "F", data->cub_file[i]);
 		if	(data->texture.count == 6)
 			return (i + 1);
 		i++;

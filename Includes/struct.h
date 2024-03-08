@@ -19,8 +19,8 @@ typedef struct s_texture
 	char	*so_path;
 	char	*we_path;
 	char	*ea_path;
-	char	*f_color;
-	char	*c_color;
+	char	*floor_color;
+	char	*ceiling_color;
 	t_img	no_texture;
 	t_img	so_texture;
 	t_img	ea_texture;
@@ -34,17 +34,21 @@ typedef struct s_map
 	char	**file;
 	int		height;
 	int 	width;
-	int		spawn_x;
-	int		spawn_y;
+	double	spawn_x;
+	double	spawn_y;
 	char	spawn_side;
 	int		square_size;
+	int		ceiling_color[3];
+	int		floor_color[3];
 } t_map;
 
 typedef	struct s_player
 {
-	int		x;
-	int		y;
-	float	fov;//field of view in radians
+	double		x;
+	double		y;
+	double		center_x;
+	double		center_y;
+	double	fov;//field of view in radians
 	double	angle;
 	//int		rotation_flag;
 	//int		left_rotation;
