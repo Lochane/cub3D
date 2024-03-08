@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/08 16:39:59 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:15:03 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,28 @@ int		is_wall(t_data *data, double intersection_x, double intersection_y, double 
 	if (intersection_x < 0 || intersection_y < 0)
 		return (1);
 	//printf("LA interx = %f, intery = %f\n", intersection_x, intersection_y);
-	if (angle >= 45 && angle <= 225)
+	if (angle >= 45 && angle <= 135)
 	{
-		x = ceil(intersection_x);
-		y = ceil(intersection_y);
+		y = floor(intersection_y);
+		
 	}
-	//x et y pas forcement les deux floor 
-	else
+	// if (angle >= 90 && angle < 135)
+	// {
+	// 	x = ceil(intersection_x);
+	// }
+	else if (angle >= 135 && angle <= 225)
 	{
 		x = floor(intersection_x);
-		y = floor(intersection_y);
+	}
+	//x et y pas forcement les deux floor 
+	else if(angle >= 225 && angle <= 315)
+	{
+		x = ceil(intersection_x);
+		//y = floor(intersection_y);
+	}
+	else if ((angle >= 0 && angle <= 45) || (angle >= 315 && angle <= 360))
+	{
+		y = ceil(intersection_y);
 	}
 
 	//printf("ICI x = %d, y = %d\n", x, y);
