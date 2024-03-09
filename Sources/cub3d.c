@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/08 18:15:03 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:49:50 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ void	render_wall(t_data *data, int width, double angle)
 	int	wall;
 	
 	height = 0;
-	wall = cos((angle - data->player.angle) * M_PI / 180) * data->ray.distance * 100;
+	wall = cos((angle - data->player.angle) * M_PI / 180) * data->ray.distance * 300;
 	if (wall < 0)
 		wall *= -1;
 	printf("wall = %d\n", wall);
@@ -292,12 +292,13 @@ void	raycasting(t_data *data)
 }
 
 
-void	game_loop(t_data *data)
+int	game_loop(t_data *data)
 {
 	raycasting(data);
 	mini_map(data);
 	print_all_rays(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
+	return (0);
 }
 
 
@@ -306,7 +307,8 @@ void	start_game(t_data *data)
 	
 	mlx_hook(data->win_ptr, 33, 1L << 17, &quit_game, data);
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
+	mlx_key_hook(data->win_ptr, &keybinding, data);
+	mlx_loop_hook(data->mlx_ptr, &game_loop, data);
 	
-	game_loop(data);
 	mlx_loop(data->mlx_ptr);
 }

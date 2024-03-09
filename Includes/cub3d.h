@@ -25,6 +25,8 @@
 # define	BLACK 0x000000
 # define	PURPLE 0x5A0183
 # define	BLUE 0x0000FF
+# define	LEFT_KEY 65361
+# define	RIGHT_KEY 65363
 //FOV
 //roation speed
 //player speed
@@ -76,12 +78,14 @@ void	init_game(t_data *data);
 void	init_window_and_image(t_data *data);
 void	init_player(t_data *data);
 void	start_game(t_data *data);
-void	game_loop(t_data *data);
+int	game_loop(t_data *data);
 
 //MINIMAP
 
 void	init_square_size(t_data *data);
 void	mini_map(t_data *data);
 void	print_all_rays(t_data *data);
+
+int	keybinding(int keysim, t_data *data);
 
 #endif
