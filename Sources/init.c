@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/09 14:52:16 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/09 15:12:17 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,12 @@ void	init_window_and_image(t_data *data)
 void	init_player(t_data *data)
 {
 	//printf("spawn = %c\n", data->map.spawn_side);
-	
+	data->map.spawn_x += 0.5;
+	data->map.spawn_y += 0.5;
 	data->player.x = data->map.spawn_x;
 	data->player.y = data->map.spawn_y;
-	data->player.center_x = data->map.spawn_x + 0.5;
-	data->player.center_y = data->map.spawn_y + 0.5;
 	data->player.fov = 60;
-	data->player.move_speed = 3;
+	data->player.move_speed = 0.1;
 	if (data->map.spawn_side == 'N')
 		data->player.angle = 90;
 	else if (data->map.spawn_side == 'E')
