@@ -12,7 +12,20 @@
 
 #include "../Includes/cub3d.h"
 
-int		count_width(t_data *data)
+int	found_size(char **file, int i)
+{
+	int	line;
+
+	line = 0;
+	while (file[i])
+	{
+		line++;
+		i++;
+	}
+	return (line);
+}
+
+int	count_width(t_data *data)
 {
 	int	i;
 	int	len;
@@ -25,21 +38,20 @@ int		count_width(t_data *data)
 	{
 		len = ft_strlen(data->map.file[i]);
 		if (len > len_max)
-			len_max = len;	
+			len_max = len;
 		i++;
 	}
-	//printf("len max = %d\n", len_max);
 	return (len_max);
 }
 
-int    tab_size(char **tab)
+int	tab_size(char **tab)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while(tab[i])
-        i++;
-    return(i);
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
 }
 
 int	count_line(char *file_name, t_data *data)
@@ -80,56 +92,8 @@ int	copy_tab(char **dest, char **src, t_data *data)
 			return (0);
 		i++;
 	}
+	dest[i] = 0;
 	return (1);
-}
-
-int	is_char_valid(char c)
-{	
-	if (c != '1' && c != '0' && c != ' ' &&  c != 'P' &&  c != 'S' &&  c != 'W' &&  c != 'E' && c != '2' && c != 'N')
-				return (0);
-	return (1);
-}
-
-int        found_spawn(char **tab, t_data *data)
-{
-        int        i;
-        int        j;
-        int c;
-
-        i = 0;
-        j = 0;
-        c = 0; 
-        while (i < data->map.height)
-        {
-                j = 0;
-                while (tab[i][j] && (tab[i][j] != 'N' && tab[i][j] != 'S' && tab[i][j] != 'W' && tab[i][j] != 'E'))
-                        j++;
-                if (tab[i][j] == 'N' || tab[i][j] == 'S' || tab[i][j] == 'W' || tab[i][j] == 'E')
-                {
-                        data->map.spawn_x = j;
-                        data->map.spawn_y = i;
-						data->map.spawn_side = tab[i][j];
-                        c += 1;
-                }
-                i++;
-        }
-        if (c > 1 || c <= 0)
-        {
-                free_tab(tab, data->map.height, data, 0); 
-                free_texture_path("Error:\nWrong spawn\n", 1, data);
-        }
-        return (0);
-}
-
-void	ft_putstr_fd(char *str, int fd)
-{
-	int	len;
-
-	if (str == NULL)
-		return ;
-	len = ft_strlen(str);
-	if (write(fd, str, len) == -1)
-		perror("write");
 }
 
 //DEBUG

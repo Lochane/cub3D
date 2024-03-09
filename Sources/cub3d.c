@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/08 17:50:21 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/09 20:31:59 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,16 @@ double		find_vertical_intersection(t_data *data, double angle)
 	return (distance);
 }
 
+// void	render_texture(t_data *data, int beg_wall, int end_wall, int height)
+// {
+// 	float	block_size;
+// 	float 	ratio_x;
+// 	float	ratio_y;
+
+// 	if (data->ray.side == 0)
+// 		ratio_x = 
+// }
+
 void	render_wall(t_data *data, int width, double angle)
 {
 	int height;
@@ -223,7 +233,8 @@ void	render_wall(t_data *data, int width, double angle)
 		else if (height >= ceiling && height <= ceiling + wall)
 		{
 			//printf("wall: height = %d\n", height);
-			data->img.addr[height * data->win_width + width] = RED;
+			// render_texture(data);
+			
 		}
 		else
 		{
@@ -233,6 +244,7 @@ void	render_wall(t_data *data, int width, double angle)
 		height++;
 	}
 }
+
 
 void	raycasting(t_data *data)
 {
@@ -272,7 +284,6 @@ void	raycasting(t_data *data)
 		angle = angle + (data->player.fov / (data->win_width - 1));
 		ray++;
 		width++;//ray = width
-		printf("ray = %d\n\n", ray);
 		//printf("WIDTH = %d\n", width);
 	}
 }
@@ -294,6 +305,6 @@ void	start_game(t_data *data)
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
 	mlx_key_hook(data->win_ptr, &keybinding, data);
 	mlx_loop_hook(data->mlx_ptr, &game_loop, data);
-	// game_loop(data);
+	game_loop(data);
 	mlx_loop(data->mlx_ptr);
 }
