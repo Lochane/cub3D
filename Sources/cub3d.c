@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/11 15:30:52 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:41:09 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int inter_check(double angle, double *inter, double *step, int is_horizon) // ch
 			//*inter += TILE_SIZE;
 			return (-1);
 		}
-		//printf("xstep = %f\n", *step);
 		*step *= -1;
 	}
 	return (1);
@@ -230,6 +229,8 @@ void	raycasting(t_data *data)
 	int		ray;
 	double	horizontal_inter;
 	double	vertical_inter;
+	double	distance_v_inter;
+	double	distance_h_inter;
 	int		width;
 	
 
@@ -248,13 +249,14 @@ void	raycasting(t_data *data)
 	{
 		angle = fix_angle (angle);
 		printf("\nangle = %f\n", angle);
-		horizontal_inter = find_horizontal_intersection(data, angle);
-		vertical_inter = find_vertical_intersection(data, angle);
+		distance_h_inter = find_horizontal_intersection(data, angle, &horizontal_inter);
+		distance_v_inter= find_vertical_intersection(data, angle, &vertical_inter);
 		data->ray.distance = horizontal_inter;
-		if (vertical_inter <= horizontal_inter)
-			data->ray.distance = vertical_inter;
+		
+		if (distance_v_inter <= distance_h_inter)
+			data->ray.distance = distance_h_inter;
 		data->ray.distance *= fabs(cos((angle - data->player.angle) * M_PI / 180));
-		printf("horizontale = %f\nverticale = %f\n", horizontal_inter, vertical_inter);
+		printf("horizontale = %f\nverticale = %f\n", distance_h_inter, distance_v_inter);
 		printf("distance = %f\n\n", data->ray.distance);
 		render_wall(data, width);
 		angle = angle + (data->player.fov / (data->win_width - 1));
@@ -274,13 +276,12 @@ int	game_loop(t_data *data)
 	return (0);
 }
 
-
 void	start_game(t_data *data)
 {
 	mlx_hook(data->win_ptr, 33, 1L << 17, &quit_game, data);
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
 	mlx_key_hook(data->win_ptr, &keybinding, data);
-	//mlx_loop_hook(data->mlx_ptr, &game_loop, data);
+	
 	game_loop(data);
 	mlx_loop(data->mlx_ptr);
 }
