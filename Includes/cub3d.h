@@ -11,6 +11,7 @@
 # include <X11/keysym.h>
 # include <sys/time.h>
 # include <math.h>
+# include <limits.h>
 
 # define	SCREEN_WIDTH 2560
 # define	SCREEN_HEIGHT 1440
