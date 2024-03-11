@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/11 18:33:28 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/11 19:03:38 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ void	init_player(t_data *data)
 {
 	data->map.spawn_x += 0.5;
 	data->map.spawn_y += 0.5;
-	data->map.spawn_x = 3.3;
-	data->map.spawn_y = 3.4;
+
 	data->player.x = data->map.spawn_x;
 	data->player.y = data->map.spawn_y;
 	data->player.fov = 60;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:13:33 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/09 20:32:35 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/11 19:01:15 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	flood_fill(int x, int y, char **file, t_data *data)
 void	error_parse_map(t_data *data, char **tmp)
 {
 	free_tab(tmp, data->map.height, data, 0);
-	free_texture_path("Error: malloc\n", 1, data);
+	free_texture_path("1Error: malloc\n", 1, data);
 }
 
 void	check_map(t_data *data, char **tmp, int i, int j)
@@ -59,7 +59,7 @@ void	parse_map(t_data *data)
 	j = 0;
 	tmp = malloc(sizeof(char **) * (data->map.height + 1));
 	if (!tmp)
-		free_texture_path("Error malloc\n", 1, data);
+		free_texture_path("2Error malloc\n", 1, data);
 	if (!copy_tab(tmp, data->map.file, data))
 		error_parse_map(data, tmp);
 	found_spawn(tmp, data);
