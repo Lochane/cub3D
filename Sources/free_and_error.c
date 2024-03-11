@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_and_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:01:54 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/03 13:35:43 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/09 20:20:09 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,12 @@ void	print_error_and_free(char *error, t_data *data)
 	perror(error);
 	free(data);
 	exit(EXIT_FAILURE);
+}
+
+void	split_free_error(t_data *data, int to_free)
+{
+	free_texture_path(NULL, 4, data);
+	error_msg("Error:\n Erreur Malloc", 1, data);
+	if (to_free == 1)
+		free_tab(data->map.file, tab_size(data->map.file), data, 0);
 }

@@ -12,6 +12,22 @@
 
 #include "../Includes/cub3d.h"
 
+void	is_file_valid(char *file_name, t_data *data)
+{
+	int	fd;
+
+	if (ft_strncmp(".cub", &file_name[ft_strlen(file_name) -4], \
+			ft_strlen(file_name)))
+		error_msg("Error: expected [file.cub]\n", 0, data);
+	fd = open(file_name, __O_DIRECTORY);
+	if (fd > 0)
+		print_error_and_free("open", data);
+	fd = open(file_name, O_RDONLY);
+	if (fd < 0)
+		print_error_and_free("open", data);
+	close (fd);
+}
+
 void	parsing(char *file_name, t_data *data)
 {
 	is_file_valid(file_name, data);
@@ -24,15 +40,10 @@ void	parsing(char *file_name, t_data *data)
 
 void	cub3d(t_data *data)
 {
-	//INIT WINDOW
 	init_window_and_image(data);
-	load_texture(data);//init texture
-	//init_game(data);
-	init_player(data);//dans init game ?
-	init_moves(data);
-	//START
+	load_texture(data);
+	init_player(data);
 	start_game(data);
-
 }
 
 int	main(int ac, char **av)
@@ -49,9 +60,5 @@ int	main(int ac, char **av)
 		return (0);
 	init_struct(data);
 	parsing(av[1], data);
-	//int size = mlx_get_screen_size(data->mlx_ptr, &data->win_height, &data->win_width);
-	//printf("size = %d\n", size);
-
-	//print_map_info(data);
 	cub3d(data);
 }
