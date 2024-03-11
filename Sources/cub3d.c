@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/10 18:57:51 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/10 22:14:38 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,11 @@ int		is_wall(t_data *data, double intersection_x, double intersection_y, double 
 		y = floor(intersection_y);
 	if (y >= data->map.height || x >= data->map.width)
 		return (1);
-	if (data->map.file[y] && data->map.file[y][x])//?? x <= ft_strlen_double(data->map.file[y]) == data->map[y][x] ??
+	//printf("map[%d][%d] = %c\n", y, x, data->map.file[y][x]);
+	//printf("x = %d, strlen = %d\n", x, (int)ft_strlen(data->map.file[y]));
+	printf("ANGLE = %f\n playER ANGLE = %f\n", angle, data->player.angle);
+	if (data->map.file[y] && x < (int)ft_strlen(data->map.file[y]) && data->map.file[y][x])//?? x <= ft_strlen_double(data->map.file[y]) == data->map[y][x] ??
 	{
-		printf("map[%d][%d] = %c\n", y, x, data->map.file[y][x]);
 		if (data->map.file[y][x] == '1')
 			return (1);
 	}
@@ -96,26 +98,26 @@ double		find_horizontal_intersection(t_data *data, double angle)
 	
 	double	distance;
 
-	printf("horizontal: \n");
+	//printf("horizontal: \n");
 	//printf("playerx = %f, playery = %f\n", data->player.x, data->player.y);
-	x_step = 1 / tan(angle  * (M_PI / 180));
+	x_step = 1 / tan((angle)  * (M_PI / 180));
 	y_step = 1;
 	first_step_x = x_step;
 	first_step_y = y_step;
 	first_step_y = data->player.y - ceil(data->player.y);
-	first_step_x =  first_step_y / tan(angle * M_PI / 180);
+	first_step_x =  first_step_y * x_step;
 	if (angle >= 0 && angle <= 180)
 		first_step_x *= -1;
 	else
 		first_step_y *= -1;
-	printf("first_step_x = %f\nfirst_step_y = %f\n", first_step_x, first_step_y);
+	//printf("first_step_x = %f\nfirst_step_y = %f\n", first_step_x, first_step_y);
 	printf("xstep = %f, ystep = %f\n", x_step, y_step);
 	intersection_y =  data->player.y + first_step_y;
 	intersection_x = data->player.x + first_step_x;
 	inter_check(angle, &intersection_y, &y_step, 1);
 	if ((unit_circle(angle, 'y') && x_step > 0) || (!unit_circle(angle, 'y') && x_step < 0))
 		x_step *= -1;
-	printf("inter_x = %f, inter_y = %f\n", intersection_x, intersection_y);
+	//printf("inter_x = %f, inter_y = %f\n", intersection_x, intersection_y);
 	while (!is_wall(data, intersection_x, intersection_y, angle))
 	{
 		
@@ -123,7 +125,7 @@ double		find_horizontal_intersection(t_data *data, double angle)
 		intersection_x += x_step;
 		intersection_y += y_step;
 	}
-	printf("final : inter_x = %f, inter_y = %f\n", intersection_x, intersection_y);
+	//printf("final : inter_x = %f, inter_y = %f\n", intersection_x, intersection_y);
 	distance = sqrt(pow(intersection_x - data->player.x, 2) + pow(intersection_y - data->player.y, 2));
 	return (distance);
 }
@@ -138,35 +140,35 @@ double		find_vertical_intersection(t_data *data, double angle)
 	double	first_step_y;
 	double	distance;
 
-	printf("\n\nvertical: \n");
+	//printf("\n\nvertical: \n");
 	//printf("playerx = %f, playery = %f\n", data->player.x, data->player.y);
 	x_step = 1;
-	y_step = 1 * tan(angle  * (M_PI / 180));
+	y_step = tan((angle)  * (M_PI / 180));
 	first_step_x = x_step;
 	first_step_y = y_step;
 	
 	first_step_x = data->player.x - ceil(data->player.x);
-	first_step_y = first_step_x * tan(angle * (M_PI / 180));
+	first_step_y = first_step_x * y_step;
 	if (angle >= 90 && angle <= 270)
 		first_step_y *= -1;
 	else
 		first_step_x *= -1;
 	intersection_x = data->player.x + first_step_x;
 	intersection_y = data->player.y + first_step_y;
-	printf("xstep = %f, ystep = %f\n", x_step, y_step);
-	printf("first_step_x = %f\nfirst_step_y = %f\n", first_step_x, first_step_y);
+	//printf("xstep = %f, ystep = %f\n", x_step, y_step);
+	//printf("first_step_x = %f\nfirst_step_y = %f\n", first_step_x, first_step_y);
 	inter_check(angle, &intersection_x, &x_step, 0);
 	if ((unit_circle(angle, 'x') && y_step > 0) || (!unit_circle(angle, 'x') && y_step < 0)) // check x_step value
  		 y_step *= -1;
-	printf("inter_x = %f, inter_y = %f\n", intersection_x, intersection_y);
+	//printf("inter_x = %f, inter_y = %f\n", intersection_x, intersection_y);
 	while (!is_wall(data, intersection_x, intersection_y, angle))
 	{
-		printf("inter_x = %f, inter_y = %f\n", intersection_x, intersection_y);
+		//printf("inter_x = %f, inter_y = %f\n", intersection_x, intersection_y);
 		intersection_x += x_step;
 		intersection_y += y_step;
 	}
 	
-	printf("final : inter_x = %f, inter_y = %f\n\n", intersection_x, intersection_y);
+	//printf("final : inter_x = %f, inter_y = %f\n\n", intersection_x, intersection_y);
 	distance = sqrt(pow(intersection_x - data->player.x, 2) + pow(intersection_y - data->player.y, 2));
 	//printf("distance = %f\n", distance);
 	return (distance);
@@ -181,7 +183,7 @@ void	render_wall(t_data *data, int width)
 	
 	height = 0;
 	wall =  (data->win_height * 2) / (data->ray.distance + 1);//hauteru max / + la disatnce min
-	printf("wall = %d\n\n", wall);
+	//printf("wall = %d\n\n", wall);
 	//floor = (data->win_height - wall) / 2;
 	ceiling = (data->win_height - wall) / 2;
 	//printf("ceiling color = %d\nfloor color = %d\n", data->map.ceiling_color, data->map.floor_color);
@@ -210,10 +212,14 @@ void	render_wall(t_data *data, int width)
 
 double	fix_angle(double angle)
 {
+	printf("FIX \n");
 	while (angle < 0)
 		angle += 360;
 	while (angle >= 360)
+	{
+		printf("amgle ici = %f\n", angle);
 		angle -= 360;
+	}
 	return(angle);
 }
 
@@ -231,6 +237,7 @@ void	raycasting(t_data *data)
 	width = 0;
 	init_square_size(data);
 	//printf("PLAYER ANGLE = %f\n", data->player.angle);
+	 data->player.angle = fix_angle( data->player.angle);
 	angle = data->player.angle - (data->player.fov / 2);
 
 	//printf("angle ICI = %f\n", angle);
@@ -239,7 +246,11 @@ void	raycasting(t_data *data)
 	ray = 0;
 	while (ray < data->win_width)
 	{
+		printf("av fix ANGLE = %.30f\n", angle);
+
 		angle = fix_angle (angle);
+		printf("ap fix ANGLE = %.30f\n", angle);
+		
 		horizontal_inter = find_horizontal_intersection(data, angle);
 		vertical_inter = find_vertical_intersection(data, angle);
 		data->ray.distance = horizontal_inter;
@@ -247,8 +258,8 @@ void	raycasting(t_data *data)
 			data->ray.distance = vertical_inter;
 		data->ray.distance *= fabs(cos((angle - data->player.angle) * M_PI / 180));
 		
-		printf("ANGLE = %f\n", angle);
-		printf("horizontale = %f\nverticale = %f\n", horizontal_inter, vertical_inter);
+		printf("ap ANGLE = %f\n", angle);
+		//printf("horizontale = %f\nverticale = %f\n", horizontal_inter, vertical_inter);
 		//printf("distance = %f\n", data->ray.distance);
 		render_wall(data, width);
 
@@ -276,10 +287,10 @@ int	game_loop(t_data *data)
 
 void	start_game(t_data *data)
 {
-	
+	printf("TESTTT = %f\n", tan(M_PI / 2));
 	mlx_hook(data->win_ptr, 33, 1L << 17, &quit_game, data);
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
-	//mlx_key_hook(data->win_ptr, &keybinding, data);
+	mlx_key_hook(data->win_ptr, &keybinding, data);
 	//mlx_loop_hook(data->mlx_ptr, &game_loop, data);
 	game_loop(data);
 	mlx_loop(data->mlx_ptr);
