@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/11 18:30:45 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/11 18:47:24 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,11 +215,13 @@ void	raycasting(t_data *data)
 		data->ray.distance = horizontal_inter;
 		data->ray.inter_x = data->ray.h_inter_x;
 		data->ray.inter_y = data->ray.h_inter_y;
+		data->ray.is_horizontal = 1;
 		if (vertical_inter <= horizontal_inter)
 		{
 			data->ray.inter_x = data->ray.v_inter_x;
 			data->ray.inter_y = data->ray.v_inter_y;
 			data->ray.distance = vertical_inter;
+			data->ray.is_horizontal = 0;
 		}
 		data->ray.distance *= fabs(cos((angle - data->player.angle) * M_PI / 180));
 		//printf("inter_x = %f\n, inter_y = %f\n", data->ray.inter_x, data->ray.inter_y);

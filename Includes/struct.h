@@ -69,6 +69,7 @@ typedef	struct s_ray
 	double	v_inter_y;
 	double	inter_x;
 	double	inter_y;
+	int		is_horizontal;
 	double	distance;
 	double	angle;
 	double	a;
