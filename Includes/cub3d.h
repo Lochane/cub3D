@@ -15,7 +15,7 @@
 
 # define	SCREEN_WIDTH 2560
 # define	SCREEN_HEIGHT 1440
-# define		ZOOM	0.15
+# define	ZOOM	0.15
 # define	TILE_SIZE 1 //comment on determine la taille de la tile?
 # define	RED 0xFF0000
 # define 	GREEN 0x00FF00
@@ -28,8 +28,6 @@
 # define	LEFT_KEY 65361
 # define	RIGHT_KEY 65363
 # define	BLUE 0x0000FF
-# define	LEFT_KEY 65361
-# define	RIGHT_KEY 65363
 //FOV
 //roation speed
 //player speed
@@ -50,7 +48,9 @@ int		parse_texture(t_data *data);
 
 /* EVENTS */
 
+int	keybinding(int keysim, t_data *data);
 int	handle_keypress(int keysym, t_data *data);
+int	handle_key_release(int key_sym, t_data *data);
 int	quit_game(t_data *data);
 
 /* UTILS */
@@ -94,9 +94,6 @@ void	print_square(t_data *data, int start_width, int end_width, int start_height
 
 
 /* GAMEPLAY */
-int	keybinding(int keysim, t_data *data);
 
-
-int	keybinding(int keysim, t_data *data);
 
 #endif

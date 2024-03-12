@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:14:06 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/08 15:18:17 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:04:19 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,10 @@ void	print_ray(t_data *data, double angle)
 	center_x += data->map.square_size / 2;
 	center_y += data->map.square_size / 2;
 	
-	
 	x = center_x;
 	y = center_y;
-	
-	// if (angle < 180)
-	// 	a = tan( angle * (M_PI / 180));
-	// else
-	//printf("av angle = %f\n", angle);
-	//angle = angle * -1;
-	//printf("angle = %f\n", angle);
+
 	a = -tan( angle * (M_PI / 180));
-	//printf("a = %f\n", a);
 	b = y - (a * x);
 	data->img.height = 0;
 	int end_height = 0;
@@ -59,70 +51,11 @@ void	print_ray(t_data *data, double angle)
 	int	start_width = 0;
 	int end_width = 0;
 	
-	//angle = angle * -1;
 	start_height = 0;
 	end_height = data->win_height;
 	start_width = 0;
 	end_width = data->win_width;
-	if (angle >= 0 && angle <= 90)
-	{
-		//printf("0 -> 90\n");
-		start_height = 0;
-		end_height = center_y;
-		start_width = center_x;
-		end_width = data->win_width;
 
-		// start_height = center_y;
-		// end_height = 0;
-		// start_width = 0;
-		// end_width = center_x;
-	}
-	else if (angle >= 90 && angle <= 180)
-	{
-		//printf("90 -> 180\n");
-		start_height = 0;
-		end_height = center_y;
-		start_width = 0;
-		end_width = center_x;
-
-		// start_height = center_y;
-		// end_height = 0;
-		// start_width = data->win_width;
-		// end_width = center_x;
-	}
-	else if (angle >= 180 && angle <= 270)
-	{
-		//printf("180 -> 270\n");
-		start_height = center_y;
-		end_height = data->win_height;
-		start_width = 0;
-		end_width = center_x;
-
-		// start_height = center_y;
-		// end_height = data->win_height;
-		// start_width = center_x;
-		// end_width = 0;
-	}
-	else if (angle >= 270 && angle <= 360)
-	{
-		//printf("270 -> 360\n");
-		start_height = center_y;
-		end_height = data->win_height;
-		start_width = center_x;
-		end_width = data->win_width;
-
-	}
-	else if (angle >= -30 && angle <= 0)
-	{
-		start_height = center_y;
-		end_height = data->win_height;
-		start_width = center_x;
-		end_width = data->win_width;
-	}
-	// start_height = 0;
-	// start_width = 0;
-	// end_height = data->win_height;
-	// end_width = data->win_width;
 	int tmp = start_width;
 	while (start_height < end_height)
 	{
@@ -193,12 +126,13 @@ void	mini_map(t_data *data)
 {
 	int	i;
 	int	j;
-
+	int	x;
+	int	y;
 
 	i = 0;
-	//int c = 0;
+	x = floor(data->player.x);
+	y = floor(data->player.y);
 	init_square_size(data);
-
 	data->img.height = 0;
 	while (data->map.file[i])
 	{
@@ -206,26 +140,27 @@ void	mini_map(t_data *data)
 	 	j = 0;
 	 	while (data->map.file[i][j])
 	 	{
+			//printf("i = %d, j = %d\nplayerx = %d, playery = %d\n", i, j, x, y);
 	 		if (data->map.file[i][j] == '1')
 			{
-				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, RED );
-			}
-			else if (data->map.file[i][j] == '0')
-		 	{
-				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, GREEN );
+				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, RED);
 			}
 			else if (data->map.file[i][j] == ' ')
 			{
 				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, BLACK );
+				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, BLACK);
 			}
-			else if (data->map.file[i][j] == 'S' || data->map.file[i][j] == 'N' || data->map.file[i][j] == 'W'
-						|| data->map.file[i][j] == 'E')
+			else
+		 	{
+				//printf("map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
+				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, GREEN);
+			}
+			if (i == y && j == x)
 			{
 				//printf("PERSONNAGE map[%d][%d] = %c\n", i, j, data->map.file[i][j]);
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, BLACK );
+				//printf("i = %d, j = %d\nplayerx = %d, playery = %d\n", i, j, x, y);
+				
+				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, BLACK);
 			}
 	 		j++;
 			//c = c + 100;
@@ -235,5 +170,6 @@ void	mini_map(t_data *data)
 	 	i++;
 		//printf("map[i] = %s\n", data->map.file[i]);
 	 }
+	 //print player :
 
 }

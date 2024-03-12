@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events.c                                           :+:      :+:    :+:   */
+/*   quit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:28:56 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/09 20:28:00 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:35:42 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/cub3d.h"
-
-int	handle_keypress(int keysym, t_data *data)
-{
-	if (keysym == XK_Escape)
-		quit_game(data);
-	return (0);
-}
 
 int	quit_game(t_data *data)
 {
