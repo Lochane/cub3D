@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/11 18:33:28 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:57:33 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_struct(t_data *data)
 	data->texture.so_path = NULL;
 	data->texture.we_path = NULL;
 	data->texture.ea_path = NULL;
+	data->key_press = 0;
 }
 
 void	init_window_and_image(t_data *data)
@@ -39,8 +40,8 @@ void	init_window_and_image(t_data *data)
 		error_msg("Error: mlx init fail\n", 0, data);
 	mlx_get_screen_size(data->mlx_ptr, &data->win_width, &data->win_height);
 	//printf("screen height = %d, screen width = %d\n", data->win_height, data->win_width);
-	//data->win_height = 1000;
-	//data->win_width = 1000;
+	// data->win_height = 1000;
+	// data->win_width = 1000;
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->win_width,
 			data->win_height, "Cub3D");
 	if (!data->win_ptr)
@@ -58,8 +59,7 @@ void	init_player(t_data *data)
 {
 	data->map.spawn_x += 0.5;
 	data->map.spawn_y += 0.5;
-	data->map.spawn_x = 3.3;
-	data->map.spawn_y = 3.4;
+
 	data->player.x = data->map.spawn_x;
 	data->player.y = data->map.spawn_y;
 	data->player.fov = 60;
@@ -72,6 +72,7 @@ void	init_player(t_data *data)
 		data->player.angle = 270;
 	else if (data->map.spawn_side == 'W')
 		data->player.angle = 180;
+	//data->player.angle = 210;
 }
 
 t_img	init_img(t_data *data, char *path)

@@ -91,6 +91,7 @@ typedef struct s_data
 	int			file_weidht;
 	int			win_height;
 	int			win_width;
+	int			key_press;
 	t_ray		ray;
 	t_map		map;
 	t_img		img;
