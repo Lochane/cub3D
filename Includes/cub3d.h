@@ -15,7 +15,8 @@
 
 # define	SCREEN_WIDTH 2560
 # define	SCREEN_HEIGHT 1440
-# define	ZOOM	0.15
+# define	ZOOM	0.20
+# define	FOV	60
 # define	TILE_SIZE 1 //comment on determine la taille de la tile?
 # define	RED 0xFF0000
 # define 	GREEN 0x00FF00
@@ -84,6 +85,7 @@ void	init_window_and_image(t_data *data);
 void	init_player(t_data *data);
 void	start_game(t_data *data);
 int		game_loop(t_data *data);
+int		is_wall(t_data *data, double intersection_x, double intersection_y, double angle);
 
 //MINIMAP
 

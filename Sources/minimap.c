@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:14:06 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/12 18:04:19 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:45:22 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,13 @@ void	print_ray(t_data *data, double angle)
 					//printf("map[%d][%d] = %c\n", y / data->map.square_size, x / data->map.square_size, data->map.file[y / data->map.square_size][x / data->map.square_size]);
 					// if (data->map.file[y / data->map.square_size][x / data->map.square_size] == '1')
 					// 	return;
+					//printf("x = %d, y = %d\n", x, y);
+					// if (y == data->ray.inter_y || x == data->ray.inter_x)
+					// if (is_wall(data, x / data->map.square_size, y / data->map.square_size, angle))
+					// {	
+					// 	return;
+					// }
+					//printf("cc\n");
 					data->img.addr[start_height * data->win_width + tmp] = WHITE;
 				}
 			}
@@ -143,6 +150,7 @@ void	mini_map(t_data *data)
 			//printf("i = %d, j = %d\nplayerx = %d, playery = %d\n", i, j, x, y);
 	 		if (data->map.file[i][j] == '1')
 			{
+				//printf("sqauresize =%d\n", data->map.square_size);
 				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, RED);
 			}
 			else if (data->map.file[i][j] == ' ')
@@ -169,7 +177,25 @@ void	mini_map(t_data *data)
 	 	data->img.height += data->map.square_size;
 	 	i++;
 		//printf("map[i] = %s\n", data->map.file[i]);
-	 }
-	 //print player :
+	}
+	// printf("x = %d, y = %d\n", x, y);
+	
+	// //print player :
+	// double height;
+	// double width;
+	// height = data->player.x * data->map.square_size;
+	// width = data->player.y * data->map.square_size;
+	// printf("sqaure size = %d\n", data->map.square_size);
+	// printf("height = %f, width = %f\n", height, width);
+	// x = x / data->map.square_size;
+	// y = y / data->map.square_size;
+	// printf("x = %d, y = %d\n", x, y);
+	// printf("playerx = %f, playery = %f\n", data->player.x, data->player.y);
+	// if (data->map.file[y] && x < (int)ft_strlen(data->map.file[y]) && data->map.file[y][x] != 1)
+	// {
+	
+	// 	print_square(data, width, width + data->map.square_size, height, height + data->map.square_size, BLACK);
+	// }
+
 
 }

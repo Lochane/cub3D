@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/12 18:03:32 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:45:40 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,11 @@ int		is_wall(t_data *data, double intersection_x, double intersection_y, double 
 		return (1);
 	if (data->map.file[y] && x < (int)ft_strlen(data->map.file[y]) && data->map.file[y][x])//?? x <= ft_strlen_double(data->map.file[y]) == data->map[y][x] ??
 	{
-		//printf("map[%d][%d] = %c\n", y, x, data->map.file[y][x]);
 		if (data->map.file[y][x] == '1')
+		{
+			//printf("map[%d][%d] = %c\n", y, x, data->map.file[y][x]);
 			return (1);
+		}
 	}
 	return (0);
 }
@@ -263,5 +265,6 @@ void	start_game(t_data *data)
 
 	mlx_key_hook(data->win_ptr, &keybinding, data);
 	game_loop(data);
+	
 	mlx_loop(data->mlx_ptr);
 }
