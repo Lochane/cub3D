@@ -85,6 +85,9 @@ void	init_player(t_data *data);
 void	start_game(t_data *data);
 int		game_loop(t_data *data);
 
+int	render_texture(t_data *data, int height, int beg_wall, int end_wall, t_img img);
+
+
 //MINIMAP
 
 void	init_square_size(t_data *data);

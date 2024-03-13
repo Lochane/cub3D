@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/11 18:47:24 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:07:24 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void	render_wall(t_data *data, int width)
 		if (height <= ceiling)
 			data->img.addr[height * data->win_width + width] = BLUE;
 		else if (height >= ceiling && height <= ceiling + wall)
-			data->img.addr[height * data->win_width + width] = RED;
+			data->img.addr[height * data->win_width + width] = render_texture(data, height, wall, ceiling, data->texture.no_texture);
 		else
 			data->img.addr[height * data->win_width + width] = GREEN;
 		height++;
