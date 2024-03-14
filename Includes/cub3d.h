@@ -15,7 +15,7 @@
 
 # define	SCREEN_WIDTH 2560
 # define	SCREEN_HEIGHT 1440
-# define	ZOOM	0.20
+# define	ZOOM	0.25
 # define	FOV	60
 # define	TILE_SIZE 1 //comment on determine la taille de la tile?
 # define	RED 0xFF0000
@@ -93,6 +93,7 @@ void	init_square_size(t_data *data);
 void	mini_map(t_data *data);
 void	print_all_rays(t_data *data);
 void	print_square(t_data *data, int start_width, int end_width, int start_height, int end_height, int color);
+void	display_ray_mm(t_data *data);
 
 
 /* GAMEPLAY */
