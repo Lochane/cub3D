@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/12 17:57:33 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:29:26 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	init_struct(t_data *data)
 {
 	data->mlx_ptr = NULL;
 	data->win_ptr = NULL;
+	data->map.file = NULL;
 	data->map.width = 0;
 	data->map.height = 0;
 	data->map.spawn_y = 0;
@@ -31,6 +32,10 @@ void	init_struct(t_data *data)
 	data->texture.we_path = NULL;
 	data->texture.ea_path = NULL;
 	data->key_press = 0;
+	data->texture.ea_texture.allow = 0;
+	data->texture.no_texture.allow = 0;
+	data->texture.we_texture.allow = 0;
+	data->texture.so_texture.allow = 0;
 }
 
 void	init_window_and_image(t_data *data)
@@ -38,6 +43,7 @@ void	init_window_and_image(t_data *data)
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
 		error_msg("Error: mlx init fail\n", 0, data);
+	load_texture(data);
 	mlx_get_screen_size(data->mlx_ptr, &data->win_width, &data->win_height);
 	//printf("screen height = %d, screen width = %d\n", data->win_height, data->win_width);
 	// data->win_height = 1000;
@@ -91,6 +97,7 @@ t_img	init_img(t_data *data, char *path)
 	img.addr = (int *)mlx_get_data_addr(img.img, &img.bpp, \
 		&img.line_lenght, &img.endian);
 	close (fd);
+	img.allow = 1;
 	return (img);
 }
 

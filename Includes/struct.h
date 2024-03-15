@@ -11,6 +11,7 @@ typedef struct s_img
 	int		height;
 	int		endian;
 	char	*path;
+	int		allow;
 }			t_img;
 
 typedef struct s_sprite
@@ -30,6 +31,8 @@ typedef struct s_texture
 	t_img	so_texture;
 	t_img	ea_texture;
 	t_img	we_texture;
+	double	pixel_y;
+	double	pixel_x;
 	int		count;
 
 } t_texture;

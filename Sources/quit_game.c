@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:28:56 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/12 14:35:42 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/15 14:34:07 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int	quit_game(t_data *data)
 	if (data->win_ptr)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	if (data->mlx_ptr)
+	{
 		mlx_destroy_display(data->mlx_ptr);
-	free(data->mlx_ptr);
+		free(data->mlx_ptr);
+	}
 	free(data);
 	exit (0);
 }

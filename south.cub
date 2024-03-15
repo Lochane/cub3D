@@ -1,7 +1,7 @@
-NO ./sprite/Tree_1.xpm
-SO ./sprite/Tree_2.xpm
-WE ./sprite/Tree_3.xpm
-EA ./sprite/Tree_4.xpm
+NO ./Textures/wall-1.xpm
+SO ./Textures/Tree_2.xpm
+EA ./Textures/endscreen.xpm
+WE ./Textures/character1.xpm
 
 F 39,212,68
 C 0,137,255
@@ -9,7 +9,7 @@ C 0,137,255
 1111111
 1000001
 1000001
-100N001
+100S001
 1000001
 1000001
 1111111

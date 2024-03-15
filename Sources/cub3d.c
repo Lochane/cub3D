@@ -6,11 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/03/13 16:07:24 by lsouquie         ###   ########.fr       */
-=======
-/*   Updated: 2024/03/12 18:03:32 by malancar         ###   ########.fr       */
->>>>>>> exec
+/*   Updated: 2024/03/13 17:22:17 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,10 +183,7 @@ void	render_wall(t_data *data, int width)
 		if (height <= wall_start)
 			data->img.addr[height * data->win_width + width] = BLUE;
 		else if (height >= wall_start && height <= wall_end)
-		{
-			
-			data->img.addr[height * data->win_width + width] = RED;
-		}
+			data->img.addr[height * data->win_width + width] = render_texture(data, height, wall_start, wall_end);
 		else
 			data->img.addr[height * data->win_width + width] = GREEN;
 		height++;

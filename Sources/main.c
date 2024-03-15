@@ -41,7 +41,7 @@ void	parsing(char *file_name, t_data *data)
 void	cub3d(t_data *data)
 {
 	init_window_and_image(data);
-	load_texture(data);
+	// load_texture(data);
 	init_player(data);
 	start_game(data);
 }
