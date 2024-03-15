@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:14:06 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/14 18:13:45 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/15 19:14:15 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,58 @@ void	mini_map(t_data *data)
 
 }
 
+void	display_one_ray(t_data *data, double angle, int wall)
+{
+	int	a;
+	int	b;
+	int	x;
+	int	y;
+	(void)wall;
+
+	x = data->player.x;
+	//printf("x = %d\n", x);
+	a = tan(angle * (M_PI / 180));
+	b = data->player.y - tan(angle * (M_PI / 180) * data->player.x);
+	while (1)
+	{
+		y = a * x + b;
+		printf("a = %d, b = %d\n", a, b);
+		printf("x = %d, y = %d\n", x, y);
+		//printf("data->ray.inter_points_x[i] = %f\n", floor(data->ray.inter_points_x[i]));
+		if (data->map.file[y] && data->map.file[y][x] && data->map.file[y][x] == '1')
+		{
+			printf("cc\n");
+			return;
+		}
+		//printf("y * data->win_width + x = %d\n", y * data->win_width + x);
+		data->img.addr[y * data->win_width + x] = WHITE;
+		// if (angle >= 90 && angle <= 270)
+		// 	x--;
+		// else
+		x++;
+	}
+
+
+	
+}
+
+void	display_all_rays(t_data *data)
+{
+	int	i;
+	
+	i = 0;
+	while (data->ray.angles[i] < data->win_width)
+	{
+		display_one_ray(data, data->ray.angles[i], floor(data->ray.inter_points_x[i]));
+		i++;
+	}
+	//display_one_ray(data, 90, floor(data->ray.inter_points_x[i]));
+	free(data->ray.angles);
+	free(data->ray.inter_points_x);
+	free(data->ray.inter_points_y);
+}
+
+
 void	display_ray_mm(t_data *data)
 {
 	int	x;
@@ -243,8 +295,8 @@ void	display_ray_mm(t_data *data)
 		err = x - y;
 		while (position_x != end_pos_x && position_y != end_pos_y)
 		{
-			printf("position_x = %d, position_y = %d\n", position_x, position_y);
-			printf("position_y * width + position_x = %d\n", position_y * data->win_width + position_x);
+			//printf("position_x = %d, position_y = %d\n", position_x, position_y);
+			//printf("position_y * width + position_x = %d\n", position_y * data->win_width + position_x);
 			data->img.addr[position_y * data->win_width + position_x] = WHITE;
 			e2 = 2 * err;
 			if (e2 > -y)

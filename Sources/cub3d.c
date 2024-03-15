@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/14 18:18:49 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/15 19:14:58 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,6 +276,7 @@ void	raycasting(t_data *data)
 	ray = 0;
 	data->ray.inter_points_x = malloc(sizeof(double) * data->win_width);
 	data->ray.inter_points_y = malloc(sizeof(double) * data->win_width);
+	data->ray.angles = malloc(sizeof(double) * data->win_width);
 	while (ray < data->win_width)
 	{
 		angle = fix_angle (angle);
@@ -300,6 +301,7 @@ void	raycasting(t_data *data)
 		render_wall(data, width);
 		//ray_mm(data);
 		angle = angle + (data->player.fov / (data->win_width - 1));
+		data->ray.angles[ray] = angle;
 		data->ray.inter_points_x[ray] = data->ray.inter_x;
 		data->ray.inter_points_y[ray] = data->ray.inter_y;
 		ray++;
@@ -313,7 +315,9 @@ int	game_loop(t_data *data)
 {
 	raycasting(data);
 	//mini_map(data);
-	display_ray_mm(data);
+	//display_ray_mm(data);
+	//display_all_rays(data);
+	//display_one_ray(data, 271, 4);
 	//print_all_rays(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
 	return (0);
