@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:14:06 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/18 00:43:51 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/18 00:49:51 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -385,68 +385,57 @@ void	display_all_rays(t_data *data)
 // 	free(data->ray.angles);
 // }
 
-// void	display_ray_mm(t_data *data)
-// {
-// double	x;
-// 	double	y;
-// 	int	x_step;
-// 	int		step2;
-// 	int		y_step;
-// 	double	step;
-// 	int	position_x;
-// 	int	position_y;
-// 	int end_pos_x;
-// 	int end_pos_y;
-// 	// int	err;
-// 	// int	e2;
-// 	int	i;
+void	display_ray_mm(t_data *data)
+{
+double	x;
+	double	y;
+	int	x_step;
+	int		step2;
+	int		y_step;
+	double	step;
+	int	position_x;
+	int	position_y;
+	int end_pos_x;
+	int end_pos_y;
+	// int	err;
+	// int	e2;
+	int	i;
 	
-// 	i = 0;
-// 	position_x = data->player.x * data->map.square_size;
-// 	position_y = data->player.y * data->map.square_size;
-// 	x_step = 1;
-// 	y_step = 1;
-// 	//printf("end_pos_x = %d, end_pos_y = %d\n", end_pos_x, end_pos_y);
-// 	//printf("inter_x = %d, inter_y = %d\n", data->ray.inter_points_x[i], data->ray.inter_points_y[i]);
-// 	//printf("inter_x = %f, inter_y = %f\n", data->ray.inter_points_x[i], data->ray.inter_points_y[i]);
-// 	while (i < data->win_width)
-// 	{
-// 		//printf("angle = %f\n", data->ray.angles[i]);
-// 		//printf("inter_x = %f, inter_y = %f\n", data->ray.inter_points_x[i], data->ray.inter_points_y[i]);
-// 		end_pos_x = data->ray.inter_points_x[i] * data->map.square_size;
-// 		end_pos_y = data->ray.inter_points_y[i] * data->map.square_size;
-// 		//printf("ICI position_x = %d, positiony = %d\n", position_x, position_y);
-// 		//printf("position_x = %d, positiony = %d\n", position_x, position_y);
-// 		//printf("end_pos_x = %d, end_pos_y = %d\n", end_pos_x, end_pos_y);
-// 		x = abs(position_x - end_pos_x);
-// 		y = abs(position_y - end_pos_y);
-// 		if (position_x < end_pos_x)
-// 			x_step = 1;
-// 		else
-// 			x_step = -1;
-// 		if (position_y < end_pos_y)
-// 			y_step = 1;
-// 		else
-// 			y_step = -1;
-		
-// 		step2 = 1;
-// 		step = x - y;
-// 		while(position_x != end_pos_x || position_y != end_pos_y)
-// 		{
-// 			data->img.addr[position_y * data->win_width + position_x] = WHITE;
-// 			step2 = 2 * step;
-// 			if (step2 > y)
-// 			{
-// 				step -= y;
-// 				position_x += x_step;
-// 			}
-// 			if (step2 < x)
-// 			{
-// 				step += x;
-// 				position_y += y_step;
-// 			}
+	i = 0;
+	position_x = data->player.x * data->map.square_size;
+	position_y = data->player.y * data->map.square_size;
+	x_step = 1;
+	y_step = 1;
+	while (i < data->win_width)
+	{
+		end_pos_x = data->ray.inter_points_x[i] * data->map.square_size;
+		end_pos_y = data->ray.inter_points_y[i] * data->map.square_size;
+		x = abs(position_x - end_pos_x);
+		y = abs(position_y - end_pos_y);
+		x_step = 1;
+		y_step = 1;
+		if (position_x > end_pos_x)
+			x_step = -1;
+		if (position_y > end_pos_y)
+			y_step = -1;
+		step2 = 1;
+		step = x - y;
+		while(position_x != end_pos_x || position_y != end_pos_y)
+		{
+			data->img.addr[position_y * data->win_width + position_x] = WHITE;
+			step2 = 2 * step;
+			if (step2 > -y)
+			{
+				step -= y;
+				position_x += x_step;
+			}
+			if (step2 < x)
+			{
+				step += x;
+				position_y += y_step;
+			}
 			
-// 		}
-// 		i++;
-// 	}
-// }
+		}
+		i++;
+	}
+}

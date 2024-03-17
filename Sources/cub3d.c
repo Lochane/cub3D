@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/18 00:43:55 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/18 00:53:01 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,20 +216,14 @@ void	ray_mm(t_data *data)
 	int end_pos_y;
 	int	err;
 	int	e2;
-	int	i;
-	
-	i = 0;
+
 	position_x = data->player.x * data->map.square_size;
-	position_x += data->map.square_size / 2;;
 	position_y = data->player.y * data->map.square_size;
-	position_y += data->map.square_size / 2;
 	step_x = 1;
 	step_y = 1;
 //printf("inter_x = %d, inter_y = %d\n", data->ray.inter_points_x[i], data->ray.inter_points_y[i]);
-		end_pos_x = data->ray.inter_x * data->map.square_size;
-		end_pos_x += data->map.square_size / 2;
-		end_pos_y = data->ray.inter_y * data->map.square_size;
-		end_pos_y += data->map.square_size / 2;
+	end_pos_x = data->ray.inter_x * data->map.square_size;
+	end_pos_y = data->ray.inter_y * data->map.square_size;		
 	// printf("end_pos_x = %d, end_pos_y = %d\n", end_pos_x, end_pos_y);
 	// printf("interx = %f\n, intery = %f\n", data->ray.inter_x, data->ray.inter_y);
 		x = abs(end_pos_x - position_x);
@@ -323,7 +317,8 @@ int	game_loop(t_data *data)
 	raycasting(data);
 	mini_map(data);
 	//display_ray_mm(data);
-	//display_all_rays(data);
+	//ray_mm(data); // work for one ray
+	display_all_rays(data);//problem for angle = 90 and angle = 270
 	//display_one_ray(data, 300, 4);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
 	return (0);
