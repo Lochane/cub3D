@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/17 18:26:26 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/18 00:43:55 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,7 +323,7 @@ int	game_loop(t_data *data)
 	raycasting(data);
 	mini_map(data);
 	//display_ray_mm(data);
-	display_all_rays(data);
+	//display_all_rays(data);
 	//display_one_ray(data, 300, 4);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
 	return (0);
