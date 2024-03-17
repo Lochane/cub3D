@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/15 19:14:58 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/17 18:26:26 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ void	render_wall(t_data *data, int width)
 			data->img.addr[height * data->win_width + width] = BLUE;
 		else if (height >= wall_start && height <= wall_end)
 		{
-			
+			//printf("img,addr = %d\n", height * data->win_width + width);
 			data->img.addr[height * data->win_width + width] = RED;
 		}
 		else
@@ -306,19 +306,25 @@ void	raycasting(t_data *data)
 		data->ray.inter_points_y[ray] = data->ray.inter_y;
 		ray++;
 		width++;
+		//printf("width = %d\n", data->win_width);
+		//printf("ray = %d\n", ray);
 	}
+	ray = 0;
+	// while (ray < data->win_width)
+	// {
+	// 	printf("angle = %f\nwall = %f\n", data->ray.angles[ray], data->ray.inter_points_x[ray]);
+	// 	ray++;
+	// }
 	//printf("ray = %d\n", ray);
-	//printf("width = %d\n", data->win_width);
 }
 
 int	game_loop(t_data *data)
 {
 	raycasting(data);
-	//mini_map(data);
+	mini_map(data);
 	//display_ray_mm(data);
-	//display_all_rays(data);
-	//display_one_ray(data, 271, 4);
-	//print_all_rays(data);
+	display_all_rays(data);
+	//display_one_ray(data, 300, 4);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
 	return (0);
 }

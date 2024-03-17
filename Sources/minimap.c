@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:14:06 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/15 19:14:15 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/17 18:24:53 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,39 +202,81 @@ void	mini_map(t_data *data)
 
 }
 
-void	display_one_ray(t_data *data, double angle, int wall)
+void	display_one_ray(t_data *data, double angle, int wall_x, int wall_y)
 {
-	int	a;
-	int	b;
+	double	a;
+	double	b;
 	int	x;
-	int	y;
-	(void)wall;
-
-	x = data->player.x;
+	double	y;
+	//int	y_save;
+	
+	(void)wall_y;
+	x = data->player.x * data->map.square_size;
+	//printf("mapwidth = %d, squaresize = %d\n", map_width, data->map.square_size);
+	//printf("mapheight = %d\n", map_height);
 	//printf("x = %d\n", x);
-	a = tan(angle * (M_PI / 180));
-	b = data->player.y - tan(angle * (M_PI / 180) * data->player.x);
-	while (1)
+	//printf("angle = %f\n", angle);
+	a = -tan(angle * (M_PI / 180));
+	b = data->player.y * data->map.square_size - a * x;
+	
+	//printf("data->player.y * data->map.square_size = %f\n", data->player.y * data->map.square_size);
+	//printf("wallx = %d, wally = %d\n", wall_x, wall_y);
+	//printf("a = %f, b = %f\n", a, b);
+	//y_save = data->player.y * data->map.square_size;
+	while (x != wall_x)
 	{
 		y = a * x + b;
-		printf("a = %d, b = %d\n", a, b);
-		printf("x = %d, y = %d\n", x, y);
-		//printf("data->ray.inter_points_x[i] = %f\n", floor(data->ray.inter_points_x[i]));
-		if (data->map.file[y] && data->map.file[y][x] && data->map.file[y][x] == '1')
-		{
-			printf("cc\n");
+		// if (y >= wall_y )
+		// {
+		// 	y = wall_y;
+		// 	break;
+		// }
+		// else if (y < 0 )
+		// {
+		// 	y = 0;
+		// 	break;
+		// }
+		
+		//printf("LA y = %d\n", y);
+		// if (y < wall_y)
+		// {
+		// 	y_save = y;
+		// 	//printf(" LA y_save = %d\n", y_save);
+		// }
+		//printf("y = %d\n", y);
+		// if (y < 0 || y > wall_y)
+		// {
+		// 	//printf("x = %d, y = %d, ysave = %d\n", x, y, y_save);
+		// 	printf("wallx = %d, wally = %d\n", wall_x, wall_y);
+		// 	break ;
+		// }
+		if (y < 0 || y > data->win_height)
 			return;
-		}
+		//printf("data->ray.inter_points_x[i] = %f\n", floor(data->ray.inter_points_x[i]));
 		//printf("y * data->win_width + x = %d\n", y * data->win_width + x);
-		data->img.addr[y * data->win_width + x] = WHITE;
-		// if (angle >= 90 && angle <= 270)
-		// 	x--;
-		// else
-		x++;
+		data->img.addr[(int)y * data->win_width + x] = WHITE;
+		if (angle >= 90 && angle <= 270)
+			x--;
+		else
+			x++;
 	}
+	//printf("ICI y_save = %d\n", y_save);
+	// while (y_save != wall_y)
+	// 	{
+	// 		//printf("x = %d, y = %d\n", x, y);
+	// 		//printf("cc\n");
+	// 		printf("y_save = %d\n", y_save);
 
-
-	
+	// 		if (y_save > data->win_height)
+	// 			return ;
+	// 		printf("angle = %f\n", angle);
+	// 		data->img.addr[y_save * data->win_width + x] = WHITE;
+	// 		if (angle >= 0 && angle <= 180)
+	// 			y_save--;
+	// 		else
+	// 			y_save++;
+			
+	// 	}
 }
 
 void	display_all_rays(t_data *data)
@@ -242,9 +284,11 @@ void	display_all_rays(t_data *data)
 	int	i;
 	
 	i = 0;
-	while (data->ray.angles[i] < data->win_width)
+	while (i < data->win_width)
 	{
-		display_one_ray(data, data->ray.angles[i], floor(data->ray.inter_points_x[i]));
+		//printf("angle = %f\nwallx = %f, wally = %f\n", data->ray.angles[i], data->ray.inter_points_x[i], data->ray.inter_points_y[i]);
+		//printf("i = %d\n", i);
+		display_one_ray(data, data->ray.angles[i], floor(data->ray.inter_points_x[i] * data->map.square_size), floor(data->ray.inter_points_y[i] * data->map.square_size));
 		i++;
 	}
 	//display_one_ray(data, 90, floor(data->ray.inter_points_x[i]));
@@ -258,58 +302,57 @@ void	display_ray_mm(t_data *data)
 {
 	int	x;
 	int	y;
-	int	step_x;
-	int	step_y;
+	double	x_step;
+	double	y_step;
 	int	position_x;
 	int	position_y;
 	int end_pos_x;
 	int end_pos_y;
-	int	err;
-	int	e2;
+	// int	err;
+	// int	e2;
 	int	i;
 	
 	i = 0;
 	position_x = data->player.x * data->map.square_size;
-	position_x += data->map.square_size / 2;
 	position_y = data->player.y * data->map.square_size;
-	position_y += data->map.square_size / 2;
-	step_x = 1;
-	step_y = 1;
+	x_step = 1;
+	y_step = 1;
 	//printf("end_pos_x = %d, end_pos_y = %d\n", end_pos_x, end_pos_y);
 	//printf("inter_x = %d, inter_y = %d\n", data->ray.inter_points_x[i], data->ray.inter_points_y[i]);
 	//printf("inter_x = %f, inter_y = %f\n", data->ray.inter_points_x[i], data->ray.inter_points_y[i]);
-	while (data->ray.inter_points_x[i] < data->win_width - 1)
+	while (i < data->win_width)
 	{
+		printf("angle = %f\n", data->ray.angles[i]);
 		//printf("inter_x = %f, inter_y = %f\n", data->ray.inter_points_x[i], data->ray.inter_points_y[i]);
 		end_pos_x = data->ray.inter_points_x[i] * data->map.square_size;
-		end_pos_x += data->map.square_size / 2;
 		end_pos_y = data->ray.inter_points_y[i] * data->map.square_size;
-		end_pos_y += data->map.square_size / 2;
-		//printf("end_pos_x = %d, end_pos_y = %d\n", end_pos_x, end_pos_y);
-		x = abs(end_pos_x - position_x);
-		y = abs(end_pos_y - position_y);
-		if (position_x > end_pos_x)
-			step_x = -1;
-		if (position_y < end_pos_y)
-			step_y = -1;
-		err = x - y;
+		printf("ICI position_x = %d, positiony = %d\n", position_x, position_y);
+		printf("end_pos_x = %d, end_pos_y = %d\n", end_pos_x, end_pos_y);
+		x = abs(position_x - end_pos_x);
+		y = abs(position_y - end_pos_y);
+		printf("x = %d, y = %d\n", x, y);
+		//err = x - y;
 		while (position_x != end_pos_x && position_y != end_pos_y)
 		{
-			//printf("position_x = %d, position_y = %d\n", position_x, position_y);
+			// if (x > y)
+			// 	x_step = x / y;
+			// else
+			// 	x_step = y / x;
+			// y_step = x * x_step;
+			printf("xstep = %f, ystep = %f\n", x_step, y_step);
+			printf("position_x = %d, positiony = %d\n", position_x, position_y);
+			x_step = 1;
+			y_step = 1;
+			if (position_x > end_pos_x)
+				x_step = -1;
+			if (position_y < end_pos_y)
+				y_step = -1;
 			//printf("position_y * width + position_x = %d\n", position_y * data->win_width + position_x);
 			data->img.addr[position_y * data->win_width + position_x] = WHITE;
-			e2 = 2 * err;
-			if (e2 > -y)
-			{
-				err -= y;
-				position_x += step_x;
-			}
-			if (e2 < x)
-			{
-				err += x;
-				position_y += step_y;
-			}
+			//e2 = 2 * err;
 
+			position_x += x_step;
+			position_y += y_step;
 		}
 		i++;
 	}
