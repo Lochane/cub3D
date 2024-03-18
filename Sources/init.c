@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/15 17:29:26 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:43:57 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	init_window_and_image(t_data *data)
 	load_texture(data);
 	mlx_get_screen_size(data->mlx_ptr, &data->win_width, &data->win_height);
 	//printf("screen height = %d, screen width = %d\n", data->win_height, data->win_width);
-	// data->win_height = 1000;
-	// data->win_width = 1000;
+	data->win_height = 1080;
+	data->win_width = 1920;
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->win_width,
 			data->win_height, "Cub3D");
 	if (!data->win_ptr)

@@ -15,7 +15,8 @@
 
 # define	SCREEN_WIDTH 2560
 # define	SCREEN_HEIGHT 1440
-# define	ZOOM	0.15
+# define	ZOOM	0.25
+# define	FOV	60
 # define	TILE_SIZE 1 //comment on determine la taille de la tile?
 # define	RED 0xFF0000
 # define 	GREEN 0x00FF00
@@ -84,6 +85,7 @@ void	init_window_and_image(t_data *data);
 void	init_player(t_data *data);
 void	start_game(t_data *data);
 int		game_loop(t_data *data);
+int		is_wall(t_data *data, double intersection_x, double intersection_y, double angle);
 
 int	render_texture(t_data *data, int height, int beg_wall, int end_wall);
 
@@ -94,6 +96,9 @@ void	init_square_size(t_data *data);
 void	mini_map(t_data *data);
 void	print_all_rays(t_data *data);
 void	print_square(t_data *data, int start_width, int end_width, int start_height, int end_height, int color);
+void	display_ray_mm(t_data *data);
+void	display_all_rays(t_data *data);
+//void	display_one_ray(t_data *data, double angle, int wall);
 
 
 /* GAMEPLAY */
