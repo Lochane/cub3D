@@ -66,8 +66,8 @@ typedef	struct s_player
 
 typedef	struct s_ray
 {
-	double		*inter_points_x;
-	double		*inter_points_y;
+	double	*inter_points_x;
+	double	*inter_points_y;
 	double	*angles;
 	double	h_inter_x;
 	double	h_inter_y;
@@ -87,7 +87,10 @@ typedef	struct s_ray
 	int		start_width;
 	int		end_height;
 	int		end_width;
-} t_ray;
+	int		ray_index;
+	double	dirx;
+	double	diry;
+}	t_ray;
 
 typedef struct s_data
 {

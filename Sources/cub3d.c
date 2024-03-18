@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:38:14 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/18 15:44:13 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:49:11 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,6 @@ void	ray_mm(t_data *data)
 void	raycasting(t_data *data)
 {
 	double	angle;
-	int		ray;
 	double	horizontal_inter;
 	double	vertical_inter;
 	int		width;
@@ -264,11 +263,10 @@ void	raycasting(t_data *data)
 	angle = data->player.angle - (data->player.fov / 2);
 	horizontal_inter = 0;
 	vertical_inter = 0;
-	ray = 0;
 	data->ray.inter_points_x = malloc(sizeof(double) * data->win_width);
 	data->ray.inter_points_y = malloc(sizeof(double) * data->win_width);
 	data->ray.angles = malloc(sizeof(double) * data->win_width);
-	while (ray < data->win_width)
+	while (data->ray.ray_index < data->win_width)
 	{
 		angle = fix_angle (angle);
 		//printf("\nangle = %f\n", angle);
@@ -289,18 +287,18 @@ void	raycasting(t_data *data)
 		//printf("inter_x = %f\n, inter_y = %f\n", data->ray.inter_x, data->ray.inter_y);
 		//printf("horizontale = %f\nverticale = %f\n", horizontal_inter, vertical_inter);
 		//printf("distance = %f\n", data->ray.distance);
-		render_wall(data, width);
 		//ray_mm(data);
 		angle = angle + (data->player.fov / (data->win_width - 1));
-		data->ray.angles[ray] = angle;
-		data->ray.inter_points_x[ray] = data->ray.inter_x;
-		data->ray.inter_points_y[ray] = data->ray.inter_y;
-		ray++;
+		data->ray.angles[data->ray.ray_index] = angle;
+		data->ray.inter_points_x[data->ray.ray_index] = data->ray.inter_x;
+		data->ray.inter_points_y[data->ray.ray_index] = data->ray.inter_y;
+		render_wall(data, width);
+		data->ray.ray_index++;
 		width++;
 		//printf("width = %d\n", data->win_width);
 		//printf("ray = %d\n", ray);
 	}
-	ray = 0;
+	data->ray.ray_index = 0;
 	// while (ray < data->win_width)
 	// {
 	// 	printf("angle = %f\nwall = %f\n", data->ray.angles[ray], data->ray.inter_points_x[ray]);

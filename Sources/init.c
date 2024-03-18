@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/18 15:43:57 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:49:49 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ void	init_struct(t_data *data)
 	data->texture.no_texture.allow = 0;
 	data->texture.we_texture.allow = 0;
 	data->texture.so_texture.allow = 0;
+	data->ray.ray_index = 0;\
+	data->ray.dirx = 0;
+	data->ray.diry = 0;
 }
 
 void	init_window_and_image(t_data *data)
