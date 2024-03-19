@@ -60,5 +60,12 @@ int	main(int ac, char **av)
 		return (0);
 	init_struct(data);
 	parsing(av[1], data);
+	// print_map_info(data);
+	// int	i = 0;
+	// while (data->map.file[i])
+	// {
+	// 	printf("%s", data->map.file[i]);
+	// 	i++;
+	// }
 	cub3d(data);
 }
