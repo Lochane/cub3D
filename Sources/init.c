@@ -6,11 +6,35 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/18 16:49:49 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:09:25 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/cub3d.h"
+
+void	init_player_dir(t_data *data)
+{
+	if (data->map.spawn_side == 'N')
+	{
+		data->player.dirx = -0;
+		data->player.diry = -1;
+	}
+	else if (data->map.spawn_side == 'E')
+	{
+		data->player.dirx = 1;
+		data->player.diry = 0;
+	}
+	else if (data->map.spawn_side == 'S')
+	{
+		data->player.dirx = 0;
+		data->player.diry = 1;
+	}
+	else if (data->map.spawn_side == 'W')
+	{
+		data->player.dirx = -1;
+		data->player.diry = 0;
+	}
+}
 
 void	init_struct(t_data *data)
 {
@@ -36,9 +60,9 @@ void	init_struct(t_data *data)
 	data->texture.no_texture.allow = 0;
 	data->texture.we_texture.allow = 0;
 	data->texture.so_texture.allow = 0;
-	data->ray.ray_index = 0;\
-	data->ray.dirx = 0;
-	data->ray.diry = 0;
+	data->ray.ray_index = 0;
+	data->player.dirx = 0;
+	data->player.diry = 0;
 }
 
 void	init_window_and_image(t_data *data)
@@ -81,6 +105,7 @@ void	init_player(t_data *data)
 		data->player.angle = 270;
 	else if (data->map.spawn_side == 'W')
 		data->player.angle = 180;
+	init_player_dir(data);
 	//data->player.angle = 210;
 }
 

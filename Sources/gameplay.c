@@ -6,34 +6,83 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 15:57:37 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/18 18:33:02 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:42:21 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/cub3d.h" 
 
+int	check_dist(t_data *data, int keysim)
+{
+	double	new_x;
+	double	new_y;
+
+	if (keysim == 'd')
+	{
+		new_x = data->player.x - data->player.diry * 0.3;
+		new_y = data->player.y + data->player.dirx * 0.3;
+	}
+	if (keysim == 'a')
+	{
+		new_x = data->player.x + data->player.diry * 0.3;
+		new_y = data->player.y - data->player.dirx * 0.3;
+	}
+	if (data->map.file[(int)new_y][(int)new_x] != 1)
+		return (1);
+	return (0);
+}
+
+void	rotation_player(t_data *data, int keysim)
+{
+	double	old_dirx;
+	double	radian_ngl;
+	double	angle;
+
+	old_dirx = data->player.dirx;
+	if (keysim == LEFT_KEY && data->key_press == 1)
+	{
+		// data->player.angle -= 0.9f;
+		angle = -5;
+		radian_ngl = angle * M_PI / 180.0;
+		data->player.dirx = data->player.dirx * cos(radian_ngl) - \
+			data->player.diry * sin(radian_ngl);
+		data->player.diry = old_dirx * sin(radian_ngl) + \
+			data->player.diry * cos(radian_ngl);
+	}
+	if (keysim == RIGHT_KEY && data->key_press == 1)
+	{
+		// data->player.angle += 0.9f;
+		angle = 5;
+		radian_ngl = angle * M_PI / 180.0;
+		data->player.dirx = data->player.dirx * cos(radian_ngl) - \
+			data->player.diry * sin(radian_ngl);
+		data->player.diry = old_dirx * sin(radian_ngl) + \
+			data->player.diry * cos(radian_ngl);
+	}
+
+}
+
 void	left_right(t_data *data, int keysim)
 {
-	if (keysim == 'a' && data->key_press == 1)
-	{
-		data->key_press = 1;
-		data->player.x += sin(data->player.angle * (M_PI / 180)) * \
-			data->player.move_speed;
-		data->player.y += cos(data->player.angle * (M_PI / 180)) * \
-			data->player.move_speed;
-		data->map.spawn_x = data->player.x;
-		data->map.spawn_y = data->player.y;
-		game_loop(data);
-	}
+	double	new_x;
+	double	new_y;
+
 	if (keysim == 'd' && data->key_press == 1)
 	{
-		data->player.x -= sin(data->player.angle * (M_PI / 180)) * \
-			data->player.move_speed;
-		data->player.y -= cos(data->player.angle * (M_PI / 180)) * \
-			data->player.move_speed;
-		data->map.spawn_x = data->player.x;
-		data->map.spawn_y = data->player.y;
+		new_x = data->player.x - data->player.diry * 0.1;
+		new_y = data->player.y + data->player.dirx * 0.1;
 		game_loop(data);
+	}
+	if (keysim == 'a' && data->key_press == 1)
+	{
+		new_x = data->player.x + data->player.diry * 0.1;
+		new_y = data->player.y - data->player.dirx * 0.1;
+		game_loop(data);
+	}
+	if (check_dist(data, keysim) == 1)
+	{
+		data->player.x = new_x;
+		data->player.y = new_y;
 	}
 }
 
@@ -41,22 +90,18 @@ void	up_down(t_data *data, int keysim)
 {
 	if (keysim == 's' && data->key_press == 1)
 	{
-		data->player.x -= cos(data->player.angle * (M_PI / 180)) * \
-			data->player.move_speed * 2;
-		data->player.y += sin(data->player.angle * (M_PI / 180)) * \
-			data->player.move_speed * 2;
-		data->map.spawn_x = data->player.x;
-		data->map.spawn_y = data->player.y;
+		if (data->map.file[(int)data->player.y][(int)(data->player.x - data->player.dirx * 0.3)] == '0')
+			data->player.x -= data->player.dirx * 0.1;
+		if (data->map.file[(int)(data->player.y - data->player.diry * 0.3)][(int)data->player.x] == '0')
+			data->player.y -= data->player.diry * 0.1;
 		game_loop(data);
 	}
 	if (keysim == 'w' && data->key_press == 1)
 	{
-		data->player.x += cos(data->player.angle * (M_PI / 180)) * \
-			data->player.move_speed * 2;
-		data->player.y -= sin(data->player.angle * (M_PI / 180)) * \
-			data->player.move_speed * 2;
-		data->map.spawn_x = data->player.x;
-		data->map.spawn_y = data->player.y;
+		if (data->map.file[(int)data->player.y][(int)(data->player.x + data->player.dirx * 0.3)] == '0')
+			data->player.x += data->player.dirx * 0.1;
+		if (data->map.file[(int)(data->player.y + data->player.diry * 0.3)][(int)data->player.x] == '0')
+			data->player.y += data->player.diry * 0.1;
 		game_loop(data);
 	}
 }
@@ -99,12 +144,11 @@ int	handle_key_release(int key_sym, t_data *data)
 
 int	keybinding(int keysim, t_data *data)
 {
-	if (keysim == LEFT_KEY && data->key_press == 1)
-		data->player.angle -= 2.;
-	if (keysim == RIGHT_KEY && data->key_press == 1)
-		data->player.angle += 2.;
+	// printf("--0---------------------------- leak move -------------------------------------------\n");
+	printf("%d\n", keysim);
+	rotation_player(data, keysim);
+	// left_right(data, keysim);
 	up_down(data, keysim);
-	left_right(data, keysim);
 	game_loop(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 18:52:08 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/18 17:29:16 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:39:09 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ t_img	get_img(t_data *data)
 	if (data->ray.is_horizontal)
 	{
 		if (data->ray.diry > 0)
-			return (data->texture.we_texture);
+			return (data->texture.no_texture);
 		else
-			return (data->texture.ea_texture);
+			return (data->texture.so_texture);
 	}
 	else
 	{
 		if (data->ray.dirx > 0)
-			return (data->texture.so_texture);
+			return (data->texture.ea_texture);
 		else
-			return (data->texture.no_texture);
+			return (data->texture.we_texture);
 	}
 }
 
