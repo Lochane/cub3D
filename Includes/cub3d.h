@@ -84,7 +84,7 @@ void	init_game(t_data *data);
 void	init_window_and_image(t_data *data);
 void	init_player(t_data *data);
 void	start_game(t_data *data);
-int		game_loop(t_data *data);
+int	render_game(t_data *data);
 int		is_wall(t_data *data, double intersection_x, double intersection_y, double angle);
 
 //MINIMAP
@@ -99,6 +99,10 @@ void	display_all_rays(t_data *data);
 
 
 /* GAMEPLAY */
+void	raycasting(t_data *data);
+void	render_wall(t_data *data, int width);
+double		find_horizontal_intersection(t_data *data, double angle);
+double		find_vertical_intersection(t_data *data, double angle);
 
 
 #endif
