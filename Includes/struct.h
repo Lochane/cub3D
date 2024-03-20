@@ -11,6 +11,7 @@ typedef struct s_img
 	int		height;
 	int		endian;
 	char	*path;
+	int		allow;
 }			t_img;
 
 typedef struct s_sprite
@@ -30,6 +31,8 @@ typedef struct s_texture
 	t_img	so_texture;
 	t_img	ea_texture;
 	t_img	we_texture;
+	double	pixel_y;
+	double	pixel_x;
 	int		count;
 
 } t_texture;
@@ -43,8 +46,8 @@ typedef struct s_map
 	double	spawn_y;
 	char	spawn_side;
 	int		square_size;
-	int		ceiling_color[3];
-	int		floor_color[3];
+	int		ceiling_color;
+	int		floor_color;
 } t_map;
 
 typedef	struct s_player
@@ -56,6 +59,8 @@ typedef	struct s_player
 	double	fov;//field of view in radians
 	double	angle;
 	float	move_speed;
+	double	dirx;
+	double	diry;
 	//int		rotation_flag;
 	//int		left_rotation;
 	//int		right_rotation;
@@ -63,8 +68,8 @@ typedef	struct s_player
 
 typedef	struct s_ray
 {
-	double		*inter_points_x;
-	double		*inter_points_y;
+	double	*inter_points_x;
+	double	*inter_points_y;
 	double	*angles;
 	double	h_inter_x;
 	double	h_inter_y;
@@ -84,7 +89,10 @@ typedef	struct s_ray
 	int		start_width;
 	int		end_height;
 	int		end_width;
-} t_ray;
+	int		ray_index;
+	double	dirx;
+	double	diry;
+}	t_ray;
 
 typedef struct s_data
 {

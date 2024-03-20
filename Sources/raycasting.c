@@ -6,17 +6,20 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:13:18 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/20 15:32:16 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:37:15 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/cub3d.h"
 
-int		is_wall(t_data *data, double intersection_x, double intersection_y, double angle)
+int	is_wall(t_data *data, double intersection_x, double intersection_y,
+	double angle)
 {
-	int	x = 0;
-	int	y = 0;
+	int	x;
+	int	y;
 
+	x = 0;
+	y = 0;
 	if (intersection_x < 0 || intersection_y < 0)
 		return (1);
 	else if (intersection_x >= INT_MAX || intersection_y >= INT_MAX)
@@ -32,7 +35,7 @@ int		is_wall(t_data *data, double intersection_x, double intersection_y, double 
 	if (y >= data->map.height || x >= data->map.width)
 		return (1);
 	if (y >= 0 && data->map.file[y] && (x < (int)ft_strlen(data->map.file[y])
-		&& x >= 0 && data->map.file[y][x]))
+			&& x >= 0 && data->map.file[y][x]))
 	{
 		if (data->map.file[y][x] == '1')
 			return (1);
@@ -46,7 +49,7 @@ double	fix_angle(double angle)
 		angle += 360;
 	while (angle >= 360)
 		angle -= 360;
-	return(angle);
+	return (angle);
 }
 
 void	raycasting(t_data *data)
@@ -59,7 +62,7 @@ void	raycasting(t_data *data)
 
 	width = 0;
 	init_square_size(data);
-	data->player.angle = fix_angle( data->player.angle);
+	data->player.angle = fix_angle(data->player.angle);
 	angle = data->player.angle - (data->player.fov / 2);
 	horizontal_inter = 0;
 	vertical_inter = 0;
@@ -70,7 +73,6 @@ void	raycasting(t_data *data)
 	while (ray < data->win_width)
 	{
 		angle = fix_angle (angle);
-		//printf("\nangle = %f\n", angle);
 		horizontal_inter = find_horizontal_intersection(data, angle);
 		vertical_inter = find_vertical_intersection(data, angle);
 		data->ray.distance = horizontal_inter;
@@ -84,7 +86,8 @@ void	raycasting(t_data *data)
 			data->ray.distance = vertical_inter;
 			data->ray.is_horizontal = 0;
 		}
-		data->ray.distance *= fabs(cos((angle - data->player.angle) * M_PI / 180));
+		data->ray.distance *= fabs(cos((angle - data->player.angle)
+				* M_PI / 180));
 		render_wall(data, width);
 		angle = angle + (data->player.fov / (data->win_width - 1));
 		data->ray.angles[ray] = angle;

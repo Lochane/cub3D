@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:01:54 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/09 20:20:09 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:30:12 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	free_texture_path(char *msg, int to_free, t_data *data)
 	if (to_free == 0)
 		error_msg(msg, 0, data);
 	if (to_free == 1)
-		error_msg(msg, 2, data);
+		error_msg(msg, 1, data);
 }
 
 void	*free_tab(char **res, size_t i, t_data *data, int allow_free)
@@ -50,6 +50,22 @@ void	error_msg(char *msg, int to_free, t_data *data)
 void	print_error_and_free(char *error, t_data *data)
 {
 	perror(error);
+	if (data->texture.ea_texture.allow == 1)
+		mlx_destroy_image(data->mlx_ptr, data->texture.ea_texture.img);
+	if (data->texture.so_texture.allow == 1)
+		mlx_destroy_image(data->mlx_ptr, data->texture.so_texture.img);
+	if (data->texture.no_texture.allow == 1)
+		mlx_destroy_image(data->mlx_ptr, data->texture.no_texture.img);
+	if (data->texture.we_texture.allow == 1)
+		mlx_destroy_image(data->mlx_ptr, data->texture.we_texture.img);
+	free_texture_path(NULL, 4, data);
+	if (data->map.file)
+		free_tab(data->map.file, data->map.height, data, 0);
+	if (data->mlx_ptr)
+	{
+		mlx_destroy_display(data->mlx_ptr);
+		free(data->mlx_ptr);
+	}
 	free(data);
 	exit(EXIT_FAILURE);
 }

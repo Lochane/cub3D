@@ -12,6 +12,7 @@
 
 #include "../Includes/cub3d.h"
 
+
 void	is_file_valid(char *file_name, t_data *data)
 {
 	int	fd;
@@ -34,16 +35,20 @@ void	parsing(char *file_name, t_data *data)
 	file_to_tab(file_name, data);
 	split_file(data);
 	parse_map(data);
-	parse_color(data->texture.floor_color, data, data->map.floor_color);
-	parse_color(data->texture.ceiling_color, data, data->map.ceiling_color);
+	data->map.floor_color = parse_color(data->texture.floor_color, data);
+	data->map.ceiling_color = parse_color(data->texture.ceiling_color, data);
 }
 
 void	cub3d(t_data *data)
 {
 	init_window_and_image(data);
-	load_texture(data);
 	init_player(data);
-	start_game(data);
+	mlx_hook(data->win_ptr, 33, 1L << 17, &quit_game, data);
+	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
+	mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, &handle_keypress, data);
+	mlx_key_hook(data->win_ptr, &keybinding, data);
+	game(data);
+	mlx_loop(data->mlx_ptr);
 }
 
 int	main(int ac, char **av)
@@ -60,5 +65,6 @@ int	main(int ac, char **av)
 		return (0);
 	init_struct(data);
 	parsing(av[1], data);
+	data->map.file[(int)data->map.spawn_y][(int)data->map.spawn_x] = '0';
 	cub3d(data);
 }

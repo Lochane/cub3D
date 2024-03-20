@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 15:57:37 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/20 15:27:43 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:57:34 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	left_right(t_data *data, int keysim)
 			data->player.move_speed;
 		data->map.spawn_x = data->player.x;
 		data->map.spawn_y = data->player.y;
-		render_game(data);
+		game(data);
 	}
 	if (keysim == 'd' && data->key_press == 1)
 	{
@@ -33,7 +33,7 @@ void	left_right(t_data *data, int keysim)
 			data->player.move_speed;
 		data->map.spawn_x = data->player.x;
 		data->map.spawn_y = data->player.y;
-		render_game(data);
+		game(data);
 	}
 }
 
@@ -47,7 +47,7 @@ void	up_down(t_data *data, int keysim)
 			data->player.move_speed * 2;
 		data->map.spawn_x = data->player.x;
 		data->map.spawn_y = data->player.y;
-		render_game(data);
+		game(data);
 	}
 	if (keysim == 'w' && data->key_press == 1)
 	{
@@ -57,7 +57,7 @@ void	up_down(t_data *data, int keysim)
 			data->player.move_speed * 2;
 		data->map.spawn_x = data->player.x;
 		data->map.spawn_y = data->player.y;
-		render_game(data);
+		game(data);
 	}
 }
 
@@ -105,6 +105,6 @@ int	keybinding(int keysim, t_data *data)
 		data->player.angle += 2.;
 	up_down(data, keysim);
 	left_right(data, keysim);
-	render_game(data);
+	game(data);
 	return (0);
 }

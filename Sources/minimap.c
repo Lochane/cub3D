@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:14:06 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/20 16:09:22 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:58:27 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	display_one_ray(t_data *data, double angle, int wall)
 	}
 }
 
-void	display_all_rays(t_data *data)
+void	mini_map_rays(t_data *data)
 {
 	int	i;
 
