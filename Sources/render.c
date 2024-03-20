@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 18:52:08 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/20 21:02:25 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/20 21:02:53 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void	render_wall(t_data *data, int width)
 			data->img.addr[height * data->win_width + width] = data->map.ceiling_color;
 		else if (height >= wall_start && height <= wall_end)
 		{
-			data->img.addr[height * data->win_width + width] = RED;
-			//data->img.addr[height * data->win_width + width] = render_texture(data, height, wall_start, wall_end);
+			// data->img.addr[height * data->win_width + width] = RED;
+			data->img.addr[height * data->win_width + width] = render_texture(data, height, wall_start, wall_end);
 		}
 		else
 			data->img.addr[height * data->win_width + width] = data->map.floor_color;
