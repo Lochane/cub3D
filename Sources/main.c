@@ -60,5 +60,6 @@ int	main(int ac, char **av)
 		return (0);
 	init_struct(data);
 	parsing(av[1], data);
+
 	cub3d(data);
 }
