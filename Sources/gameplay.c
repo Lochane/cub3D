@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 15:57:37 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/20 20:15:13 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/20 20:19:07 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,11 @@ int	handle_key_release(int key_sym, t_data *data)
 
 int	keybinding(int keysim, t_data *data)
 {
-	// printf("--0---------------------------- leak move -------------------------------------------\n");
-	printf("%d\n", keysim);
-	rotation_player(data, keysim);
-	// left_right(data, keysim);
+	if (keysim == LEFT_KEY && data->key_press == 1)
+		data->player.angle -= 2.;
+	if (keysim == RIGHT_KEY && data->key_press == 1)
+		data->player.angle += 2.;
+	left_right(data, keysim);
 	up_down(data, keysim);
 	game_loop(data);
 	return (0);

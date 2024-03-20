@@ -1,7 +1,7 @@
 NAME		= cub3D
 	
 CC			= cc
-FLAGS		= -Wall -Wextra -Werror -g3 -O3 -fsanitize=address
+FLAGS		= -Wall -Wextra -Werror -g3 -O3 #-fsanitize=address
 RM			= rm -rf
 
 OBJDIR = .objFiles

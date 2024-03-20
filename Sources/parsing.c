@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:13:33 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/11 19:01:15 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/20 20:50:43 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,36 @@ int	flood_fill(int x, int y, char **file, t_data *data)
 void	error_parse_map(t_data *data, char **tmp)
 {
 	free_tab(tmp, data->map.height, data, 0);
-	free_texture_path("1Error: malloc\n", 1, data);
+	free_texture_path("Error: wrong map\n", 2, data);
+	exit(0);
 }
 
 void	check_map(t_data *data, char **tmp, int i, int j)
 {
-	if (!is_char_valid(tmp[i][j]))
-		error_parse_map(data, tmp);
 	if (tmp[i][j] == '0')
 	{
 		if (!flood_fill(i, j, tmp, data))
 			error_parse_map(data, tmp);
+	}
+}
+
+void	check_char(char **tmp, t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (tmp[i])
+	{
+		j = 0;
+		while (tmp[i][j])
+		{
+			if(is_char_valid(tmp[i][j]) == 0)
+				error_parse_map(data, tmp);
+			j++;
+		}
+		i++;
 	}
 }
 
@@ -63,6 +82,7 @@ void	parse_map(t_data *data)
 	if (!copy_tab(tmp, data->map.file, data))
 		error_parse_map(data, tmp);
 	found_spawn(tmp, data);
+	check_char(tmp, data);
 	while (tmp[i])
 	{
 		j = 0;

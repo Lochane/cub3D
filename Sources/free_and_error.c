@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:01:54 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/15 17:30:12 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/20 20:37:36 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	free_texture_path(char *msg, int to_free, t_data *data)
 		error_msg(msg, 0, data);
 	if (to_free == 1)
 		error_msg(msg, 1, data);
+	if (to_free == 2)
+		error_msg(msg, 2, data);
 }
 
 void	*free_tab(char **res, size_t i, t_data *data, int allow_free)
