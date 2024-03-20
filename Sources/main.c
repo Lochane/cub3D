@@ -60,6 +60,6 @@ int	main(int ac, char **av)
 		return (0);
 	init_struct(data);
 	parsing(av[1], data);
-	data->map.file[(int)data->map.spawn_y][(int)data->map.spawn_x] = '0';
+
 	cub3d(data);
 }

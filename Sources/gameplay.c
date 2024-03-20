@@ -6,103 +6,75 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 15:57:37 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/19 18:42:21 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/20 20:15:13 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/cub3d.h" 
 
-int	check_dist(t_data *data, int keysim)
+void	check_wall(t_data *data, double player_x, double player_y)
 {
-	double	new_x;
-	double	new_y;
-
-	if (keysim == 'd')
+	if (data->map.file[(int)(player_y)][(int)(data->player.x)] != '1')
 	{
-		new_x = data->player.x - data->player.diry * 0.3;
-		new_y = data->player.y + data->player.dirx * 0.3;
+		data->player.y = player_y;
+		data->map.spawn_y = player_y;
 	}
-	if (keysim == 'a')
+	if (data->map.file[(int)(data->player.y)][(int)(player_x)] != '1')
 	{
-		new_x = data->player.x + data->player.diry * 0.3;
-		new_y = data->player.y - data->player.dirx * 0.3;
+		data->player.x = player_x;
+		data->map.spawn_x = player_x;
 	}
-	if (data->map.file[(int)new_y][(int)new_x] != 1)
-		return (1);
-	return (0);
-}
-
-void	rotation_player(t_data *data, int keysim)
-{
-	double	old_dirx;
-	double	radian_ngl;
-	double	angle;
-
-	old_dirx = data->player.dirx;
-	if (keysim == LEFT_KEY && data->key_press == 1)
-	{
-		// data->player.angle -= 0.9f;
-		angle = -5;
-		radian_ngl = angle * M_PI / 180.0;
-		data->player.dirx = data->player.dirx * cos(radian_ngl) - \
-			data->player.diry * sin(radian_ngl);
-		data->player.diry = old_dirx * sin(radian_ngl) + \
-			data->player.diry * cos(radian_ngl);
-	}
-	if (keysim == RIGHT_KEY && data->key_press == 1)
-	{
-		// data->player.angle += 0.9f;
-		angle = 5;
-		radian_ngl = angle * M_PI / 180.0;
-		data->player.dirx = data->player.dirx * cos(radian_ngl) - \
-			data->player.diry * sin(radian_ngl);
-		data->player.diry = old_dirx * sin(radian_ngl) + \
-			data->player.diry * cos(radian_ngl);
-	}
-
 }
 
 void	left_right(t_data *data, int keysim)
 {
-	double	new_x;
-	double	new_y;
+	double	player_x;
+	double	player_y;
 
-	if (keysim == 'd' && data->key_press == 1)
-	{
-		new_x = data->player.x - data->player.diry * 0.1;
-		new_y = data->player.y + data->player.dirx * 0.1;
-		game_loop(data);
-	}
+	player_x = data->player.x;
+	player_y = data->player.y;
 	if (keysim == 'a' && data->key_press == 1)
 	{
-		new_x = data->player.x + data->player.diry * 0.1;
-		new_y = data->player.y - data->player.dirx * 0.1;
-		game_loop(data);
+		data->key_press = 1;
+		player_x += sin(data->player.angle * (M_PI / 180)) * \
+			data->player.move_speed;
+		player_y += cos(data->player.angle * (M_PI / 180)) * \
+			data->player.move_speed;
+		check_wall(data, player_x, player_y);
 	}
-	if (check_dist(data, keysim) == 1)
+	if (keysim == 'd' && data->key_press == 1)
 	{
-		data->player.x = new_x;
-		data->player.y = new_y;
+		player_x -= sin(data->player.angle * (M_PI / 180)) * \
+			data->player.move_speed;
+		player_y -= cos(data->player.angle * (M_PI / 180)) * \
+			data->player.move_speed;
+		check_wall(data, player_x, player_y);
+
 	}
 }
 
 void	up_down(t_data *data, int keysim)
 {
+	double	player_x;
+	double	player_y;
+
+	player_x = data->player.x;
+	player_y = data->player.y;
 	if (keysim == 's' && data->key_press == 1)
 	{
-		if (data->map.file[(int)data->player.y][(int)(data->player.x - data->player.dirx * 0.3)] == '0')
-			data->player.x -= data->player.dirx * 0.1;
-		if (data->map.file[(int)(data->player.y - data->player.diry * 0.3)][(int)data->player.x] == '0')
-			data->player.y -= data->player.diry * 0.1;
-		game_loop(data);
+		player_x -= cos(data->player.angle * (M_PI / 180)) * \
+			data->player.move_speed * 2;
+		player_y += sin(data->player.angle * (M_PI / 180)) * \
+			data->player.move_speed * 2;
+		check_wall(data, player_x, player_y);
 	}
 	if (keysim == 'w' && data->key_press == 1)
 	{
-		if (data->map.file[(int)data->player.y][(int)(data->player.x + data->player.dirx * 0.3)] == '0')
-			data->player.x += data->player.dirx * 0.1;
-		if (data->map.file[(int)(data->player.y + data->player.diry * 0.3)][(int)data->player.x] == '0')
-			data->player.y += data->player.diry * 0.1;
-		game_loop(data);
+			player_x += cos(data->player.angle * (M_PI / 180)) * \
+				data->player.move_speed * 2;
+			player_y -= sin(data->player.angle * (M_PI / 180)) * \
+				data->player.move_speed * 2;
+		check_wall(data, player_x, player_y);
 	}
 }
 
@@ -112,7 +84,7 @@ int	handle_keypress(int key_sym, t_data *data)
 		quit_game(data);
 	else if (key_sym == 'w')
 		data->key_press = 1;
-	else if (key_sym == 's') 
+	else if (key_sym == 's')
 		data->key_press = 1;
 	else if (key_sym == 'a')
 		data->key_press = 1;
@@ -129,7 +101,7 @@ int	handle_key_release(int key_sym, t_data *data)
 {
 	if (key_sym == 'w')
 		data->key_press = 0;
-	else if (key_sym == 's') 
+	else if (key_sym == 's')
 		data->key_press = 0;
 	else if (key_sym == 'a')
 		data->key_press = 0;
