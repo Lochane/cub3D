@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 15:57:37 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/20 20:19:07 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/20 21:01:50 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int	keybinding(int keysim, t_data *data)
 		data->player.angle += 2.;
 	left_right(data, keysim);
 	up_down(data, keysim);
-	game_loop(data);
+	left_right(data, keysim);
+	game(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/20 20:23:11 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/20 21:02:05 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ void	init_window_and_image(t_data *data)
 		error_msg("Error: mlx init fail\n", 0, data);
 	load_texture(data);
 	mlx_get_screen_size(data->mlx_ptr, &data->win_width, &data->win_height);
-	//printf("screen height = %d, screen width = %d\n", data->win_height, data->win_width);
-	data->win_height = 1080;
-	data->win_width = 1920;
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->win_width,
 			data->win_height, "Cub3D");
 	if (!data->win_ptr)
@@ -68,7 +65,6 @@ void	init_player(t_data *data)
 {
 	data->map.spawn_x += 0.5;
 	data->map.spawn_y += 0.5;
-
 	data->player.x = data->map.spawn_x;
 	data->player.y = data->map.spawn_y;
 	data->player.fov = 60;

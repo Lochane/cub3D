@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_texture.c                                   :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 18:52:08 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/20 20:22:03 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/20 21:02:25 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/cub3d.h"
-
 
 t_img	get_img(t_data *data)
 {
@@ -56,4 +55,30 @@ int	render_texture(t_data *data, int height, int beg_wall, int end_wall)
 		return (img.addr[((int)data->texture.pixel_y * img.width ) - (int)data->texture.pixel_x ]);
 	return (img.addr[(int)data->texture.pixel_x + \
 		(int)data->texture.pixel_y * img.width]);
+}
+
+void	render_wall(t_data *data, int width)
+{
+	int	height;
+	int	wall_start;
+	int	wall_end;
+	int	wall;
+
+	height = 0;
+	wall = (data->win_height * 2) / (data->ray.distance + 1);
+	wall_start = (data->win_height - wall) / 2;
+	wall_end = wall_start + wall;
+	while (height < data->win_height)
+	{
+		if (height <= wall_start)
+			data->img.addr[height * data->win_width + width] = data->map.ceiling_color;
+		else if (height >= wall_start && height <= wall_end)
+		{
+			data->img.addr[height * data->win_width + width] = RED;
+			//data->img.addr[height * data->win_width + width] = render_texture(data, height, wall_start, wall_end);
+		}
+		else
+			data->img.addr[height * data->win_width + width] = data->map.floor_color;
+		height++;
+	}
 }

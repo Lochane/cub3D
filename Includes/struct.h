@@ -46,8 +46,8 @@ typedef struct s_map
 	double	spawn_y;
 	char	spawn_side;
 	int		square_size;
-	int		ceiling_color[3];
-	int		floor_color[3];
+	int		ceiling_color;
+	int		floor_color;
 } t_map;
 
 typedef	struct s_player

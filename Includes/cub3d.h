@@ -35,7 +35,7 @@
 
 /* PARSING */
 
-void parse_color(char *color, t_data *data, int *color_rgb);
+int parse_color(char *color, t_data *data);
 void parse_map(t_data *data);
 void load_texture(t_data *data);
 
@@ -84,7 +84,7 @@ void	init_game(t_data *data);
 void	init_window_and_image(t_data *data);
 void	init_player(t_data *data);
 void	start_game(t_data *data);
-int		game_loop(t_data *data);
+int	game(t_data *data);
 int		is_wall(t_data *data, double intersection_x, double intersection_y, double angle);
 
 int	render_texture(t_data *data, int height, int beg_wall, int end_wall);
@@ -97,11 +97,15 @@ void	mini_map(t_data *data);
 void	print_all_rays(t_data *data);
 void	print_square(t_data *data, int start_width, int end_width, int start_height, int end_height, int color);
 void	display_ray_mm(t_data *data);
-void	display_all_rays(t_data *data);
+void	mini_map_rays(t_data *data);
 //void	display_one_ray(t_data *data, double angle, int wall);
 
 
 /* GAMEPLAY */
+void	raycasting(t_data *data);
+void	render_wall(t_data *data, int width);
+double		find_horizontal_intersection(t_data *data, double angle);
+double		find_vertical_intersection(t_data *data, double angle);
 
 
 #endif
