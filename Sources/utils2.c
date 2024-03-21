@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 20:33:45 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/20 21:02:36 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:52:08 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	is_char_valid(char c)
 	return (1);
 }
 
-void	check_spawn(int c, char **tab, t_data *data)
+void	check_spawn(char **tab, t_data *data)
 {
-	if (c != 1)
+	if (data->map.spawn_count != 1)
 	{
 		free_tab(tab, data->map.height, data, 0);
 		free_texture_path("Error:\nWrong spawn\n", 1, data);
@@ -33,11 +33,9 @@ int	found_spawn(char **tab, t_data *data)
 {
 	int	i;
 	int	j;
-	int	c;
 
 	i = 0;
 	j = 0;
-	c = 0;
 	while (i < data->map.height)
 	{
 		j = 0;
@@ -50,11 +48,11 @@ int	found_spawn(char **tab, t_data *data)
 			data->map.spawn_x = j;
 			data->map.spawn_y = i;
 			data->map.spawn_side = tab[i][j];
-			c += 1;
+			data->map.spawn_count++;
 		}
 		i++;
 	}
-	check_spawn(c, tab, data);
+	check_spawn(tab, data);
 	return (0);
 }
 

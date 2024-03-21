@@ -96,16 +96,4 @@ int	copy_tab(char **dest, char **src, t_data *data)
 	return (1);
 }
 
-//DEBUG
-void	print_map_info(t_data *data)
-{
-	printf("%s\n", data->texture.ceiling_color);
-	printf("%s\n", data->texture.floor_color);
-	printf("%s\n", data->texture.no_path);
-	printf("%s\n", data->texture.so_path);
-	printf("%s\n", data->texture.ea_path);
-	printf("%s\n", data->texture.we_path);
-	for (int i = 0; data->map.file[i]; i++)
-		printf("%s\n", data->map.file[i]);
-}
 

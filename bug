@@ -1,0 +1,4 @@
+- le programme se lance avec la bad map dupl_player.cub
+- le programme segfault avec open_map_S.cub
+- faire tableau de ref pour texture
+-conditinal jump a regler

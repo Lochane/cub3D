@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:57:27 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/20 17:53:54 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:49:03 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		rgb_to_int(int red, int green, int blue)
 {
-	return((red << 16) | (green << 8) | blue);
+	return ((red << 16) | (green << 8) | blue);
 }
 
 
@@ -73,26 +73,31 @@ int	parse_color(char *color, t_data *data)
 {
 	int		i;
 	char	**tab;
+	int		res;
 
 	i = count_nbr(color);
 	if (i != 2)
 		free_texture_path("Error:1 Color not valid, expected RGB color,\
-digit between 000,000,000 and : 255,255,255\n", 1, data);
+digit between 000,000,000 and : 255,255,255\n", 2, data);
 	tab = ft_split(color, ',');
 	if (!tab)
 		free_texture_path("Error: 2Color not valid, expected RGB color, \
-digit between 000,000,000 and : 255,255,255\n", 1, data);
+digit between 000,000,000 and : 255,255,255\n", 2, data);
 	i = 0;
 	if (!is_digit(tab))
+	{
+		free_tab(tab, tab_size(tab), data, 0);
 		free_texture_path("Error:3Color not valid, expected RGB color, \
-digit between 000,000,000 and : 255,255,255\n", 1, data);
+digit between 000,000,000 and : 255,255,255\n", 2, data);
+	}
 	i = is_color_rgb(tab);
 	if (i != 3)
 	{
 		free_tab(tab, tab_size(tab), data, 0);
 		free_texture_path("Error:4 Color not valid, expected RGB color, \
-digit between 000,000,000 and : 255,255,255\n", 1, data);
+digit between 000,000,000 and : 255,255,255\n", 2, data);
 	}
-	//free_tab(tab, i, data, 0);
-	return(rgb_to_int(ft_atoi(tab[0]), ft_atoi(tab[1]), ft_atoi(tab[2])));
+	res = rgb_to_int(ft_atoi(tab[0]), ft_atoi(tab[1]), ft_atoi(tab[2]));
+	free_tab(tab, i, data, 0);
+	return (res);
 }

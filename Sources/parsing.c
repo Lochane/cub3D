@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:13:33 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/20 20:50:43 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:24:55 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	flood_fill(int x, int y, char **file, t_data *data)
 {
-	if (y < 0 || x < 0 || file[x][y] == ' ' || x > data->map.height \
-		|| y > (int)ft_strlen(file[x]) || !file[x][y])
+	if (y < 0 || x < 0 || x >= data->map.height \
+		|| y >= (int)ft_strlen(file[x]) || !file[x][y] || file[x][y] == ' ' )
 		return (0);
 	if (file[x][y] == '1' || file[x][y] == '2')
 		return (1);
 	if (file[x][y] == '0')
 		file[x][y] = '2';
-	if (!flood_fill(x +1, y, file, data))
+	if (!flood_fill(x + 1, y, file, data))
 		return (0);
 	if (!flood_fill(x - 1, y, file, data))
 		return (0);
@@ -60,8 +60,11 @@ void	check_char(char **tmp, t_data *data)
 		j = 0;
 		while (tmp[i][j])
 		{
-			if(is_char_valid(tmp[i][j]) == 0)
+			if (is_char_valid(tmp[i][j]) == 0)
+			{
+				printf("lol");
 				error_parse_map(data, tmp);
+			}
 			j++;
 		}
 		i++;

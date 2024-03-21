@@ -30,14 +30,15 @@ char	*display_texture(t_data *data, const char *set, const char *to_copy)
 	if (!tmp)
 		return (NULL);
 	data->texture.count += 1;
-	str = tmp;
+	str = ft_strdup(tmp);
+	free(tmp);
 	return (str);
 }
 
 void	init_color(t_data *data, int i)
 {
 	if (ft_strncmp("C", data->cub_file[i], 1) == 0)
-		data->texture.ceiling_color = display_texture(data, "C",\
+		data->texture.ceiling_color = display_texture(data, "C", \
 				data->cub_file[i]);
 	else if (ft_strncmp("F", data->cub_file[i], 1) == 0)
 		data->texture.floor_color = display_texture(data, "F", \
@@ -52,10 +53,10 @@ int	init_texture(t_data *data)
 	while (data->cub_file[i])
 	{
 		if (ft_strncmp("NO", data->cub_file[i], 2) == 0)
-			data->texture.no_path = display_texture(data, "NO",\
+			data->texture.no_path = display_texture(data, "NO", \
 				data->cub_file[i]);
 		else if (ft_strncmp("SO", data->cub_file[i], 2) == 0)
-			data->texture.so_path = display_texture(data, "SO",\
+			data->texture.so_path = display_texture(data, "SO", \
 				data->cub_file[i]);
 		else if (ft_strncmp("WE", data->cub_file[i], 2) == 0)
 			data->texture.we_path = display_texture(data, "WE", \

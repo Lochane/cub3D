@@ -10,14 +10,15 @@ typedef struct s_img
 	int		width;
 	int		height;
 	int		endian;
-	char	*path;
 	int		allow;
+	int		print;
 }			t_img;
 
-typedef struct s_sprite
+typedef struct s_minimap
 {
-
-}			t_sprite;
+	int	x;
+	int	y;
+}			t_minimap;
 
 typedef struct s_texture
 {
@@ -35,20 +36,21 @@ typedef struct s_texture
 	double	pixel_x;
 	int		count;
 
-} t_texture;
+}		t_texture;
 
 typedef struct s_map
 {
 	char	**file;
 	int		height;
-	int 	width;
+	int		width;
 	double	spawn_x;
 	double	spawn_y;
 	char	spawn_side;
 	int		square_size;
 	int		ceiling_color;
 	int		floor_color;
-} t_map;
+	int		spawn_count;
+}	t_map;
 
 typedef	struct s_player
 {
@@ -56,13 +58,10 @@ typedef	struct s_player
 	double		y;
 	double		center_x;
 	double		center_y;
-	double	fov;//field of view in radians
-	double	angle;
-	float	move_speed;
-	//int		rotation_flag;
-	//int		left_rotation;
-	//int		right_rotation;
-} t_player;
+	double		fov;
+	double		angle;
+	float		move_speed;
+}	t_player;
 
 typedef	struct s_ray
 {
@@ -105,7 +104,6 @@ typedef struct s_data
 	t_map		map;
 	t_img		img;
 	t_texture	texture;
-	t_sprite	sprites;
 	t_player	player;
 }				t_data;
 

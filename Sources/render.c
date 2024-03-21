@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 18:52:08 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/20 21:02:53 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:43:42 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ t_img	get_img(t_data *data)
 {
 	if (data->ray.is_horizontal == 1)
 	{
-		if (data->ray.diry > 0)
-			return (data->texture.no_texture);
-		else
+		if (data->player.y > data->ray.inter_y)
 			return (data->texture.so_texture);
+		else
+			return (data->texture.no_texture);
 	}
 	else
 	{
-		if (data->ray.dirx > 0)
+		if (data->player.x > data->ray.inter_x)
 			return (data->texture.ea_texture);
 		else
 			return (data->texture.we_texture);
@@ -51,8 +51,9 @@ int	render_texture(t_data *data, int height, int beg_wall, int end_wall)
 	if ((data->texture.pixel_x < 0 && data->texture.pixel_x >= data->img.width) \
 	|| (data->texture.pixel_y < 0 && data->texture.pixel_y >= data->img.height))
 		return (BLACK);
-	if (img.allow == 1)
-		return (img.addr[((int)data->texture.pixel_y * img.width ) - (int)data->texture.pixel_x ]);
+	if (img.print == 0)
+		return (img.addr[((int)data->texture.pixel_y * img.width) - \
+			(int)data->texture.pixel_x]);
 	return (img.addr[(int)data->texture.pixel_x + \
 		(int)data->texture.pixel_y * img.width]);
 }
