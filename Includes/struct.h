@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   struct.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/22 18:23:58 by lsouquie          #+#    #+#             */
+/*   Updated: 2024/03/22 18:23:58 by lsouquie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCT_H
 # define STRUCT_H
 
@@ -55,7 +67,7 @@ typedef struct s_map
 	int		spawn_count;
 }	t_map;
 
-typedef	struct s_player
+typedef struct s_player
 {
 	double		x;
 	double		y;
@@ -66,7 +78,7 @@ typedef	struct s_player
 	float		move_speed;
 }	t_player;
 
-typedef	struct s_ray
+typedef struct s_ray
 {
 	double	*inter_points_x;
 	double	*inter_points_y;

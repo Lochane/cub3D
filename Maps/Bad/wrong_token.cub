@@ -1,6 +1,6 @@
-NOP ./Textures/no_texture.xpm
+NO ./Textures/no_texture.xpm
 SO ./Textures/so_texture.xpm
-EA ./Textures/ea_texture.xpm
+EAE ./Textures/ea_texture.xpm
 WE ./Textures/we_texture.xpm
 
 F 39,212,68

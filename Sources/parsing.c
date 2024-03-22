@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:13:33 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/21 18:24:55 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:33:01 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,7 @@ void	check_char(char **tmp, t_data *data)
 		while (tmp[i][j])
 		{
 			if (is_char_valid(tmp[i][j]) == 0)
-			{
-				printf("lol");
 				error_parse_map(data, tmp);
-			}
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/22 17:25:38 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:22:35 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,22 @@ void	init_ref_texture(t_data *data)
 	ft_bzero(data->texture.texture_count, 30);
 }
 
+void	init_struct2(t_data *data)
+{
+	data->texture.no_path = NULL;
+	data->texture.so_path = NULL;
+	data->texture.we_path = NULL;
+	data->texture.ea_path = NULL;
+	data->texture.ea_texture.allow = 0;
+	data->texture.no_texture.allow = 0;
+	data->texture.we_texture.allow = 0;
+	data->texture.so_texture.allow = 0;
+	data->ray.ray_index = 0;
+	data->ray.dirx = 0;
+	data->ray.diry = 0;
+	data->map.spawn_count = 0;
+}
+
 void	init_struct(t_data *data)
 {
 	data->mlx_ptr = NULL;
@@ -42,19 +58,8 @@ void	init_struct(t_data *data)
 	data->file_weidht = 0;
 	data->texture.ceiling_color = NULL;
 	data->texture.floor_color = NULL;
-	data->texture.no_path = NULL;
-	data->texture.so_path = NULL;
-	data->texture.we_path = NULL;
-	data->texture.ea_path = NULL;
 	data->key_press = 0;
-	data->texture.ea_texture.allow = 0;
-	data->texture.no_texture.allow = 0;
-	data->texture.we_texture.allow = 0;
-	data->texture.so_texture.allow = 0;
-	data->ray.ray_index = 0;
-	data->ray.dirx = 0;
-	data->ray.diry = 0;
-	data->map.spawn_count = 0;
+	init_struct2(data);
 	init_ref_texture(data);
 }
 
@@ -94,35 +99,4 @@ void	init_player(t_data *data)
 		data->player.angle = 270;
 	else if (data->map.spawn_side == 'W')
 		data->player.angle = 180;
-}
-
-t_img	init_img(t_data *data, char *path)
-{
-	t_img	img;
-	int		fd;
-
-	fd = open(path, O_RDONLY);
-	img.allow = 1;
-	img.print = 0;
-	printf("%s\n", path);
-	if (fd < 0)
-		print_error_and_free("open", data);
-	img.img = mlx_xpm_file_to_image(data->mlx_ptr, path, \
-		&img.width, &img.height);
-	if (!img.img)
-		print_error_and_free("malloc", data);
-	img.addr = (int *)mlx_get_data_addr(img.img, &img.bpp, \
-		&img.line_lenght, &img.endian);
-	close (fd);
-	return (img);
-}
-
-void	load_texture(t_data *data)
-{
-	data->texture.ea_texture = init_img(data, data->texture.ea_path);
-	data->texture.ea_texture.print = 1;
-	data->texture.no_texture = init_img(data, data->texture.no_path);
-	data->texture.no_texture.print = 1;
-	data->texture.so_texture = init_img(data, data->texture.so_path);
-	data->texture.we_texture = init_img(data, data->texture.we_path);
 }

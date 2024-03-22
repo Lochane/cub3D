@@ -6,7 +6,9 @@ RM			= rm -rf
 
 OBJDIR = .objFiles
 
-FILES		= main parsing utils display_arg quit_game free_and_error parse_color cub3d init minimap gameplay utils2 raycasting find_intersections render
+FILES		= main parsing utils display_arg display_arg2 quit_game free_and_error \
+				parse_color cub3d init minimap gameplay utils2 raycasting find_intersections \
+				render handle_key load_img
 
 SRC			= $(FILES:=.c)
 OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))

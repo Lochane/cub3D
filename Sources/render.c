@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 18:52:08 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/22 13:02:00 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:12:30 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ void	render_wall(t_data *data, int width)
 	while (height < data->win_height)
 	{
 		if (height <= wall_start)
-			data->img.addr[height * data->win_width + width] = data->map.ceiling_color;
+			data->img.addr[height * data->win_width + width] = \
+				data->map.ceiling_color;
 		else if (height >= wall_start && height <= wall_end)
-		{
-			// data->img.addr[height * data->win_width + width] = RED;
-			data->img.addr[height * data->win_width + width] = render_texture(data, height, wall_start, wall_end);
-		}
+			data->img.addr[height * data->win_width + width] = \
+				render_texture(data, height, wall_start, wall_end);
 		else
-			data->img.addr[height * data->win_width + width] = data->map.floor_color;
+			data->img.addr[height * data->win_width + width] = \
+				data->map.floor_color;
 		height++;
 	}
 }

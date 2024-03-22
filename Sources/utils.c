@@ -95,5 +95,3 @@ int	copy_tab(char **dest, char **src, t_data *data)
 	dest[i] = 0;
 	return (1);
 }
-
-

@@ -6,17 +6,16 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:57:27 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/21 15:49:03 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:26:12 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/cub3d.h"
 
-int		rgb_to_int(int red, int green, int blue)
+int	rgb_to_int(int red, int green, int blue)
 {
 	return ((red << 16) | (green << 8) | blue);
 }
-
 
 int	count_nbr(char *str)
 {

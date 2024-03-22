@@ -48,13 +48,13 @@ int		parse_color(char *color, t_data *data);
 void	parse_map(t_data *data);
 void	load_texture(t_data *data);
 
-
 /* DISPLAY_ARG */
 
 void	is_file_valid(char *file_name, t_data *data);
 void	file_to_tab(char *mapfile, t_data *data);
 void	split_file(t_data *data);
 int		parse_texture(t_data *data);
+void	count_texture(t_data *data);
 
 /* EVENTS */
 
@@ -87,7 +87,6 @@ int		count_width(t_data *data);
 
 //EXEC
 
-
 void	init_game(t_data *data);
 void	init_window_and_image(t_data *data);
 void	init_player(t_data *data);
@@ -97,7 +96,6 @@ int		is_wall(t_data *data, double intersection_x, double intersection_y, \
 					double angle);
 
 int		render_texture(t_data *data, int height, int beg_wall, int end_wall);
-
 
 //MINIMAP
 
@@ -114,6 +112,5 @@ void	raycasting(t_data *data);
 void	render_wall(t_data *data, int width);
 double	find_horizontal_intersection(t_data *data, double angle);
 double	find_vertical_intersection(t_data *data, double angle);
-
 
 #endif

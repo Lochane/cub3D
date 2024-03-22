@@ -12,7 +12,6 @@
 
 #include "../Includes/cub3d.h"
 
-
 void	is_file_valid(char *file_name, t_data *data)
 {
 	int	fd;
@@ -65,6 +64,5 @@ int	main(int ac, char **av)
 		return (0);
 	init_struct(data);
 	parsing(av[1], data);
-
 	cub3d(data);
 }
