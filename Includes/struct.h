@@ -34,6 +34,8 @@ typedef struct s_texture
 	t_img	we_texture;
 	double	pixel_y;
 	double	pixel_x;
+	char	*ref[7];
+	int		texture_count[7];
 	int		count;
 
 }		t_texture;

@@ -12,6 +12,42 @@
 
 #include "../Includes/cub3d.h"
 
+void	check_ref_tab(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->texture.texture_count[i])
+	{
+		if (data->texture.texture_count[i] != 1)
+			error_msg("Error: Wrong texture\n", 1, data);
+		i++;
+	}
+}
+
+void	count_texture(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (data->cub_file[i])
+	{
+		j = 0;
+		while (data->texture.ref[j])
+		{
+			if (ft_strncmp(data->texture.ref[j], data->cub_file[i], 2) == 0)
+				data->texture.texture_count[j] += 1;
+			else if (ft_strncmp(data->texture.ref[j], data->cub_file[i], 1) == 0)
+				data->texture.texture_count[j] += 1;
+			j++;
+		}
+		i++;
+	}
+	check_ref_tab(data);
+}
+
 char	*display_texture(t_data *data, const char *set, const char *to_copy)
 {
 	char	*str;
@@ -50,6 +86,7 @@ int	init_texture(t_data *data)
 	int	i;
 
 	i = 0;
+	count_texture(data);
 	while (data->cub_file[i])
 	{
 		if (ft_strncmp("NO", data->cub_file[i], 2) == 0)

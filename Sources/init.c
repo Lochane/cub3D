@@ -6,11 +6,26 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/21 18:15:35 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:19:44 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/cub3d.h"
+
+void	init_ref_texture(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	data->texture.ref[0] = "NO";
+	data->texture.ref[1] = "SO";
+	data->texture.ref[2] = "WE";
+	data->texture.ref[3] = "EA";
+	data->texture.ref[4] = "F";
+	data->texture.ref[5] = "C";
+	data->texture.ref[6] = 0;
+	ft_bzero(data->texture.texture_count, 30);
+}
 
 void	init_struct(t_data *data)
 {
@@ -40,6 +55,7 @@ void	init_struct(t_data *data)
 	data->ray.dirx = 0;
 	data->ray.diry = 0;
 	data->map.spawn_count = 0;
+	init_ref_texture(data);
 }
 
 void	init_window_and_image(t_data *data)

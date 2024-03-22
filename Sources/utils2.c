@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 20:33:45 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/21 18:52:08 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:23:08 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_spawn(char **tab, t_data *data)
 	if (data->map.spawn_count != 1)
 	{
 		free_tab(tab, data->map.height, data, 0);
-		free_texture_path("Error:\nWrong spawn\n", 1, data);
+		free_texture_path("Error:\nWrong spawn\n", 2, data);
 	}
 }
 

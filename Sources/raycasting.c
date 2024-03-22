@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:13:18 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/20 21:03:47 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:13:58 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	raycasting(t_data *data)
 	data->ray.inter_points_x = malloc(sizeof(double) * data->win_width);
 	data->ray.inter_points_y = malloc(sizeof(double) * data->win_width);
 	data->ray.angles = malloc(sizeof(double) * data->win_width);
+	ft_bzero(data->ray.angles, data->win_width);
 	while (ray < data->win_width)
 	{
 		angle = fix_angle (angle);
