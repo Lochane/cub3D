@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:14:06 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/20 17:58:27 by malancar         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:43:25 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,7 @@ void	mini_map(t_data *data)
 		{
 			if (data->map.file[i][j] == '1')
 				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, RED);
-			else if (data->map.file[i][j] == ' ')
-				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, BLACK);
-			else
+			else if (data->map.file[i][j] != ' ')
 				print_square(data, data->img.width, data->img.width + data->map.square_size, data->img.height, data->img.height + data->map.square_size, GREEN);
 			if (i == y && j == x)
 			{	
@@ -109,6 +107,7 @@ void	mini_map_rays(t_data *data)
 	i = 0;
 	while (i < data->win_width)
 	{
+		//printf("angle = %f\n", data->ray.angles[i]);
 		display_one_ray(data, data->ray.angles[i],
 			floor(data->ray.inter_points_x[i] * data->map.square_size));
 		i++;
