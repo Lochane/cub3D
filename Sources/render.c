@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 18:52:08 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/21 15:43:42 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:58:30 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,11 @@ void	render_wall(t_data *data, int width)
 			data->img.addr[height * data->win_width + width] = data->map.ceiling_color;
 		else if (height >= wall_start && height <= wall_end)
 		{
+<<<<<<< HEAD
 			// data->img.addr[height * data->win_width + width] = RED;
+=======
+			//data->img.addr[height * data->win_width + width] = RED;
+>>>>>>> exec
 			data->img.addr[height * data->win_width + width] = render_texture(data, height, wall_start, wall_end);
 		}
 		else
