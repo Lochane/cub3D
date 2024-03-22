@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:13:18 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/22 16:13:58 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:25:54 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	is_wall(t_data *data, double intersection_x, double intersection_y,
 		y = ceil(intersection_y) - 1;
 	else
 		y = floor(intersection_y);
-	if (y < 0 || y >= data->map.height || x < 0 || x >= data->map.width)
-			return (1);
+	if (y >= data->map.height || x >= data->map.width)
+		return (1);
 	if (y >= 0 && data->map.file[y] && (x < (int)ft_strlen(data->map.file[y])
 			&& x >= 0 && data->map.file[y][x]))
 	{

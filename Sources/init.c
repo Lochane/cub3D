@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/22 16:19:44 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:25:38 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void	init_player(t_data *data)
 		data->player.angle = 270;
 	else if (data->map.spawn_side == 'W')
 		data->player.angle = 180;
-	//data->player.angle = 210;
 }
 
 t_img	init_img(t_data *data, char *path)
