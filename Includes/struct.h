@@ -40,6 +40,7 @@ typedef struct s_texture
 
 typedef struct s_map
 {
+	double	angle;
 	char	**file;
 	int		height;
 	int		width;
