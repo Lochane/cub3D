@@ -102,8 +102,6 @@ int		render_texture(t_data *data, int height, int beg_wall, int end_wall);
 void	init_square_size(t_data *data);
 void	mini_map(t_data *data);
 void	print_all_rays(t_data *data);
-void	print_square(t_data *data, int start_width, int end_width, \
-						int start_height, int end_height, int color);
 void	display_ray_mm(t_data *data);
 void	mini_map_rays(t_data *data);
 

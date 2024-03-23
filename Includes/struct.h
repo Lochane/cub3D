@@ -26,12 +26,6 @@ typedef struct s_img
 	int		print;
 }			t_img;
 
-typedef struct s_minimap
-{
-	int	x;
-	int	y;
-}			t_minimap;
-
 typedef struct s_texture
 {
 	char	*no_path;
@@ -71,8 +65,6 @@ typedef struct s_player
 {
 	double		x;
 	double		y;
-	double		center_x;
-	double		center_y;
 	double		fov;
 	double		angle;
 	float		move_speed;
@@ -81,7 +73,6 @@ typedef struct s_player
 typedef struct s_ray
 {
 	double	*inter_points_x;
-	double	*inter_points_y;
 	double	*angles;
 	double	h_inter_x;
 	double	h_inter_y;
@@ -92,15 +83,8 @@ typedef struct s_ray
 	int		is_horizontal;
 	double	distance;
 	double	angle;
-	double	a;
-	double	b;
 	int		x;
 	int		y;
-	int		center;
-	int		start_height;
-	int		start_width;
-	int		end_height;
-	int		end_width;
 	int		ray_index;
 	double	dirx;
 	double	diry;
