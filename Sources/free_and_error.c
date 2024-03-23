@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:01:54 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/21 15:49:27 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/23 18:01:39 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	print_error_and_free(char *error, t_data *data)
 void	split_free_error(t_data *data, int to_free)
 {
 	free_texture_path(NULL, 4, data);
-	error_msg("Error:\n Erreur Malloc", 1, data);
+	error_msg("Error:\nErreur Malloc", 1, data);
 	if (to_free == 1)
 		free_tab(data->map.file, tab_size(data->map.file), data, 0);
 }

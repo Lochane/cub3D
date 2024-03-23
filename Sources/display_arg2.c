@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 18:14:26 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/22 18:16:18 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/23 18:01:35 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	check_ref_tab(t_data *data)
 	while (data->texture.texture_count[i])
 	{
 		if (data->texture.texture_count[i] != 1)
-			error_msg("Error: Wrong texture\n", 1, data);
+			error_msg("Error:\nWrong texture\n", 1, data);
 		i++;
 	}
 }

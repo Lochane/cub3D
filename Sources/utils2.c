@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 20:33:45 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/22 16:23:08 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/23 18:01:26 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,17 @@ int	found_spawn(char **tab, t_data *data)
 	while (i < data->map.height)
 	{
 		j = 0;
-		while (tab[i][j] && (tab[i][j] != 'N' && tab[i][j] != 'S' && \
-			tab[i][j] != 'W' && tab[i][j] != 'E'))
-			j++;
-		if (tab[i][j] == 'N' || tab[i][j] == 'S' || tab[i][j] == 'W' \
-			|| tab[i][j] == 'E')
+		while (tab[i][j])
 		{
-			data->map.spawn_x = j;
-			data->map.spawn_y = i;
-			data->map.spawn_side = tab[i][j];
-			data->map.spawn_count++;
+			j++;
+			if (tab[i][j] == 'N' || tab[i][j] == 'S' || tab[i][j] == 'W' \
+				|| tab[i][j] == 'E')
+			{
+				data->map.spawn_x = j;
+				data->map.spawn_y = i;
+				data->map.spawn_side = tab[i][j];
+				data->map.spawn_count++;
+			}
 		}
 		i++;
 	}

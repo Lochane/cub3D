@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/22 18:22:35 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/23 18:01:47 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	init_window_and_image(t_data *data)
 {
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
-		error_msg("Error: mlx init fail\n", 0, data);
+		error_msg("Error:\nmlx init fail\n", 0, data);
 	load_texture(data);
 	mlx_get_screen_size(data->mlx_ptr, &data->win_width, &data->win_height);
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->win_width,
@@ -75,7 +75,7 @@ void	init_window_and_image(t_data *data)
 	if (!data->win_ptr)
 	{
 		free(data->mlx_ptr);
-		error_msg("Error: window cannot be open\n", 0, data);
+		error_msg("Error:\nwindow cannot be open\n", 0, data);
 	}
 	data->img.img = mlx_new_image(data->mlx_ptr, data->win_width, \
 		data->win_height);

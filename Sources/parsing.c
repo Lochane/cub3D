@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:13:33 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/22 18:33:01 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/03/23 18:02:04 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	flood_fill(int x, int y, char **file, t_data *data)
 void	error_parse_map(t_data *data, char **tmp)
 {
 	free_tab(tmp, data->map.height, data, 0);
-	free_texture_path("Error: wrong map\n", 2, data);
+	free_texture_path("Error:\nwrong map\n", 2, data);
 	exit(0);
 }
 

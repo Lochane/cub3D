@@ -18,7 +18,7 @@ void	is_file_valid(char *file_name, t_data *data)
 
 	if (ft_strncmp(".cub", &file_name[ft_strlen(file_name) -4], \
 			ft_strlen(file_name)))
-		error_msg("Error: expected [file.cub]\n", 0, data);
+		error_msg("Error:\nexpected [file.cub]\n", 0, data);
 	fd = open(file_name, __O_DIRECTORY);
 	if (fd > 0)
 		print_error_and_free("open", data);
@@ -56,7 +56,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		ft_putstr_fd("Argument expected : [map.cub]", 2);
+		ft_putstr_fd("Argument expected : [map.cub]\n", 2);
 		return (0);
 	}
 	data = malloc(sizeof(t_data));
