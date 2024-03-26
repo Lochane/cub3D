@@ -71,7 +71,7 @@ int	init_texture(t_data *data)
 			return (i + 1);
 		i++;
 	}
-	return (free_texture_path("Error:\nWrong token\n", 1, data), 0);
+	return (free_texture_path("Error:\nWrong config\n", 1, data), 0);
 }
 
 void	split_file(t_data *data)
