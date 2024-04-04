@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:57:27 by malancar          #+#    #+#             */
-/*   Updated: 2024/04/03 15:04:43 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:37:27 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,9 @@ int	is_digit(char **tab)
 		j = 0;
 		while (tab[i][j])
 		{
-			if (tab[i][j] < '0' || tab[i][j] > '9')
+			if ((tab[i][j] < '0' || tab[i][j] > '9') && tab[i][j] != ' ')
 				return (0);
 			j++;
-			if (j > 3)
-				return (0);
 		}
 		i++;
 	}
@@ -78,24 +76,24 @@ int	parse_color(char *color, t_data *data)
 
 	i = count_nbr(color);
 	if (i != 2)
-		free_texture_path("Error:\nColor not valid, expected RGB color,\
+		free_texture_path("Error\nColor not valid, expected RGB color,\
 digit between 000,000,000 and : 255,255,255\n", 2, data);
 	tab = ft_split(color, ',');
 	if (!tab)
-		free_texture_path("Error:\nColor not valid, expected RGB color, \
+		free_texture_path("Error\nColor not valid, expected RGB color, \
 digit between 000,000,000 and : 255,255,255\n", 2, data);
 	i = 0;
 	if (!is_digit(tab))
 	{
 		free_tab(tab, tab_size(tab), data, 0);
-		free_texture_path("Error:\nColor not valid, expected RGB color, \
+		free_texture_path("Error\nColor not valid, expected RGB color, \
 digit between 000,000,000 and : 255,255,255\n", 2, data);
 	}
 	i = is_color_rgb(tab);
 	if (i != 3)
 	{
 		free_tab(tab, tab_size(tab), data, 0);
-		free_texture_path("Error:\nColor not valid, expected RGB color, \
+		free_texture_path("Error\nColor not valid, expected RGB color, \
 digit between 000,000,000 and : 255,255,255\n", 2, data);
 	}
 	res = rgb_to_int(ft_atoi(tab[0]), ft_atoi(tab[1]), ft_atoi(tab[2]));

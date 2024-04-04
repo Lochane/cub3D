@@ -55,6 +55,7 @@ void	file_to_tab(char *mapfile, t_data *data);
 void	split_file(t_data *data);
 int		parse_texture(t_data *data);
 void	count_texture(t_data *data);
+void	check_wrong_char(char **tmp, t_data *data);
 
 /* EVENTS */
 
@@ -82,6 +83,7 @@ void	split_free_error(t_data *data, int to_free);
 
 void	ft_putstr_fd(char *str, int fd);
 int		is_digit(char **tab);
+void	error_parse_map(t_data *data, char **tmp);
 
 int		count_width(t_data *data);
 

@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 20:33:45 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/23 18:01:26 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:39:00 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_spawn(char **tab, t_data *data)
 	if (data->map.spawn_count != 1)
 	{
 		free_tab(tab, data->map.height, data, 0);
-		free_texture_path("Error:\nWrong spawn\n", 2, data);
+		free_texture_path("Error\nWrong map\n", 2, data);
 	}
 }
 
@@ -66,4 +66,11 @@ void	ft_putstr_fd(char *str, int fd)
 	len = ft_strlen(str);
 	if (write(fd, str, len) == -1)
 		perror("write");
+}
+
+void	error_parse_map(t_data *data, char **tmp)
+{
+	free_tab(tmp, data->map.height, data, 0);
+	free_texture_path("Error\nWrong map\n", 2, data);
+	exit(0);
 }

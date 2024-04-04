@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:13:33 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/04/03 14:44:00 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:38:21 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,6 @@ int	flood_fill(int x, int y, char **file, t_data *data)
 	return (1);
 }
 
-void	error_parse_map(t_data *data, char **tmp)
-{
-	free_tab(tmp, data->map.height, data, 0);
-	free_texture_path("Error:\nwrong map\n", 2, data);
-	exit(0);
-}
-
 void	check_map(t_data *data, char **tmp, int i, int j)
 {
 	if (tmp[i][j] == '0')
@@ -48,16 +41,30 @@ void	check_map(t_data *data, char **tmp, int i, int j)
 	}
 }
 
+void	check_empty_line(char **tmp, t_data *data, int i)
+{
+	while (tmp[i])
+	{
+		if (ft_strchr(tmp[i], '1'))
+			error_parse_map(data, tmp);
+		i++;
+	}
+}
+
 void	check_char(char **tmp, t_data *data)
 {
 	int	i;
 	int	j;
+	int	f;
 
 	i = 0;
 	j = 0;
+	f = 0;
 	while (tmp[i])
 	{
 		j = 0;
+		if (tmp[i][j] == '\0')
+			check_empty_line(tmp, data, i);
 		while (tmp[i][j])
 		{
 			if (is_char_valid(tmp[i][j]) == 0)

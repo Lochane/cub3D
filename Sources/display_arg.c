@@ -20,6 +20,9 @@ char	*display_texture(t_data *data, const char *set, const char *to_copy)
 	tmp = ft_strdup(to_copy);
 	if (!tmp)
 		return (NULL);
+	tmp = ft_strtrim(tmp, " ");
+	if (!tmp)
+		return (NULL);
 	tmp = ft_strtrim(tmp, set);
 	if (!tmp)
 		return (NULL);
@@ -35,43 +38,46 @@ char	*display_texture(t_data *data, const char *set, const char *to_copy)
 	return (str);
 }
 
-void	init_color(t_data *data, int i)
+void	init_color(t_data *data, int i, char **tmp)
 {
-	if (ft_strncmp("C ", data->cub_file[i], 2) == 0)
+	if (ft_strcmp("NO", tmp[0]) == 0)
+		data->texture.no_path = display_texture(data, "NO", \
+			data->cub_file[i]);
+	else if (ft_strcmp("SO", tmp[0]) == 0)
+		data->texture.so_path = display_texture(data, "SO", \
+			data->cub_file[i]);
+	else if (ft_strcmp("WE", tmp[0]) == 0)
+		data->texture.we_path = display_texture(data, "WE", \
+			data->cub_file[i]);
+	else if (ft_strcmp("EA", tmp[0]) == 0)
+		data->texture.ea_path = display_texture(data, "EA", \
+			data->cub_file[i]);
+	else if (ft_strcmp("C", tmp[0]) == 0)
 		data->texture.ceiling_color = display_texture(data, "C", \
 				data->cub_file[i]);
-	else if (ft_strncmp("F ", data->cub_file[i], 2) == 0)
+	else if (ft_strcmp("F", tmp[0]) == 0)
 		data->texture.floor_color = display_texture(data, "F", \
 			data->cub_file[i]);
 }
 
 int	init_texture(t_data *data)
 {
-	int	i;
+	int		i;
+	char	**tmp;
 
 	i = 0;
 	count_texture(data);
 	while (data->cub_file[i])
 	{
-		if (ft_strncmp("NO ", data->cub_file[i], 3) == 0)
-			data->texture.no_path = display_texture(data, "NO", \
-				data->cub_file[i]);
-		else if (ft_strncmp("SO ", data->cub_file[i], 3) == 0)
-			data->texture.so_path = display_texture(data, "SO", \
-				data->cub_file[i]);
-		else if (ft_strncmp("WE ", data->cub_file[i], 3) == 0)
-			data->texture.we_path = display_texture(data, "WE", \
-				data->cub_file[i]);
-		else if (ft_strncmp("EA ", data->cub_file[i], 3) == 0)
-			data->texture.ea_path = display_texture(data, "EA", \
-				data->cub_file[i]);
-		else
-			init_color(data, i);
+		tmp = ft_split(data->cub_file[i], ' ');
+		check_wrong_char(tmp, data);
+		init_color(data, i, tmp);
 		if (data->texture.count == 6)
-			return (i + 1);
+			return (free_tab(tmp, found_size(tmp, 0), data, 0), i + 1);
+		free_tab(tmp, found_size(tmp, 0), data, 0);
 		i++;
 	}
-	return (free_texture_path("Error:\nWrong config\n", 1, data), 0);
+	return (free_texture_path("Error\nWrong config\n", 1, data), 0);
 }
 
 void	split_file(t_data *data)
@@ -84,7 +90,7 @@ void	split_file(t_data *data)
 	while (data->cub_file[i] && !ft_strchr(data->cub_file[i], '1'))
 		i++;
 	if (!data->cub_file[i])
-		free_texture_path("Error:\nWrong config\n", 1, data);
+		free_texture_path("Error\nWrong config\n", 1, data);
 	data->map.height = found_size(data->cub_file, i);
 	data->map.file = malloc(sizeof(char *) * (data->map.height + 1));
 	if (!data->map.file)

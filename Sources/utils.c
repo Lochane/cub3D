@@ -67,7 +67,7 @@ int	count_line(char *file_name, t_data *data)
 	{
 		free(line);
 		close(fd);
-		error_msg("Error:\nline is invalide\n", 1, data);
+		error_msg("Error\nline is invalide\n", 1, data);
 	}
 	while (line)
 	{

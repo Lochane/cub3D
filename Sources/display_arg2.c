@@ -6,11 +6,20 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 18:14:26 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/04/03 15:08:56 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:37:54 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/cub3d.h"
+
+void	check_wrong_char(char **tmp, t_data *data)
+{
+	if (ft_strcmp("NO", tmp[0]) != 0 && ft_strcmp("SO", tmp[0]) != 0 && \
+			ft_strcmp("EA", tmp[0]) != 0 && ft_strcmp("WE", tmp[0]) != 0 && \
+				ft_strcmp("F", tmp[0]) != 0 && ft_strcmp("C", tmp[0]) != 0 && \
+				ft_strcmp("\n", tmp[0]) != 0)
+		return (free_texture_path("Error\nWrong config\n", 1, data));
+}
 
 void	check_ref_tab(t_data *data)
 {
@@ -20,7 +29,7 @@ void	check_ref_tab(t_data *data)
 	while (data->texture.texture_count[i])
 	{
 		if (data->texture.texture_count[i] != 1)
-			error_msg("Error:\nWrong texture\n", 1, data);
+			error_msg("Error\nWrong texture\n", 1, data);
 		i++;
 	}
 }
