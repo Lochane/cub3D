@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:13:33 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/23 18:02:04 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/04/03 14:44:00 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,9 @@ void	parse_map(t_data *data)
 		free_texture_path("2Error malloc\n", 1, data);
 	if (!copy_tab(tmp, data->map.file, data))
 		error_parse_map(data, tmp);
-	found_spawn(tmp, data);
 	check_char(tmp, data);
+	found_spawn(tmp, data);
+	tmp[(int)data->map.spawn_y][(int)data->map.spawn_x] = '0';
 	while (tmp[i])
 	{
 		j = 0;

@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:57:27 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/23 18:01:59 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:04:43 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	is_digit(char **tab)
 			if (tab[i][j] < '0' || tab[i][j] > '9')
 				return (0);
 			j++;
+			if (j > 3)
+				return (0);
 		}
 		i++;
 	}

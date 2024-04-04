@@ -81,8 +81,10 @@ void	split_file(t_data *data)
 
 	i = init_texture(data);
 	j = 0;
-	while (!ft_strchr(data->cub_file[i], '1'))
+	while (data->cub_file[i] && !ft_strchr(data->cub_file[i], '1'))
 		i++;
+	if (!data->cub_file[i])
+		free_texture_path("Error:\nWrong config\n", 1, data);
 	data->map.height = found_size(data->cub_file, i);
 	data->map.file = malloc(sizeof(char *) * (data->map.height + 1));
 	if (!data->map.file)
@@ -93,10 +95,9 @@ void	split_file(t_data *data)
 		if (!data->map.file[j])
 			split_free_error(data, 1);
 		data->map.file[j] = ft_strtrim(data->map.file[j], "\n");
-		if (!data->map.file[j])
+		if (!data->map.file[j++])
 			split_free_error(data, 1);
 		i++;
-		j++;
 	}
 	data->map.file[j] = 0;
 	free_tab(data->cub_file, data->file_weidht, data, 0);
