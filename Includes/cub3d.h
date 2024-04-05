@@ -56,6 +56,7 @@ void	split_file(t_data *data);
 int		parse_texture(t_data *data);
 void	count_texture(t_data *data);
 void	check_wrong_char(char **tmp, t_data *data);
+void	check_size(int i, t_data *data);
 
 /* EVENTS */
 

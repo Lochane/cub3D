@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 18:14:26 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/04/05 14:42:15 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:56:40 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,27 @@ void	count_texture(t_data *data)
 		i++;
 	}
 	check_ref_tab(data);
+}
+
+void	check_size(int i, t_data *data)
+{
+	int	j;
+	int	count;
+
+	j = 0;
+	count = 0;
+	data->map.height = found_size(data->cub_file, i);
+	while (data->cub_file[i])
+	{
+		j = 0;
+		while (data->cub_file[i][j])
+		{
+			count++;
+			j++;
+		}
+		if (data->map.height >= 250 || count >= 250)
+			free_texture_path("Error\nMap to big\n", 1, data);
+		count = 0;
+		i++;
+	}
 }

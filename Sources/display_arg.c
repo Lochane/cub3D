@@ -81,29 +81,6 @@ int	init_texture(t_data *data)
 	return (free_texture_path("Error\nWrong config\n", 1, data), 0);
 }
 
-void	check_size(int i, t_data *data)
-{
-	int	j;
-	int	count;
-
-	j = 0;
-	count = 0;
-	data->map.height = found_size(data->cub_file, i);
-	while (data->cub_file[i])
-	{
-		j = 0;
-		while (data->cub_file[i][j])
-		{
-			count++;
-			j++;
-		}
-		if (data->map.height >= 250 || count >= 250)
-			free_texture_path("Error\nMap to big\n", 1, data);
-		count = 0;
-		i++;
-	}
-}
-
 void	split_file(t_data *data)
 {
 	int	i;
@@ -152,12 +129,11 @@ void	file_to_tab(char *mapfile, t_data *data)
 		error_msg("Error malloc\n", 1, data);
 	while (line)
 	{
-		data->cub_file[i] = ft_strdup(line);
+		data->cub_file[i++] = ft_strdup(line);
 		free(line);
 		if (!data->cub_file)
 			error_msg("Error malloc\n", 1, data);
 		line = get_next_line(fd);
-		i++;
 	}
 	close(fd);
 	data->cub_file[i] = 0;
