@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 18:14:26 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/04/04 19:37:54 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:42:15 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	check_wrong_char(char **tmp, t_data *data)
 			ft_strcmp("EA", tmp[0]) != 0 && ft_strcmp("WE", tmp[0]) != 0 && \
 				ft_strcmp("F", tmp[0]) != 0 && ft_strcmp("C", tmp[0]) != 0 && \
 				ft_strcmp("\n", tmp[0]) != 0)
+	{
+		free_tab(tmp, found_size(tmp, 0), data, 0);
 		return (free_texture_path("Error\nWrong config\n", 1, data));
+	}
 }
 
 void	check_ref_tab(t_data *data)
