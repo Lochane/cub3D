@@ -6,7 +6,7 @@
 /*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 14:20:33 by lsouquie          #+#    #+#             */
-/*   Updated: 2023/05/04 13:55:57 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/04/05 19:34:30 by lsouquie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_atoi(const char *str)
 		neg *= (-1);
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
+	while (str[i] >= '0' && str[i] <= '9' && nb < 256)
 	{
 		nb = nb * (10) + (str[i] - 48);
 		i++;

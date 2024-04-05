@@ -1,5 +1,5 @@
-NO ./Textures/no_texture.xpm
-SO ./Textures/so_texture.xpm
+NO ./Textures/so_texture.xpm
+SO ./Textures/no_texture.xpm
 EA ./Textures/ea_texture.xpm
 WE ./Textures/we_texture.xpm
 
