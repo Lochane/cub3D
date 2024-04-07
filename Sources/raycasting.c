@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:13:18 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/22 16:13:58 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/04/07 19:40:52 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	raycasting(t_data *data)
 	double	vertical_inter;
 	int		width;
 
-	width = 0;
+	width = data->win_width - 1;
 	init_square_size(data);
 	data->player.angle = fix_angle(data->player.angle);
 	angle = data->player.angle - (data->player.fov / 2);
@@ -95,6 +95,6 @@ void	raycasting(t_data *data)
 		data->ray.inter_points_x[ray] = data->ray.inter_x;
 		data->ray.inter_points_y[ray] = data->ray.inter_y;
 		ray++;
-		width++;
+		width--;
 	}
 }

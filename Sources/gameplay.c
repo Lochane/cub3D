@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gameplay.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 15:57:37 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/20 21:01:50 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/04/07 19:43:32 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	left_right(t_data *data, int keysim)
 
 	player_x = data->player.x;
 	player_y = data->player.y;
-	if (keysim == 'a' && data->key_press == 1)
+	if (keysim == 'd' && data->key_press == 1)
 	{
 		data->key_press = 1;
 		player_x += sin(data->player.angle * (M_PI / 180)) * \
@@ -42,7 +42,7 @@ void	left_right(t_data *data, int keysim)
 			data->player.move_speed;
 		check_wall(data, player_x, player_y);
 	}
-	if (keysim == 'd' && data->key_press == 1)
+	if (keysim == 'a' && data->key_press == 1)
 	{
 		player_x -= sin(data->player.angle * (M_PI / 180)) * \
 			data->player.move_speed;
@@ -117,9 +117,9 @@ int	handle_key_release(int key_sym, t_data *data)
 int	keybinding(int keysim, t_data *data)
 {
 	if (keysim == LEFT_KEY && data->key_press == 1)
-		data->player.angle -= 2.;
-	if (keysim == RIGHT_KEY && data->key_press == 1)
 		data->player.angle += 2.;
+	if (keysim == RIGHT_KEY && data->key_press == 1)
+		data->player.angle -= 2.;
 	left_right(data, keysim);
 	up_down(data, keysim);
 	left_right(data, keysim);

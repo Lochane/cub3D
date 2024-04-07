@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 18:52:08 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/03/21 15:43:42 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/04/07 20:17:33 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,12 @@ int	render_texture(t_data *data, int height, int beg_wall, int end_wall)
 		ratio_x = data->ray.inter_y - (int)data->ray.inter_y;
 	else
 		ratio_x = data->ray.inter_x - (int)data->ray.inter_x;
-	data->texture.pixel_x = img.width * ratio_x;
+	data->texture.pixel_x = img.width * (1 - ratio_x);
 	block_size = end_wall - beg_wall;
 	ratio_y = (height - beg_wall) / block_size;
 	data->texture.pixel_y = (int)(img.height * ratio_y);
 	data->ray.dirx = cos(data->ray.angles[data->ray.ray_index] * (M_PI / 180));
 	data->ray.diry = sin(data->ray.angles[data->ray.ray_index] * (M_PI / 180));
-	if ((data->texture.pixel_x < 0 && data->texture.pixel_x >= data->img.width) \
-	|| (data->texture.pixel_y < 0 && data->texture.pixel_y >= data->img.height))
-		return (BLACK);
 	if (img.print == 0)
 		return (img.addr[((int)data->texture.pixel_y * img.width) - \
 			(int)data->texture.pixel_x]);

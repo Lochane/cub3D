@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/22 16:19:44 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/04/07 19:57:45 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	init_window_and_image(t_data *data)
 		error_msg("Error: mlx init fail\n", 0, data);
 	load_texture(data);
 	mlx_get_screen_size(data->mlx_ptr, &data->win_width, &data->win_height);
+	///data->win_height = 1000;
+	//data->win_width = 1000;
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->win_width,
 			data->win_height, "Cub3D");
 	if (!data->win_ptr)
