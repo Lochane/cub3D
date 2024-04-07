@@ -1,6 +1,6 @@
 NAME		= cub3D
 	
-CC			= cc
+CC			= clang
 FLAGS		= -Wall -Wextra -Werror -g3 -O3 #-fsanitize=address
 RM			= rm -rf
 

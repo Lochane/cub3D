@@ -66,6 +66,7 @@ int	init_texture(t_data *data)
 	char	**tmp;
 
 	i = 0;
+	tmp = NULL;
 	count_texture(data);
 	while (data->cub_file[i])
 	{

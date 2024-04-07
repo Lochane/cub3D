@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:13:18 by malancar          #+#    #+#             */
-/*   Updated: 2024/03/23 15:13:21 by malancar         ###   ########.fr       */
+/*   Updated: 2024/04/07 20:31:41 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	raycasting(t_data *data)
 	int		ray;
 	double	horizontal_inter;
 	double	vertical_inter;
+	
 
 	ray = 0;
 	init_square_size(data);
@@ -88,7 +89,7 @@ void	raycasting(t_data *data)
 		horizontal_inter = find_horizontal_intersection(data, angle);
 		vertical_inter = find_vertical_intersection(data, angle);
 		set_distance(data, horizontal_inter, vertical_inter, angle);
-		render_wall(data, ray);
+		render_wall(data, (data->win_width - 1) - ray);
 		angle = angle + (data->player.fov / (data->win_width - 1));
 		data->ray.angles[ray] = angle;
 		data->ray.inter_points_x[ray] = data->ray.inter_x;
