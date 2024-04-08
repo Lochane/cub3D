@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsouquie <lsouquie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:57:39 by malancar          #+#    #+#             */
-/*   Updated: 2024/04/04 15:17:03 by lsouquie         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:55:10 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,17 @@ void	init_window_and_image(t_data *data)
 {
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
-		error_msg("Error\nmlx init fail\n", 0, data);
+		print_error_and_free("Error\nmlx init fail\n", data);
 	load_texture(data);
 	mlx_get_screen_size(data->mlx_ptr, &data->win_width, &data->win_height);
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->win_width,
 			data->win_height, "Cub3D");
 	if (!data->win_ptr)
-	{
-		free(data->mlx_ptr);
-		error_msg("Error\nwindow cannot be open\n", 0, data);
-	}
+		print_error_and_free("Error\nwindow cannot be open\n", data);
 	data->img.img = mlx_new_image(data->mlx_ptr, data->win_width, \
 		data->win_height);
+	if (!data->img.img)
+		print_error_and_free("Error\nimage cannot be open\n", data);
 	data->img.addr = (int *)mlx_get_data_addr(data->img.img, \
 			&data->img.bpp, &data->img.line_lenght, &data->img.endian);
 }

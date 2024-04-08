@@ -70,7 +70,7 @@ int	init_texture(t_data *data)
 	count_texture(data);
 	while (data->cub_file[i])
 	{
-		tmp = ft_split(data->cub_file[i], ' ');
+		tmp = ft_split(data->cub_file[i], ' '); // a proteger
 		check_wrong_char(tmp, data);
 		init_color(data, i, tmp);
 		if (data->texture.count == 6)
@@ -121,7 +121,7 @@ void	file_to_tab(char *mapfile, t_data *data)
 	fd = open(mapfile, O_RDONLY);
 	if (fd < 0)
 		print_error_and_free("open", data);
-	data->file_weidht = count_line(mapfile, data);
+	data->file_weidht = count_line(mapfile, data, fd);
 	data->cub_file = malloc(sizeof(char *) * (data->file_weidht + 1));
 	if (!data->cub_file)
 		print_error_and_free("malloc", data);

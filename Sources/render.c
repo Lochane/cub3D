@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 18:52:08 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/04/07 20:37:18 by malancar         ###   ########.fr       */
+/*   Updated: 2024/04/08 16:04:29 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ t_img	get_img(t_data *data)
 
 int	check_calcul(int calcul, t_img img, t_data *data)
 {
-	// if ((data->texture.pixel_x < 0 && data->texture.pixel_x >= data->img.width) \
-	// || (data->texture.pixel_y < 0 && data->texture.pixel_y >= data->img.height))
-	// 	return (1);
+	if ((data->texture.pixel_x < 0 && data->texture.pixel_x >= data->img.width) \
+	|| (data->texture.pixel_y < 0 && data->texture.pixel_y >= data->img.height))
+		return (1);
 	if (calcul < 0)
 		return (1);
 	if (calcul > img.width * img.height)

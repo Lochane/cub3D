@@ -69,7 +69,7 @@ int		quit_game(t_data *data);
 
 void	init_struct(t_data *data);
 void	init_moves(t_data *data);
-int		count_line(char *file_name, t_data *data);
+int		count_line(char *file_name, t_data *data, int old_fd);
 int		copy_tab(char **dest, char **src, t_data *data);
 int		is_char_valid(char c);
 int		found_spawn(char **tab, t_data *data);

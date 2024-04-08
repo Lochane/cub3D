@@ -54,7 +54,7 @@ int	tab_size(char **tab)
 	return (i);
 }
 
-int	count_line(char *file_name, t_data *data)
+int	count_line(char *file_name, t_data *data, int old_fd)
 {
 	int		fd;
 	int		i;
@@ -66,6 +66,7 @@ int	count_line(char *file_name, t_data *data)
 	if (!line)
 	{
 		free(line);
+		close(old_fd);
 		close(fd);
 		error_msg("Error\nline is invalide\n", 1, data);
 	}
