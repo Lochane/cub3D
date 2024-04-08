@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:13:18 by malancar          #+#    #+#             */
-/*   Updated: 2024/04/07 20:31:41 by malancar         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:06:04 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	raycasting(t_data *data)
 	int		ray;
 	double	horizontal_inter;
 	double	vertical_inter;
-	
 
 	ray = 0;
 	init_square_size(data);

@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:01:54 by malancar          #+#    #+#             */
-/*   Updated: 2024/04/08 15:11:07 by malancar         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:06:18 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ void	*free_tab(char **res, size_t i, t_data *data, int allow_free)
 }
 
 void	error_msg(char *msg, int to_free, t_data *data)
-{
-	
+{	
 	if (to_free == 2)
 		free_tab(data->map.file, data->map.height, data, 0);
 	if (to_free == 1)
