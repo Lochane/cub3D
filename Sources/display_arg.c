@@ -70,7 +70,12 @@ int	init_texture(t_data *data)
 	count_texture(data);
 	while (data->cub_file[i])
 	{
-		tmp = ft_split(data->cub_file[i], ' '); // a proteger
+		tmp = ft_split(data->cub_file[i], ' ');
+		if (!tmp)
+		{
+			free_tab(tmp, found_size(tmp, 0), data, 0);
+			return (free_texture_path("Error:\n Wrong config\n", 1, data), 0);	 
+		}
 		check_wrong_char(tmp, data);
 		init_color(data, i, tmp);
 		if (data->texture.count == 6)
@@ -78,8 +83,7 @@ int	init_texture(t_data *data)
 		free_tab(tmp, found_size(tmp, 0), data, 0);
 		i++;
 	}
-	free_tab(tmp, found_size(tmp, 0), data, 0);
-	return (free_texture_path("Error\nWrong config\n", 1, data), 0);
+	return (free_texture_path("Error:\n Wrong config\n", 1, data), 0);
 }
 
 void	split_file(t_data *data)
@@ -92,7 +96,7 @@ void	split_file(t_data *data)
 	while (data->cub_file[i] && !ft_strchr(data->cub_file[i], '1'))
 		i++;
 	if (!data->cub_file[i])
-		free_texture_path("Error\nWrong config\n", 1, data);
+		free_texture_path("Error:\n Wrong config\n", 1, data);
 	check_size(i, data);
 	data->map.file = malloc(sizeof(char *) * (data->map.height + 1));
 	if (!data->map.file)
@@ -127,13 +131,13 @@ void	file_to_tab(char *mapfile, t_data *data)
 		print_error_and_free("malloc", data);
 	line = get_next_line(fd);
 	if (!line)
-		error_msg("Error malloc\n", 1, data);
+		error_msg("Error:\nmalloc\n", 1, data);
 	while (line)
 	{
 		data->cub_file[i++] = ft_strdup(line);
 		free(line);
 		if (!data->cub_file)
-			error_msg("Error malloc\n", 1, data);
+			error_msg("Error:\nmalloc\n", 1, data);
 		line = get_next_line(fd);
 	}
 	close(fd);
