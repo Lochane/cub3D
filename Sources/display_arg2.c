@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 18:14:26 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/04/08 17:57:16 by malancar         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:22:02 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 void	check_wrong_char(char **tmp, t_data *data)
 {
-	if (ft_strcmp("NO", tmp[0]) != 0 && ft_strcmp("SO", tmp[0]) != 0 && \
-			ft_strcmp("EA", tmp[0]) != 0 && ft_strcmp("WE", tmp[0]) != 0 && \
-				ft_strcmp("F", tmp[0]) != 0 && ft_strcmp("C", tmp[0]) != 0 && \
-				ft_strcmp("\n", tmp[0]) != 0)
+	if (tmp[0])
 	{
-		free_tab(tmp, found_size(tmp, 0), data, 0);
-		return (free_texture_path("Error\nWrong config\n", 1, data));
+		if (ft_strcmp("NO", tmp[0]) != 0 && ft_strcmp("SO", tmp[0]) != 0 && \
+				ft_strcmp("EA", tmp[0]) != 0 && ft_strcmp("WE", tmp[0]) != 0 && \
+					ft_strcmp("F", tmp[0]) != 0 && ft_strcmp("C", tmp[0]) != 0 && \
+					ft_strcmp("\n", tmp[0]) != 0)
+		{
+			free_tab(tmp, found_size(tmp, 0), data, 0);
+			return (free_texture_path("Error\nWrong config\n", 1, data));
+		}
 	}
 }
 

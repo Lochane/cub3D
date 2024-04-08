@@ -6,7 +6,7 @@
 /*   By: malancar <malancar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:13:33 by lsouquie          #+#    #+#             */
-/*   Updated: 2024/04/08 17:58:49 by malancar         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:16:04 by malancar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,7 @@ void	check_char(char **tmp, t_data *data)
 		while (tmp[i][j])
 		{
 			if (is_char_valid(tmp[i][j]) == 0)
-			{
-				printf("%s\n", tmp[i]);
 				error_parse_map(data, tmp);
-			}
 			j++;
 		}
 		i++;
